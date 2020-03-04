@@ -1,4 +1,5 @@
-﻿using MvvmCross.Commands;
+﻿using FFmpeg.Gui.Interfaces;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
@@ -6,6 +7,7 @@ namespace FFmpeg.Gui.ViewModels
     internal class FileSelectorViewModel: MvxViewModel
     {
         private string _selectedFile;
+        private readonly IDialogService _dialogService;
 
         public ObservableCollectionExt<string> Files { get; set; }
 
@@ -23,12 +25,13 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        public FileSelectorViewModel()
+        public FileSelectorViewModel(IDialogService dialogService)
         {
             Files = new ObservableCollectionExt<string>();
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
             RemoveSelectedCommand = new MvxCommand<string>(OnRemoveSelected, CanRemoveSelected);
+            this._dialogService = dialogService;
         }
 
         private bool CanRemoveSelected(string arg)
@@ -49,11 +52,9 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnAddFiles()
         {
-            var openFile = new Microsoft.Win32.OpenFileDialog();
-            openFile.Multiselect = true;
-            if (openFile.ShowDialog() == true)
+            if (_dialogService.ShowFileSelector(true, out string[] files))
             {
-                Files.AddRange(openFile.FileNames);
+                Files.AddRange(files);
             }
         }
     }

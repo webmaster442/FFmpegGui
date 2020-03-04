@@ -1,4 +1,5 @@
-﻿using MvvmCross.ViewModels;
+﻿using FFmpeg.Gui.Interfaces;
+using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -6,9 +7,9 @@ namespace FFmpeg.Gui.ViewModels
     {
         public FileSelectorViewModel FileSelectorVM { get; set; }
 
-        public MainViewModel()
+        public MainViewModel(IDialogService dialogService)
         {
-            FileSelectorVM = new FileSelectorViewModel();
+            FileSelectorVM = new FileSelectorViewModel(dialogService);
         }
 
     }
