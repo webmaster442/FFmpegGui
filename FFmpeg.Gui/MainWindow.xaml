@@ -13,7 +13,7 @@
     <Grid>
         <TabControl TabStripPlacement="Bottom">
             <TabItem Header="Source files">
-                <views:FileSelectorView />
+                <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
         </TabControl>
     </Grid>

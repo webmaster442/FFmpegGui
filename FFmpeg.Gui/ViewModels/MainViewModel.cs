@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class MainViewModel
+    internal class MainViewModel: MvxViewModel
     {
         public FileSelectorViewModel FileSelectorVM { get; set; }
 

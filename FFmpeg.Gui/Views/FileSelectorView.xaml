@@ -14,12 +14,23 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <Button Content="Add Files..." />
+            <Button
+                Command="{Binding AddFilesCommand}"
+                Content="Add Files..." />
             <Separator />
-            <Button Content="Remove selected..." />
+            <Button
+                Command="{Binding RemoveSelectedCommand}"
+                CommandParameter="{Binding SelectedFile}"
+                Content="Remove selected..." />
             <Separator />
-            <Button Content="Clear list" />
+            <Button
+                Command="{Binding ClearListCommand}"
+                Content="Clear list" />
         </ToolBar>
-        <ListBox Grid.Row="1" />
+        <ListBox
+            x:Name="Items"
+            Grid.Row="1"
+            SelectedItem="{Binding SelectedFile}"
+            ItemsSource="{Binding Files}" />
     </Grid>
 </mvvmCrossViews:MvxWpfView>
