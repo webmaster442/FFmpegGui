@@ -1,9 +1,8 @@
-﻿<Application x:Class="FFmpeg.Gui.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FFmpeg.Gui"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>
+﻿<mvvmCrossViews:MvxApplication
+    x:Class="FFmpeg.Gui.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources />
+</mvvmCrossViews:MvxApplication>
