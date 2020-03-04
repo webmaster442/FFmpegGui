@@ -9,6 +9,10 @@ namespace FFmpeg.Gui.Domain
         public int Minimum { get; set; }
         [XmlAttribute]
         public int Maximum { get; set; }
+
+        [XmlAttribute]
+        public int Value { get; set; }
+
         public List<int> PresetValues { get; set; }
     }
 }

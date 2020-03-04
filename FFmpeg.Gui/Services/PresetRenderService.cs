@@ -1,28 +1,50 @@
 ﻿using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace FFmpeg.Gui.Services
 {
     /// <summary>
     /// Renders a preset to UI Controls
     /// </summary>
-    internal class PresetRenderService
+    internal class PresetRenderService: IPresetRenderService
     {
         public void RenderPreset(StackPanel target, Preset preset)
         {
             foreach (var controller in preset.Controllers)
             {
-                Control rendered = Render(controller);
+                Control rendered = null;
+                switch (controller)
+                {
+                    case BitrateSlider bitrateSlider:
+                        rendered = RenderBitrateSlider(bitrateSlider);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
                 target.Children.Add(rendered);
             }
         }
 
-        private Control Render(PresetControl controller)
+        private Control RenderBitrateSlider(BitrateSlider bitrateSlider)
         {
-            throw new NotImplementedException();
+            var slider = new Slider
+            {
+                Minimum = bitrateSlider.Minimum,
+                Maximum = bitrateSlider.Maximum,
+                Value = bitrateSlider.Value,
+                Name = bitrateSlider.Name,
+            };
+            if (bitrateSlider.PresetValues?.Count > 0)
+            {
+                slider.IsSnapToTickEnabled = true;
+                slider.Ticks = new DoubleCollection(bitrateSlider.PresetValues.Cast<double>());
+            }
+
+            return slider;
         }
     }
 }

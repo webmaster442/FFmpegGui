@@ -6,5 +6,6 @@ namespace FFmpeg.Gui.Domain
     {
         [XmlAttribute]
         public string Name { get; set; }
+        public string Label { get; set; }
     }
 }

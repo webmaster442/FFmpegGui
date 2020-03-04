@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace FFmpeg.Gui.Services
 {
-    internal class PresetReaderService
+    internal class PresetReaderService: IPresetReaderService
     {
         private readonly XmlSerializer _serializer;
         private readonly IDialogService _dialogService;

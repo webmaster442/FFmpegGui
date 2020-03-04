@@ -5,6 +5,10 @@ namespace FFmpeg.Gui.Domain
 {
     public class Preset
     {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
         [XmlAttribute]
         public string Extension { get; set; }
 
@@ -13,6 +17,6 @@ namespace FFmpeg.Gui.Domain
         public List<PresetControl> Controllers { get; set; }
 
         [XmlArray]
-        public List<string> Arguments { get; set; }
+        public List<string> ArgumentCollection { get; set; }
     }
 }
