@@ -17,7 +17,7 @@
         <GridSplitter Grid.Column="1" />
         <ScrollViewer Grid.Column="2">
             <StackPanel>
-                <StackPanel />
+                <StackPanel x:Name="RenderPanel"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -1,9 +1,10 @@
 ﻿using FFmpeg.Gui.Domain;
+using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Interfaces
 {
     internal interface IPresetReaderService
     {
-        Preset ReadPresetXml(string xmlFile);
+        IReadOnlyList<Preset> GetPresets();
     }
 }

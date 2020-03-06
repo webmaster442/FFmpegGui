@@ -1,41 +1,44 @@
 ﻿using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Presets;
 using FFmpeg.Gui.Properties;
 using System;
-using System.IO;
-using System.Xml.Serialization;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace FFmpeg.Gui.Services
 {
     internal class PresetReaderService: IPresetReaderService
     {
-        private readonly XmlSerializer _serializer;
         private readonly IDialogService _dialogService;
 
         public PresetReaderService(IDialogService dialogService)
         {
-            _serializer = new XmlSerializer(typeof(Preset));
             _dialogService = dialogService;
         }
 
-        public Preset ReadPresetXml(string xmlFile)
+        public IReadOnlyList<Preset> GetPresets()
         {
             try
             {
-                using (var file = File.OpenRead(xmlFile))
+                var presetProperties = typeof(FFmpegPresets).GetProperties(BindingFlags.Public | BindingFlags.Static);
+
+                var result = new List<Preset>(presetProperties.Length);
+
+                foreach (var presetProperty in presetProperties)
                 {
-                    return (Preset)_serializer.Deserialize(file);
+                    if (presetProperty.PropertyType == typeof(Preset))
+                    {
+                        result.Add((Preset)presetProperty.GetValue(null));
+                    }
                 }
+
+                return result;
             }
-            catch (IOException)
+            catch (Exception)
             {
                 _dialogService.ShowError(Resources.Error_PresetXMLSerialize);
-                return null;
-            }
-            catch (InvalidOperationException)
-            {
-                _dialogService.ShowError(Resources.Error_PresetXMLSerialize);
-                return null;
+                return new List<Preset>();
             }
         }
     }

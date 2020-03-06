@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace FFmpeg.Gui.Domain
+﻿namespace FFmpeg.Gui.Domain
 {
     public class BitrateSlider: PresetControl
     {
-        [XmlAttribute]
         public int Minimum { get; set; }
-        [XmlAttribute]
         public int Maximum { get; set; }
 
-        [XmlAttribute]
         public int Value { get; set; }
 
-        public List<int> PresetValues { get; set; }
+        public int[] PresetValues { get; set; }
     }
 }

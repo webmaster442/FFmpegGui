@@ -12,7 +12,7 @@ namespace FFmpeg.Gui.Services
     /// </summary>
     internal class PresetRenderService: IPresetRenderService
     {
-        public void RenderPreset(StackPanel target, Preset preset)
+        public void RenderPreset(IRenderPanel target, Preset preset)
         {
             foreach (var controller in preset.Controllers)
             {
@@ -25,7 +25,7 @@ namespace FFmpeg.Gui.Services
                     default:
                         throw new InvalidOperationException();
                 }
-                target.Children.Add(rendered);
+                target.Render(rendered);
             }
         }
 

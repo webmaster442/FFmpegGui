@@ -9,14 +9,10 @@ namespace FFmpeg.Gui.Domain
 
         public string Description { get; set; }
 
-        [XmlAttribute]
         public string Extension { get; set; }
 
-        [XmlArray]
-        [XmlArrayItem(nameof(BitrateSlider), typeof(BitrateSlider))]
-        public List<PresetControl> Controllers { get; set; }
+        public PresetControl[] Controllers { get; set; }
 
-        [XmlArray]
-        public List<string> ArgumentCollection { get; set; }
+        public string[] ArgumentCollection { get; set; }
     }
 }
