@@ -1,8 +1,6 @@
-﻿using FFmpeg.Gui.ViewModels;
-using MvvmCross.Core;
+﻿using MvvmCross.Core;
 using MvvmCross.Platforms.Wpf.Core;
 using MvvmCross.Platforms.Wpf.Views;
-
 
 namespace FFmpeg.Gui
 {
@@ -14,11 +12,6 @@ namespace FFmpeg.Gui
         public App()
         {
             this.RegisterSetupType<MvxWpfSetup<Builder>>();
-        }
-
-        public override void ApplicationInitialized()
-        {
-            MainWindow.DataContext = new MainViewModel();
         }
     }
 }

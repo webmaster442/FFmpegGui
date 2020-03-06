@@ -1,12 +1,21 @@
-﻿using MvvmCross.ViewModels;
+﻿using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Services;
+using FFmpeg.Gui.ViewModels;
+using MvvmCross;
+using MvvmCross.IoC;
+using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui
 {
-    public class Builder: MvxApplication
+    internal sealed class Builder: MvxApplication
     {
         public override void Initialize()
         {
             base.Initialize();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IDialogService, DialogService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPresetReaderService, PresetReaderService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IPresetRenderService, PresetRenderService>();
+            Mvx.IoCProvider.RegisterType<MainViewModel>();
         }
     }
 }
