@@ -9,13 +9,16 @@
     Title="FFMpeg Gui"
     Width="800"
     Height="450"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl TabStripPlacement="Bottom" x:Name="MainTabs">
+        <TabControl
+            x:Name="MainTabs"
+            TabStripPlacement="Bottom">
             <TabItem Header="Source files">
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
@@ -29,14 +32,14 @@
             Orientation="Horizontal">
             <Button
                 x:Name="PreviousButton"
+                Click="PreviousButton_Click"
                 Content="Previous"
-                Style="{StaticResource BottomButton}"
-                Click="PreviousButton_Click"/>
+                Style="{StaticResource BottomButton}" />
             <Button
                 x:Name="NextButton"
+                Click="NextButton_Click"
                 Content="Next"
-                Style="{StaticResource BottomButton}"
-                Click="NextButton_Click"/>
+                Style="{StaticResource BottomButton}" />
         </StackPanel>
     </Grid>
 </mvvmCrossViews:MvxWindow>
