@@ -11,10 +11,32 @@
     Height="450"
     mc:Ignorable="d">
     <Grid>
-        <TabControl TabStripPlacement="Bottom">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl TabStripPlacement="Bottom" x:Name="MainTabs">
             <TabItem Header="Source files">
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
+            <TabItem Header="Preset">
+                <views:PresetSelectorView DataContext="{Binding PresetSelectorVM}" />
+            </TabItem>
         </TabControl>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                x:Name="PreviousButton"
+                Content="Previous"
+                Style="{StaticResource BottomButton}"
+                Click="PreviousButton_Click"/>
+            <Button
+                x:Name="NextButton"
+                Content="Next"
+                Style="{StaticResource BottomButton}"
+                Click="NextButton_Click"/>
+        </StackPanel>
     </Grid>
 </mvvmCrossViews:MvxWindow>
