@@ -8,6 +8,18 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class ObservableCollectionExt<T>: ObservableCollection<T>
     {
+        public ObservableCollectionExt() : base()
+        {
+        }
+
+        public ObservableCollectionExt(IEnumerable<T> collection) : base(collection)
+        {
+        }
+
+        public ObservableCollectionExt(List<T> list) : base(list)
+        {
+        }
+
         public void AddRange(IEnumerable<T> items)
         {
             if (items?.Any() != true)

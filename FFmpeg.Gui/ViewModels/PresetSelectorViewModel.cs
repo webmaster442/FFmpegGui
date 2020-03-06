@@ -1,18 +1,16 @@
 ﻿using FFmpeg.Gui.Domain;
-using FFmpeg.Gui.Presets;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+using FFmpeg.Gui.Interfaces;
+using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    public class PresetSelectorViewModel
+    internal class PresetSelectorViewModel: MvxViewModel
     {
-        public ObservableCollectionExt<Preset> Presets { get; private set; }
+        public ObservableCollectionExt<Preset> Presets { get; }
 
-        public PresetSelectorViewModel()
+        public PresetSelectorViewModel(IPresetReaderService presetReaderService)
         {
+            Presets = new ObservableCollectionExt<Preset>(presetReaderService.GetPresets());
         }
     }
 }

@@ -38,7 +38,7 @@ namespace FFmpeg.Gui.Services
                 Value = bitrateSlider.Value,
                 Name = bitrateSlider.Name,
             };
-            if (bitrateSlider.PresetValues?.Count > 0)
+            if (bitrateSlider.PresetValues?.Length > 0)
             {
                 slider.IsSnapToTickEnabled = true;
                 slider.Ticks = new DoubleCollection(bitrateSlider.PresetValues.Cast<double>());

@@ -9,15 +9,23 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="200"/>
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="2" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ListBox  Grid.Column="0"/>
+        <ListBox
+            Grid.Column="0"
+            ItemsSource="{Binding Presets}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <GridSplitter Grid.Column="1" />
         <ScrollViewer Grid.Column="2">
             <StackPanel>
-                <StackPanel x:Name="RenderPanel"/>
+                <StackPanel x:Name="RenderPanel" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

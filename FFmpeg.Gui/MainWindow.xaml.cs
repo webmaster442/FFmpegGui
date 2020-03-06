@@ -28,7 +28,7 @@ namespace FFmpeg.Gui
             {
                 MainTabs.SelectedIndex += increment;
             }
-            NextButton.IsEnabled = MainTabs.SelectedIndex < MainTabs.Items.Count - s1;
+            NextButton.IsEnabled = MainTabs.SelectedIndex < MainTabs.Items.Count - 1;
             PreviousButton.IsEnabled = MainTabs.SelectedIndex > 0;
         }
 

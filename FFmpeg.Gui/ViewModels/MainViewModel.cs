@@ -6,10 +6,13 @@ namespace FFmpeg.Gui.ViewModels
     internal class MainViewModel: MvxViewModel
     {
         public FileSelectorViewModel FileSelectorVM { get; set; }
+        public PresetSelectorViewModel PresetSelectorVM { get; set; }
 
-        public MainViewModel(IDialogService dialogService)
+        public MainViewModel(IDialogService dialogService,
+                             IPresetReaderService presetReaderService)
         {
             FileSelectorVM = new FileSelectorViewModel(dialogService);
+            PresetSelectorVM = new PresetSelectorViewModel(presetReaderService);
         }
 
     }
