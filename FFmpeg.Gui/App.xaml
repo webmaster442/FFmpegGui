@@ -5,10 +5,18 @@
     xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Button" x:Key="BottomButton">
-            <Setter Property="Margin" Value="2,0,2,5"/>
-            <Setter Property="Width" Value="75"/>
-            <Setter Property="Height" Value="25"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/ControlTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style
+                x:Key="BottomButton"
+                TargetType="Button">
+                <Setter Property="Margin" Value="2,0,2,5" />
+                <Setter Property="Width" Value="75" />
+                <Setter Property="Height" Value="25" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </mvvmCrossViews:MvxApplication>

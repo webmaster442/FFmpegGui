@@ -1,0 +1,46 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:FFmpeg.Gui.Controls">
+
+    <Style TargetType="local:SliderWithValueText">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SliderWithValueText">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Slider
+                            x:Name="PART_Slider"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            IsSnapToTickEnabled="{TemplateBinding IsSnapToTickEnabled}"
+                            Maximum="{TemplateBinding Maximum}"
+                            Minimum="{TemplateBinding Minimum}"
+                            Ticks="{TemplateBinding Ticks}"
+                            Value="{TemplateBinding Value}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Foreground="Black"
+                            Text="{Binding ElementName=PART_Slider, Path=Value}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Foreground="Black"
+                            Margin="2,0"
+                            Text="{TemplateBinding ValueUnit}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

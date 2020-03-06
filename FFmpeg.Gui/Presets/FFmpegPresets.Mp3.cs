@@ -1,4 +1,5 @@
 ﻿using FFmpeg.Gui.Domain;
+using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Presets
 {
@@ -12,19 +13,21 @@ namespace FFmpeg.Gui.Presets
                 {
                     Name = "Audio, Mp3",
                     Description = "Convert audio to Mp3 format",
-                    ArgumentCollection = new string[]
+                    ArgumentCollection = new List<string>
                     {
 
                     },
-                    Controllers = new PresetControl[]
+                    Controllers = new List<PresetControl>
                     {
                         new BitrateSlider
                         {
-                            Label = "Bitrate",
+                            Label = "Audio Bitrate",
                             Maximum = 320,
-                            Minimum = 128,
+                            Minimum = 8,
                             Name = "AudioBitrate",
-                            Value = 128,
+                            Unit = "kbit",
+                            Value = 256,
+                            PresetValues = new int[] { 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 }
                         }
                     }
                 };

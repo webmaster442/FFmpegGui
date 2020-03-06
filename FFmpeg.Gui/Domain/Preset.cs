@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace FFmpeg.Gui.Domain
 {
@@ -11,8 +10,8 @@ namespace FFmpeg.Gui.Domain
 
         public string Extension { get; set; }
 
-        public PresetControl[] Controllers { get; set; }
+        public List<PresetControl> Controllers { get; set; }
 
-        public string[] ArgumentCollection { get; set; }
+        public List<string> ArgumentCollection { get; set; }
     }
 }
