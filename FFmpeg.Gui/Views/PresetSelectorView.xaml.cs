@@ -1,4 +1,5 @@
 ﻿using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,11 @@ namespace FFmpeg.Gui.Views
         public PresetSelectorView()
         {
             InitializeComponent();
+        }
+
+        public void ClearItems()
+        {
+            RenderPanel.Children.Clear();
         }
 
         public FrameworkElement GetElement(string name)
@@ -30,6 +36,14 @@ namespace FFmpeg.Gui.Views
         public void Render(FrameworkElement element)
         {
             RenderPanel.Children.Add(element);
+        }
+
+        private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext is PresetSelectorViewModel vm)
+            {
+                vm.RenderTarget = this;
+            }
         }
     }
 }

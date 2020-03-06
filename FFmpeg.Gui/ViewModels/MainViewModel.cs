@@ -9,10 +9,11 @@ namespace FFmpeg.Gui.ViewModels
         public PresetSelectorViewModel PresetSelectorVM { get; set; }
 
         public MainViewModel(IDialogService dialogService,
-                             IPresetReaderService presetReaderService)
+                             IPresetReaderService presetReaderService,
+                             IPresetRenderService presetRenderService)
         {
             FileSelectorVM = new FileSelectorViewModel(dialogService);
-            PresetSelectorVM = new PresetSelectorViewModel(presetReaderService);
+            PresetSelectorVM = new PresetSelectorViewModel(presetReaderService, presetRenderService);
         }
 
     }

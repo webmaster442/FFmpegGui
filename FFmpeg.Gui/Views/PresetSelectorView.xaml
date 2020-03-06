@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
+    DataContextChanged="UserControl_DataContextChanged"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
@@ -15,6 +16,7 @@
         </Grid.ColumnDefinitions>
         <ListBox
             Grid.Column="0"
+            SelectedItem="{Binding Selected}"
             ItemsSource="{Binding Presets}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
