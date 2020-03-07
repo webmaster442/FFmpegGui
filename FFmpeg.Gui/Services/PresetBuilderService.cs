@@ -92,8 +92,6 @@ namespace FFmpeg.Gui.Services
             {
                 case JobOutputFormat.Bach:
                     return "@echo off\r\nTITLE FFMpeg job\r\n";
-                case JobOutputFormat.Bash:
-                    return "#!/bin/bash\r\n";
                 case JobOutputFormat.Powershell:
                     return "";
                 default:

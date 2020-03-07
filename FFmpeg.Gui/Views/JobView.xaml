@@ -34,7 +34,31 @@
                     Text="{Binding FFmpegPath}" />
                 <Button
                     Grid.Column="1"
-                    Command="{Binding BrowseCommand}"
+                    Command="{Binding BrowseFFmpegCommand}"
+                    Content="Browse..."
+                    Style="{StaticResource BottomButton}" />
+            </Grid>
+            <TextBlock
+                Grid.Column="0"
+                Margin="10,2,10,2"
+                Text="Output Path:" />
+            <Rectangle
+                Height="2"
+                Margin="5,0,5,10"
+                Fill="LightBlue" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    IsReadOnly="True"
+                    Text="{Binding OutputPath}" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding BrowseOutputFolderCommand}"
                     Content="Browse..."
                     Style="{StaticResource BottomButton}" />
             </Grid>

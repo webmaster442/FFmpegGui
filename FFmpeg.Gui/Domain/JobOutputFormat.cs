@@ -3,7 +3,6 @@
     internal enum JobOutputFormat
     {
         Bach,
-        Bash,
         Powershell
     }
 }
