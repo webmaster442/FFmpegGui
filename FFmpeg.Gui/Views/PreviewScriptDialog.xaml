@@ -7,6 +7,9 @@
     Title="Script Preview"
     Width="800"
     Height="450"
+    ResizeMode="CanMinimize"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +27,9 @@
             Background="Black"
             FontFamily="Consolas"
             FontSize="14"
-            Foreground="Gray" />
+            Foreground="Gray"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Visible" />
         <Button
             x:Name="CloseButton"
             Grid.Row="1"

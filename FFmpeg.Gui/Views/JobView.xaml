@@ -22,13 +22,15 @@
                 Height="2"
                 Margin="5,0,5,10"
                 Fill="LightBlue" />
-            <Grid>
+            <Grid Margin="5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBox
                     Grid.Column="0"
+                    Height="25"
+                    Margin="2,0,2,5"
                     VerticalAlignment="Center"
                     IsReadOnly="True"
                     Text="{Binding FFmpegPath}" />
@@ -46,13 +48,15 @@
                 Height="2"
                 Margin="5,0,5,10"
                 Fill="LightBlue" />
-            <Grid>
+            <Grid Margin="5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBox
                     Grid.Column="0"
+                    Height="25"
+                    Margin="2,0,2,5"
                     VerticalAlignment="Center"
                     IsReadOnly="True"
                     Text="{Binding OutputPath}" />
@@ -70,9 +74,11 @@
                 Margin="5,0,5,10"
                 Fill="LightBlue" />
             <RadioButton
+                Margin="5,0"
                 Content="Windows CMD"
                 IsChecked="{Binding OutputCmd}" />
             <RadioButton
+                Margin="5,0"
                 Content="Powershell script"
                 IsChecked="{Binding OutputPowershell}" />
         </StackPanel>
