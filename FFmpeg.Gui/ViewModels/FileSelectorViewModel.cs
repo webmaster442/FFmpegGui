@@ -10,7 +10,7 @@ namespace FFmpeg.Gui.ViewModels
     {
         private string _selectedFile;
         private readonly IDialogService _dialogService;
-        private readonly Session _session;
+        private readonly SessionViewModel _session;
 
         public ObservableCollectionExt<string> Files { get; set; }
 
@@ -28,7 +28,7 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        public FileSelectorViewModel(Session session, IDialogService dialogService)
+        public FileSelectorViewModel(SessionViewModel session, IDialogService dialogService)
         {
             _session = session;
             Files = new ObservableCollectionExt<string>();

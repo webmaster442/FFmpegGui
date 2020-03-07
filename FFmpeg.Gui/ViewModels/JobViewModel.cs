@@ -11,7 +11,7 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class JobViewModel : MvxViewModel
     {
-        private readonly Session _session;
+        private readonly SessionViewModel _session;
         private readonly IPresetBuilderService _presetBuilderService;
         private readonly IDialogService _dialogService;
         private string _fFmpegPath;
@@ -71,7 +71,7 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand BrowseFFmpegCommand { get; }
         public MvxCommand BrowseOutputFolderCommand { get; }
 
-        public JobViewModel(Session session,
+        public JobViewModel(SessionViewModel session,
                             IPresetBuilderService presetBuilderService,
                             IDialogService dialogService)
         {
