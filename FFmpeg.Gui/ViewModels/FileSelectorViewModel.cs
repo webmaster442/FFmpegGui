@@ -1,6 +1,8 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -8,6 +10,7 @@ namespace FFmpeg.Gui.ViewModels
     {
         private string _selectedFile;
         private readonly IDialogService _dialogService;
+        private readonly Session _session;
 
         public ObservableCollectionExt<string> Files { get; set; }
 
@@ -25,9 +28,11 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        public FileSelectorViewModel(IDialogService dialogService)
+        public FileSelectorViewModel(Session session, IDialogService dialogService)
         {
+            _session = session;
             Files = new ObservableCollectionExt<string>();
+            Files.CollectionChanged += (s, e) => _session.InputFiles = Files.ToList();
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
             RemoveSelectedCommand = new MvxCommand<string>(OnRemoveSelected, CanRemoveSelected);

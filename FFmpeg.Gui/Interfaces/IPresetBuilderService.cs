@@ -6,5 +6,6 @@ namespace FFmpeg.Gui.Interfaces
     internal interface IPresetBuilderService
     {
         string Build(IRenderPanel source, Preset preset, IList<string> files, string OutputDirectory);
+        string GetShellScriptHeader(JobOutputFormat outputFormat);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -83,6 +84,21 @@ namespace FFmpeg.Gui.Services
             }
 
             return string.Join(' ', args);
+        }
+
+        public string GetShellScriptHeader(JobOutputFormat outputFormat)
+        {
+            switch (outputFormat)
+            {
+                case JobOutputFormat.Bach:
+                    return "@echo off\r\nTITLE FFMpeg job\r\n";
+                case JobOutputFormat.Bash:
+                    return "#!/bin/bash\r\n";
+                case JobOutputFormat.Powershell:
+                    return "";
+                default:
+                    throw new ArgumentException(nameof(outputFormat));
+            }
         }
     }
 }

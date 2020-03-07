@@ -7,7 +7,6 @@
     xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>

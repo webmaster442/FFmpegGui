@@ -1,5 +1,7 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Properties;
+using FFmpeg.Gui.Views;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -8,12 +10,15 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class JobViewModel: MvxViewModel
     {
+        private readonly Session _session;
         private readonly IPresetBuilderService _presetBuilderService;
         private readonly IDialogService _dialogService;
         private string _fFmpegPath;
         private bool _outputCmd;
         private bool _outputBash;
         private bool _outputPowershell;
+
+        public IRenderPanel RenderTarget { get; set; }
 
         public string FFmpegPath
         {
@@ -64,10 +69,12 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand ExecuteCommand { get; }
         public MvxCommand BrowseCommand { get; }
 
-        public JobViewModel(IPresetBuilderService presetBuilderService,
+        public JobViewModel(Session session,
+                            IPresetBuilderService presetBuilderService,
                             IDialogService dialogService)
         {
             FFmpegPath = Settings.Default.FFmpegPath;
+            _session = session;
             _presetBuilderService = presetBuilderService;
             _dialogService = dialogService;
             PreviewCommand = new MvxCommand(OnPreview);
@@ -87,17 +94,38 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
+        private string PrepareScript()
+        {
+            if (RenderTarget == null)
+                throw new InvalidOperationException(nameof(RenderTarget));
+
+            JobOutputFormat outputFormat = JobOutputFormat.Bach;
+            if (OutputCmd)
+                outputFormat = JobOutputFormat.Bach;
+            else if (OutputBash)
+                outputFormat = JobOutputFormat.Bash;
+            else if (_outputPowershell)
+                outputFormat = JobOutputFormat.Powershell;
+
+           var header = _presetBuilderService.GetShellScriptHeader(outputFormat);
+
+            //_presetBuilderService.Build(RenderTarget, _session.CurrentPreset, )
+
+            return header;
+
+        }
+
+        private void OnPreview()
+        {
+            throw new NotImplementedException();
+        }
+
         private void OnExecute()
         {
             throw new NotImplementedException();
         }
 
         private void OnSave()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnPreview()
         {
             throw new NotImplementedException();
         }

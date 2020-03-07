@@ -1,4 +1,5 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Interfaces;
 using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
@@ -8,15 +9,17 @@ namespace FFmpeg.Gui.ViewModels
         public FileSelectorViewModel FileSelectorVM { get; }
         public PresetSelectorViewModel PresetSelectorVM { get; }
         public JobViewModel JobVM { get; }
+        public Session Session { get; }
 
         public MainViewModel(IDialogService dialogService,
                              IPresetReaderService presetReaderService,
                              IPresetRenderService presetRenderService,
                              IPresetBuilderService presetBuilderService)
         {
-            FileSelectorVM = new FileSelectorViewModel(dialogService);
-            PresetSelectorVM = new PresetSelectorViewModel(presetReaderService, presetRenderService);
-            JobVM = new JobViewModel(presetBuilderService, dialogService);
+            Session = new Session();
+            FileSelectorVM = new FileSelectorViewModel(Session, dialogService);
+            PresetSelectorVM = new PresetSelectorViewModel(Session, presetReaderService, presetRenderService);
+            JobVM = new JobViewModel(Session, presetBuilderService, dialogService);
         }
 
     }

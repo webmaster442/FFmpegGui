@@ -6,6 +6,7 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class PresetSelectorViewModel: MvxViewModel
     {
+        private readonly Session _session;
         private readonly IPresetRenderService _presetRenderService;
         private Preset _selected;
         private IRenderPanel _renderTarget;
@@ -34,13 +35,16 @@ namespace FFmpeg.Gui.ViewModels
                     && RenderTarget != null)
                 {
                     _presetRenderService.RenderPreset(RenderTarget, value);
+                    _session.CurrentPreset = value;
                 }
             }
         }
 
-        public PresetSelectorViewModel(IPresetReaderService presetReaderService,
+        public PresetSelectorViewModel(Session session,
+                                       IPresetReaderService presetReaderService,
                                        IPresetRenderService presetRenderService)
         {
+            _session = session;
             _presetRenderService = presetRenderService;
             Presets = new ObservableCollectionExt<Preset>(presetReaderService.GetPresets());
             Selected = Presets[0];

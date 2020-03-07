@@ -9,6 +9,7 @@
     Title="FFMpeg Gui"
     Width="800"
     Height="450"
+    DataContextChanged="MvxWindow_DataContextChanged"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -24,10 +25,12 @@
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
             <TabItem Header="Preset">
-                <views:PresetSelectorView DataContext="{Binding PresetSelectorVM}" />
+                <views:PresetSelectorView
+                    x:Name="PresetSelector"
+                    DataContext="{Binding PresetSelectorVM}" />
             </TabItem>
             <TabItem Header="Output">
-                <views:JobView DataContext="{Binding JobVM}"/>
+                <views:JobView DataContext="{Binding JobVM}" />
             </TabItem>
         </TabControl>
         <StackPanel

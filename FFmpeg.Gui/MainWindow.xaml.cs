@@ -53,5 +53,14 @@ namespace FFmpeg.Gui
         {
             Dispatcher.Invoke(() => SwitchTabIndex(+1));
         }
+
+        private void MvxWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext is MainViewModel mvm)
+            {
+                mvm.PresetSelectorVM.RenderTarget = PresetSelector;
+                mvm.JobVM.RenderTarget = PresetSelector;
+            }
+        }
     }
 }
