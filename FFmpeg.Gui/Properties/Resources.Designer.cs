@@ -70,6 +70,42 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FFMpeg Not found..
+        /// </summary>
+        internal static string Error_FFmpeg {
+            get {
+                return ResourceManager.GetString("Error_FFmpeg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No input files are selected.
+        /// </summary>
+        internal static string Error_NoInputFiles {
+            get {
+                return ResourceManager.GetString("Error_NoInputFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output directory doesn&apos;t exist.
+        /// </summary>
+        internal static string Error_OutDirectory {
+            get {
+                return ResourceManager.GetString("Error_OutDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No preset is selected.
+        /// </summary>
+        internal static string Error_Preset {
+            get {
+                return ResourceManager.GetString("Error_Preset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load XML presets file..
         /// </summary>
         internal static string Error_PresetXMLSerialize {

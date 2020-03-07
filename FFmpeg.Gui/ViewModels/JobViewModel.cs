@@ -18,8 +18,18 @@ namespace FFmpeg.Gui.ViewModels
         private bool _outputCmd;
         private bool _outputPowershell;
         private string _outputPath;
+        private readonly IErrorDisplayService _errorDisplayService;
+        private bool _errorsVisible;
 
         public IRenderPanel RenderTarget { get; set; }
+
+        public ObservableCollectionExt<string> Errors { get; set; }
+
+        public bool ErrorsVisible
+        {
+            get { return _errorsVisible; }
+            set { SetProperty(ref _errorsVisible, value); }
+        }
 
         public string OutputPath
         {
@@ -29,6 +39,7 @@ namespace FFmpeg.Gui.ViewModels
                 SetProperty(ref _outputPath, value);
                 Settings.Default.OutputPath = value;
                 Settings.Default.Save();
+                TriggerErrorDisplayCall();
             }
         }
 
@@ -40,6 +51,7 @@ namespace FFmpeg.Gui.ViewModels
                 SetProperty(ref _fFmpegPath, value);
                 Settings.Default.FFmpegPath = value;
                 Settings.Default.Save();
+                TriggerErrorDisplayCall();
             }
         }
 
@@ -73,13 +85,16 @@ namespace FFmpeg.Gui.ViewModels
 
         public JobViewModel(SessionViewModel session,
                             IPresetBuilderService presetBuilderService,
-                            IDialogService dialogService)
+                            IDialogService dialogService,
+                            IErrorDisplayService errorDisplayService)
         {
-            FFmpegPath = Settings.Default.FFmpegPath;
-            OutputPath = Settings.Default.OutputPath;
-            _session = session;
             _presetBuilderService = presetBuilderService;
             _dialogService = dialogService;
+            _errorDisplayService = errorDisplayService;
+            _session = session;
+            _session.PropertyChanged += _session_PropertyChanged;
+            FFmpegPath = Settings.Default.FFmpegPath;
+            OutputPath = Settings.Default.OutputPath;
             PreviewCommand = new MvxCommand(OnPreview);
             SaveCommand = new MvxCommand(OnSave);
             ExecuteCommand = new MvxCommand(OnExecute);
@@ -87,6 +102,24 @@ namespace FFmpeg.Gui.ViewModels
             BrowseOutputFolderCommand = new MvxCommand(OnBrowseOutput);
             OutputCmd = Settings.Default.OutputCmd;
             OutputPowershell = Settings.Default.OutputPowershell;
+            Errors = new ObservableCollectionExt<string>();
+
+        }
+
+        private void _session_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TriggerErrorDisplayCall();
+        }
+
+        private void TriggerErrorDisplayCall()
+        {
+            Errors.Clear();
+            var result = _errorDisplayService.GetErrors(_session.InputFiles, 
+                                                        _session.CurrentPreset, 
+                                                        OutputPath,
+                                                        FFmpegPath);
+            Errors.AddRange(result);
+            ErrorsVisible = Errors.Count > 0;
         }
 
         private string PrepareScript()
