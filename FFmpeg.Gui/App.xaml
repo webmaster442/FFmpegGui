@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="Controls/ControlTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
             <Style
                 x:Key="HeaderText"
                 TargetType="TextBlock">

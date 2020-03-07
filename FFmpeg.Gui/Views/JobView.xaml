@@ -10,6 +10,7 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -84,6 +85,34 @@
         </StackPanel>
         <StackPanel
             Grid.Row="1"
+            Margin="10"
+            VerticalAlignment="Bottom">
+            <TextBlock
+                FontWeight="Bold"
+                Foreground="Red"
+                Text="Warning! Not fixing the following problems will result in unusable scripts: "
+                Visibility="{Binding ErrorsVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <ItemsControl
+                ItemsSource="{Binding Errors}"
+                Visibility="{Binding ErrorsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock
+                                FontSize="14"
+                                Foreground="Red"
+                                Text="!" />
+                            <TextBlock
+                                FontSize="14"
+                                Foreground="Red"
+                                Text="{Binding}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
             <Button

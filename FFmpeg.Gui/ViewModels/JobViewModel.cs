@@ -92,6 +92,7 @@ namespace FFmpeg.Gui.ViewModels
             _dialogService = dialogService;
             _errorDisplayService = errorDisplayService;
             _session = session;
+            Errors = new ObservableCollectionExt<string>();
             _session.PropertyChanged += _session_PropertyChanged;
             FFmpegPath = Settings.Default.FFmpegPath;
             OutputPath = Settings.Default.OutputPath;
@@ -102,8 +103,6 @@ namespace FFmpeg.Gui.ViewModels
             BrowseOutputFolderCommand = new MvxCommand(OnBrowseOutput);
             OutputCmd = Settings.Default.OutputCmd;
             OutputPowershell = Settings.Default.OutputPowershell;
-            Errors = new ObservableCollectionExt<string>();
-
         }
 
         private void _session_PropertyChanged(object sender, PropertyChangedEventArgs e)
