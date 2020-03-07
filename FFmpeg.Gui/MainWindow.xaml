@@ -18,12 +18,16 @@
         </Grid.RowDefinitions>
         <TabControl
             x:Name="MainTabs"
-            TabStripPlacement="Bottom">
-            <TabItem Header="Source files">
+            SelectionChanged="MainTabs_SelectionChanged"
+            TabStripPlacement="Top">
+            <TabItem Header="Source Files">
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
             <TabItem Header="Preset">
                 <views:PresetSelectorView DataContext="{Binding PresetSelectorVM}" />
+            </TabItem>
+            <TabItem Header="Output">
+                <views:JobView/>
             </TabItem>
         </TabControl>
         <StackPanel

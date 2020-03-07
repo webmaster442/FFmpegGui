@@ -1,14 +1,14 @@
 ﻿using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.ViewModels;
+using MvvmCross.Platforms.Wpf.Views;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace FFmpeg.Gui.Views
 {
     /// <summary>
     /// Interaction logic for PresetSelectorView.xaml
     /// </summary>
-    public partial class PresetSelectorView : UserControl, IRenderPanel
+    public partial class PresetSelectorView : MvxWpfView, IRenderPanel
     {
         public PresetSelectorView()
         {

@@ -1,6 +1,8 @@
 ﻿using FFmpeg.Gui.ViewModels;
 using MvvmCross;
 using MvvmCross.Platforms.Wpf.Views;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace FFmpeg.Gui
 {
@@ -28,16 +30,26 @@ namespace FFmpeg.Gui
             {
                 MainTabs.SelectedIndex += increment;
             }
+            UpdateButtons();
+        }
+
+        private void UpdateButtons()
+        {
             NextButton.IsEnabled = MainTabs.SelectedIndex < MainTabs.Items.Count - 1;
             PreviousButton.IsEnabled = MainTabs.SelectedIndex > 0;
         }
 
-        private void PreviousButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void MainTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateButtons();
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.Invoke(() => SwitchTabIndex(-1));
         }
 
-        private void NextButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.Invoke(() => SwitchTabIndex(+1));
         }

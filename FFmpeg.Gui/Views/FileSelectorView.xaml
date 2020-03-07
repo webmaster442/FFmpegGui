@@ -30,7 +30,7 @@
         <ListBox
             x:Name="Items"
             Grid.Row="1"
-            SelectedItem="{Binding SelectedFile}"
-            ItemsSource="{Binding Files}" />
+            ItemsSource="{Binding Files}"
+            SelectedItem="{Binding SelectedFile}" />
     </Grid>
 </mvvmCrossViews:MvxWpfView>
