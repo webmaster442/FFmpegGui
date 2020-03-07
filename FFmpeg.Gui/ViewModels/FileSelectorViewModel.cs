@@ -52,7 +52,7 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnAddFiles()
         {
-            if (_dialogService.ShowFileSelector(true, out string[] files))
+            if (_dialogService.ShowFileSelector(true, "all files|*.*", out string[] files))
             {
                 Files.AddRange(files);
             }

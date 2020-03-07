@@ -3,6 +3,7 @@
     internal interface IDialogService
     {
         void ShowError(string errorMessage);
-        bool ShowFileSelector(bool multiSelect, out string[] files);
+        bool ShowFileSelector(bool multiSelect, string filter, out string[] files);
+        bool ShowSaveFileDialog(string filter, out string path);
     }
 }

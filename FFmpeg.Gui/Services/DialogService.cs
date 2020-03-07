@@ -10,9 +10,10 @@ namespace FFmpeg.Gui.Services
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        public bool ShowFileSelector(bool multiSelect, out string[] files)
+        public bool ShowFileSelector(bool multiSelect, string filter, out string[] files)
         {
             var openFile = new Microsoft.Win32.OpenFileDialog();
+            openFile.Filter = filter;
             openFile.Multiselect = multiSelect;
             if (openFile.ShowDialog() == true)
             {
@@ -22,6 +23,22 @@ namespace FFmpeg.Gui.Services
             else
             {
                 files = null;
+                return false;
+            }
+        }
+
+        public bool ShowSaveFileDialog(string filter, out string path)
+        {
+            var saveFile = new Microsoft.Win32.SaveFileDialog();
+            saveFile.Filter = filter;
+            if (saveFile.ShowDialog() == true)
+            {
+                path = saveFile.FileName;
+                return true;
+            }
+            else
+            {
+                path = null;
                 return false;
             }
         }

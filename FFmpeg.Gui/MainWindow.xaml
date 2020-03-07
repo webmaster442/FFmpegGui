@@ -27,7 +27,7 @@
                 <views:PresetSelectorView DataContext="{Binding PresetSelectorVM}" />
             </TabItem>
             <TabItem Header="Output">
-                <views:JobView/>
+                <views:JobView DataContext="{Binding JobVM}"/>
             </TabItem>
         </TabControl>
         <StackPanel
