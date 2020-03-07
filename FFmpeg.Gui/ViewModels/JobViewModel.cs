@@ -74,6 +74,7 @@ namespace FFmpeg.Gui.ViewModels
                             IDialogService dialogService)
         {
             FFmpegPath = Settings.Default.FFmpegPath;
+            OutputPath = Settings.Default.OutputPath;
             _session = session;
             _presetBuilderService = presetBuilderService;
             _dialogService = dialogService;
@@ -88,6 +89,10 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnBrowseOutput()
         {
+            if (_dialogService.ShowFolderSelect(out string folder))
+            {
+                OutputPath = folder;
+            }
         }
 
         private void OnBrowseFFmpeg()
@@ -118,7 +123,8 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnPreview()
         {
-            throw new NotImplementedException();
+            var script = PrepareScript();
+            _dialogService.ShowScriptPreview(script);
         }
 
         private void OnExecute()

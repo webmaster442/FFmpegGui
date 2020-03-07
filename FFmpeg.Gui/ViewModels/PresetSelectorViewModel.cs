@@ -48,6 +48,7 @@ namespace FFmpeg.Gui.ViewModels
             _presetRenderService = presetRenderService;
             Presets = new ObservableCollectionExt<Preset>(presetReaderService.GetPresets());
             Selected = Presets[0];
+            _session.CurrentPreset = Presets[0];
         }
     }
 }

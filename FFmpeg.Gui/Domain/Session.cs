@@ -6,5 +6,10 @@ namespace FFmpeg.Gui.Domain
     {
         public Preset CurrentPreset { get; set; }
         public List<string> InputFiles { get; set; }
+
+        public Session()
+        {
+            InputFiles = new List<string>();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Views;
 using System.Windows;
 
 namespace FFmpeg.Gui.Services
@@ -27,6 +28,22 @@ namespace FFmpeg.Gui.Services
             }
         }
 
+        public bool ShowFolderSelect(out string path)
+        {
+            var openFile = new Microsoft.Win32.OpenFileDialog();
+            openFile.Multiselect = false;
+            if (openFile.ShowDialog() == true)
+            {
+                path = openFile.FileName;
+                return true;
+            }
+            else
+            {
+                path = null;
+                return false;
+            }
+        }
+
         public bool ShowSaveFileDialog(string filter, out string path)
         {
             var saveFile = new Microsoft.Win32.SaveFileDialog();
@@ -41,6 +58,12 @@ namespace FFmpeg.Gui.Services
                 path = null;
                 return false;
             }
+        }
+
+        public void ShowScriptPreview(string script)
+        {
+            var dialog = new PreviewScriptDialog(script);
+            dialog.ShowDialog();
         }
     }
 }

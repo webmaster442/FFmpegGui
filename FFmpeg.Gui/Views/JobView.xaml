@@ -73,9 +73,6 @@
                 Content="Windows CMD"
                 IsChecked="{Binding OutputCmd}" />
             <RadioButton
-                Content="Bash script"
-                IsChecked="{Binding OutputBash}" />
-            <RadioButton
                 Content="Powershell script"
                 IsChecked="{Binding OutputPowershell}" />
         </StackPanel>
