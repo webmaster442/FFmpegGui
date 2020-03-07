@@ -6,6 +6,8 @@ namespace FFmpeg.Gui.Domain
     {
         public string Name { get; set; }
 
+        public string TargetExtension { get; set; }
+
         public string Description { get; set; }
 
         public string Extension { get; set; }
