@@ -4,6 +4,8 @@ using FFmpeg.Gui.Properties;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
+using System.ComponentModel;
+using System.IO;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -87,6 +89,38 @@ namespace FFmpeg.Gui.ViewModels
             OutputPowershell = Settings.Default.OutputPowershell;
         }
 
+        private string PrepareScript()
+        {
+            if (RenderTarget == null)
+                throw new InvalidOperationException(nameof(RenderTarget));
+
+            JobOutputFormat outputFormat = JobOutputFormat.Bach;
+
+            if (OutputPowershell)
+                outputFormat = JobOutputFormat.Powershell;
+
+            string header = _presetBuilderService.GetShellScriptHeader(outputFormat);
+
+            string content = _presetBuilderService.Build(RenderTarget,
+                                                         _session.CurrentPreset,
+                                                         _session.InputFiles,
+                                                         OutputPath,
+                                                         FFmpegPath);
+            if (OutputCmd)
+                return header + content;
+            else
+                return content;
+        }
+
+        private void RunScript(string fn)
+        {
+            var p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = OutputCmd ? "cmd.exe" : "powershell.exe";
+            p.StartInfo.Arguments = OutputCmd ? $"/c {fn}" : fn;
+            p.Start();
+
+        }
+
         private void OnBrowseOutput()
         {
             if (_dialogService.ShowFolderSelect(out string folder))
@@ -103,24 +137,6 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        private string PrepareScript()
-        {
-            if (RenderTarget == null)
-                throw new InvalidOperationException(nameof(RenderTarget));
-
-            JobOutputFormat outputFormat = JobOutputFormat.Bach;
-            if (OutputCmd)
-                outputFormat = JobOutputFormat.Bach;
-            else if (_outputPowershell)
-                outputFormat = JobOutputFormat.Powershell;
-
-            string header = _presetBuilderService.GetShellScriptHeader(outputFormat);
-            string content = _presetBuilderService.Build(RenderTarget, _session.CurrentPreset, _session.InputFiles, OutputPath);
-
-            return header + content;
-
-        }
-
         private void OnPreview()
         {
             var script = PrepareScript();
@@ -129,12 +145,42 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnExecute()
         {
-            throw new NotImplementedException();
+            try
+            {
+                string fn = Path.GetTempFileName();
+                using (var writer = File.CreateText(fn))
+                {
+                    writer.Write(PrepareScript());
+                }
+                RunScript(fn);
+            }
+            catch (Exception ex) when (ex is IOException || ex is Win32Exception)
+            {
+                _dialogService.ShowError(Resources.Error_Execute);
+            }
         }
 
         private void OnSave()
         {
-            throw new NotImplementedException();
+            string filter = "cmd file|*.cmd";
+            if (OutputPowershell)
+                filter = "poweshell script|*.ps";
+
+            if (_dialogService.ShowSaveFileDialog(filter, out string file))
+            {
+                try
+                {
+                    using (var writer = File.CreateText(file))
+                    {
+                        writer.Write(PrepareScript());
+                    }
+                }
+                catch (IOException)
+                {
+                    _dialogService.ShowError(Resources.Error_Save);
+                }
+            }
+
         }
     }
 }

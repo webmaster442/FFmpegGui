@@ -61,11 +61,29 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to execute job..
+        /// </summary>
+        internal static string Error_Execute {
+            get {
+                return ResourceManager.GetString("Error_Execute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load XML presets file..
         /// </summary>
         internal static string Error_PresetXMLSerialize {
             get {
                 return ResourceManager.GetString("Error_PresetXMLSerialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save Job script..
+        /// </summary>
+        internal static string Error_Save {
+            get {
+                return ResourceManager.GetString("Error_Save", resourceCulture);
             }
         }
     }

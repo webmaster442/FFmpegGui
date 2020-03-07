@@ -15,8 +15,15 @@ namespace FFmpeg.Gui.Presets
                     Description = "Convert audio to Mp3 format",
                     ArgumentCollection = new List<string>
                     {
-
+                        "-i",
+                        "%source%",
+                        "-vn",
+                        "-codec:a libmp3lame",
+                        "-b:a",
+                        "{AudioBitrate}k",
+                        "%target%"
                     },
+                    TargetExtension = "mp3",
                     Controllers = new List<PresetControl>
                     {
                         new BitrateSlider

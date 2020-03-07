@@ -7,42 +7,62 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace FFmpeg.Gui.Services
 {
-    internal class PresetBuilderService: IPresetBuilderService
+    internal class PresetBuilderService : IPresetBuilderService
     {
-        public string Build(IRenderPanel source, Preset preset, IList<string> files, string OutputDirectory)
+        private readonly Regex _control;
+
+        public PresetBuilderService()
+        {
+            _control = new Regex("\\{[a-zA-Z0-9]+\\}", RegexOptions.Compiled);
+        }
+
+        public string Build(IRenderPanel source,
+                            Preset preset,
+                            IList<string> files,
+                            string OutputDirectory,
+                            string ffmpeg)
         {
             StringBuilder results = new StringBuilder();
-
-            List<string> presetArgValues = ProcessPreset(source, preset);
+            List<string> presetArgValues = ProcessPreset(ffmpeg, source, preset);
 
 
             foreach (var file in files)
             {
-                var line = RenderSingleFile(CopyList(presetArgValues), file, preset.TargetExtension, OutputDirectory);
+                var line = RenderSingleFile(presetArgValues.ToArray(), file, preset.TargetExtension, OutputDirectory);
                 results.AppendLine(line);
             }
 
             return results.ToString();
         }
 
-        private List<string> ProcessPreset(IRenderPanel source, Preset preset)
+        private List<string> ProcessPreset(string ffmpeg, IRenderPanel source, Preset preset)
         {
-            List<string> results = new List<string>(preset.ArgumentCollection.Count);
+            List<string> results = new List<string>(preset.ArgumentCollection.Count + 1);
+            results.Add($"\"{ffmpeg}\"");
             foreach (var argument in preset.ArgumentCollection)
             {
-                if (argument.StartsWith("{")
-                    && argument.EndsWith("}"))
+                var matches = _control.Matches(argument);
+                if (matches.Count > 0)
                 {
-                    string name = argument.Substring(1, argument.Length - 2);
-                    FrameworkElement element = source.GetElement(name);
-                    switch (element)
+                    foreach (Match match in matches)
                     {
-                        case SliderWithValueText slider:
-                            results.Add(slider.Value.ToString(CultureInfo.InvariantCulture));
-                            break;
+                        if (match == null) continue;
+
+                        string name = match.Value.Replace("{", "").Replace("}", "");
+                        FrameworkElement element = source.GetElement(name);
+
+                        switch (element)
+                        {
+                            case SliderWithValueText slider:
+                                var slid = argument.Replace(match.Value, slider.Value.ToString(CultureInfo.InvariantCulture));
+                                results.Add(slid);
+                                break;
+                        }
+
                     }
                 }
                 else
@@ -53,16 +73,6 @@ namespace FFmpeg.Gui.Services
             return results;
         }
 
-        private string[] CopyList(List<string> inputs)
-        {
-            string[] result = new string[inputs.Count];
-            for (int i=0; i<result.Length; i++)
-            {
-                result[i] = inputs[0];
-            }
-            return result;
-        }
-
         private string RenderSingleFile(string[] args, string file, string targetExtension, string outputDirectory)
         {
             const string sourcefile = "%source%";
@@ -70,16 +80,16 @@ namespace FFmpeg.Gui.Services
 
             var outname = Path.Combine(outputDirectory, Path.GetFileName(file));
 
-            for (int i=0; i<args.Length; i++)
+            for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] == sourcefile)
                 {
-                    args[i] = file;
+                    args[i] = $"\"{file}\"";
                 }
                 else if (args[i] == targetfile
                     && !string.IsNullOrEmpty(targetExtension))
                 {
-                    args[i] = Path.ChangeExtension(outname, targetExtension);
+                    args[i] = $"\"{Path.ChangeExtension(outname, targetExtension)}\"";
                 }
             }
 
