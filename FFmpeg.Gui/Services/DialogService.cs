@@ -30,17 +30,18 @@ namespace FFmpeg.Gui.Services
 
         public bool ShowFolderSelect(out string path)
         {
-            var openFile = new Microsoft.Win32.OpenFileDialog();
-            openFile.Multiselect = false;
-            if (openFile.ShowDialog() == true)
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
-                path = openFile.FileName;
-                return true;
-            }
-            else
-            {
-                path = null;
-                return false;
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    path = dialog.SelectedPath;
+                    return true;
+                }
+                else
+                {
+                    path = null;
+                    return false;
+                }
             }
         }
 
