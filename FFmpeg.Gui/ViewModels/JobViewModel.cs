@@ -6,6 +6,7 @@ using MvvmCross.ViewModels;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -179,11 +180,12 @@ namespace FFmpeg.Gui.ViewModels
         {
             try
             {
-                string fn = Path.GetTempFileName();
-                using (var writer = File.CreateText(fn))
-                {
-                    writer.Write(PrepareScript());
-                }
+                string fn = Path.ChangeExtension(Path.GetTempFileName(), ".cmd");
+
+                if (OutputPowershell)
+                    fn = Path.ChangeExtension(fn, ".ps1");
+
+                File.WriteAllText(fn, PrepareScript(), Encoding.Default);
                 RunScript(fn);
             }
             catch (Exception ex) when (ex is IOException || ex is Win32Exception)
@@ -196,16 +198,13 @@ namespace FFmpeg.Gui.ViewModels
         {
             string filter = "cmd file|*.cmd";
             if (OutputPowershell)
-                filter = "poweshell script|*.ps";
+                filter = "poweshell script|*.ps1";
 
             if (_dialogService.ShowSaveFileDialog(filter, out string file))
             {
                 try
                 {
-                    using (var writer = File.CreateText(file))
-                    {
-                        writer.Write(PrepareScript());
-                    }
+                    File.WriteAllText(file, PrepareScript(), Encoding.Default);
                 }
                 catch (IOException)
                 {

@@ -23,6 +23,7 @@ namespace FFmpeg.Gui.Services
 
         public void RenderPreset(IRenderPanel target, Preset preset)
         {
+            target.ClearItems();
             foreach (var controller in preset.Controllers)
             {
                 FrameworkElement rendered = null;
