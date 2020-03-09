@@ -1,0 +1,44 @@
+﻿using FFmpeg.Gui.Domain;
+using System.Collections.Generic;
+
+namespace FFmpeg.Gui.Presets
+{
+    internal static partial class FFmpegPresets
+    {
+        public static Preset AAC
+        {
+            get
+            {
+                return new Preset
+                {
+                    Name = "Audio, AAC",
+                    Description = "Convert audio to AAC/M4A format",
+                    ArgumentCollection = new List<string>
+                    {
+                        "-i",
+                        "%source%",
+                        "-vn",
+                        "-c:a aac",
+                        "-b:a",
+                        "{AudioBitrate}k",
+                        "%target%"
+                    },
+                    TargetExtension = "m4a",
+                    Controllers = new List<PresetControl>
+                    {
+                        new BitrateSlider
+                        {
+                            Label = "Audio Bitrate",
+                            Maximum = 320,
+                            Minimum = 8,
+                            Name = "AudioBitrate",
+                            Unit = "kbit",
+                            Value = 160,
+                            PresetValues = new int[] { 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 }
+                        }
+                    }
+                };
+            }
+        }
+    }
+}
