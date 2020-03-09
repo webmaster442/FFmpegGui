@@ -34,9 +34,38 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="1"
-                            Foreground="Black"
                             Margin="2,0"
+                            Foreground="Black"
                             Text="{TemplateBinding ValueUnit}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:VideoScaleInput">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:VideoScaleInput">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            x:Name="PART_VideoWith"
+                            Grid.Column="0"
+                            Text="{TemplateBinding VideoWidth,
+                                                   Converter={local:TextToIntConverter}}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="x" />
+                        <TextBox
+                            x:Name="PART_VideoHeight"
+                            Grid.Column="2"
+                            Text="{TemplateBinding VideoHeight,
+                                                   Converter={local:TextToIntConverter}}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
