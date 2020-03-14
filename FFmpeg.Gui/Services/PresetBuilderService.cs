@@ -61,6 +61,10 @@ namespace FFmpeg.Gui.Services
                                 var slid = argument.Replace(match.Value, slider.Value.ToString(CultureInfo.InvariantCulture));
                                 results.Add(slid);
                                 break;
+                            case VideoScaleInput videoScale:
+                                var scale = argument.Replace(match.Value, string.Format("{0}:{1}", videoScale.VideoWidth, videoScale.VideoHeight));
+                                results.Add(scale);
+                                break;
                         }
 
                     }

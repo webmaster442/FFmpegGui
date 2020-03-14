@@ -56,16 +56,15 @@
                         <TextBox
                             x:Name="PART_VideoWith"
                             Grid.Column="0"
-                            Text="{TemplateBinding VideoWidth,
-                                                   Converter={local:TextToIntConverter}}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=VideoWidth}" />
                         <TextBlock
                             Grid.Column="1"
-                            Text="x" />
+                            Margin="5,0"
+                            Text=":" />
                         <TextBox
                             x:Name="PART_VideoHeight"
                             Grid.Column="2"
-                            Text="{TemplateBinding VideoHeight,
-                                                   Converter={local:TextToIntConverter}}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=VideoHeight}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

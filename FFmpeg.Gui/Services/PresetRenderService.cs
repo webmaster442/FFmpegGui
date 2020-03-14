@@ -32,6 +32,9 @@ namespace FFmpeg.Gui.Services
                     case BitrateSlider bitrateSlider:
                         rendered = RenderBitrateSlider(bitrateSlider);
                         break;
+                    case VideoScale videoScale:
+                        rendered = RenderVideoScale(videoScale);
+                        break;
                     default:
                         throw new InvalidOperationException();
                 }
@@ -46,6 +49,19 @@ namespace FFmpeg.Gui.Services
             result.Text = text;
             return result;
         }
+
+        private Control RenderVideoScale(VideoScale videoScale)
+        {
+            var scaler = new VideoScaleInput
+            {
+                VideoWidth = videoScale.Width,
+                VideoHeight = videoScale.Height,
+                Margin = ControlMargin,
+                Name = videoScale.Name,
+            };
+            return scaler;
+        }
+
 
         private Control RenderBitrateSlider(BitrateSlider bitrateSlider)
         {
