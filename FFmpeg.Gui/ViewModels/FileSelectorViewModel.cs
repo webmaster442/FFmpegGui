@@ -1,8 +1,6 @@
-﻿using FFmpeg.Gui.Domain;
-using FFmpeg.Gui.Interfaces;
+﻿using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using System;
 using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
