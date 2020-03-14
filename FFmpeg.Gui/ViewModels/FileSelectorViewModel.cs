@@ -2,6 +2,7 @@
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using System;
 using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
@@ -17,6 +18,7 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand AddFilesCommand { get; }
         public MvxCommand ClearListCommand { get; }
         public MvxCommand<string> RemoveSelectedCommand { get; }
+        public MvxCommand<string[]> FilesDragedinCommand { get; }
 
         public string SelectedFile
         {
@@ -36,7 +38,13 @@ namespace FFmpeg.Gui.ViewModels
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
             RemoveSelectedCommand = new MvxCommand<string>(OnRemoveSelected, CanRemoveSelected);
+            FilesDragedinCommand = new MvxCommand<string[]>(OnFilesDraggedIn);
             this._dialogService = dialogService;
+        }
+
+        private void OnFilesDraggedIn(string[] obj)
+        {
+            Files.AddRange(obj);
         }
 
         private bool CanRemoveSelected(string arg)
