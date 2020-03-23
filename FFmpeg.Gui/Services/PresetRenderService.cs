@@ -35,12 +35,25 @@ namespace FFmpeg.Gui.Services
                     case VideoScaleControl videoScale:
                         rendered = RenderVideoScale(videoScale);
                         break;
+                    case VideoTimeControl videoTime:
+                        rendered = RenderVideoTime(videoTime);
+                        break;
                     default:
                         throw new InvalidOperationException();
                 }
                 target.Render(RenderLabel(controller.Label));
                 target.Render(rendered);
             }
+        }
+
+        private Control RenderVideoTime(VideoTimeControl videoTime)
+        {
+            return new TimeSpanInput
+            {
+                Name = videoTime.Name,
+                StartTime = videoTime.StartTime,
+                EndTime = videoTime.EndTime,
+            };
         }
 
         private TextBlock RenderLabel(string text)
