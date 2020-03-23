@@ -5,6 +5,8 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class MainViewModel: MvxViewModel
     {
+        private int _tabIndex;
+
         public FileSelectorViewModel FileSelectorVM { get; }
         public PresetSelectorViewModel PresetSelectorVM { get; }
         public JobViewModel JobVM { get; }
@@ -28,6 +30,17 @@ namespace FFmpeg.Gui.ViewModels
                                      presetBuilderService,
                                      dialogService,
                                      errorDisplayService);
+        }
+
+        public int TabIndex
+        {
+            get { return _tabIndex; }
+            set
+            {
+                SetProperty(ref _tabIndex, value);
+                if (value == 2)
+                    JobVM.TriggerErrorDisplayCall();
+            }
         }
 
     }

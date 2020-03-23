@@ -1,13 +1,13 @@
 ﻿using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ServiceCode;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Windows;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace FFmpeg.Gui.Services
 {
@@ -17,7 +17,7 @@ namespace FFmpeg.Gui.Services
 
         public PresetBuilderService()
         {
-            _control = new Regex("\\{[a-zA-Z0-9]+\\}", RegexOptions.Compiled);
+            _control = new Regex("\\{[a-zA-Z0-9.]+\\}", RegexOptions.Compiled);
         }
 
         public string Build(IRenderPanel source,
@@ -53,20 +53,32 @@ namespace FFmpeg.Gui.Services
                         if (match == null) continue;
 
                         string name = match.Value.Replace("{", "").Replace("}", "");
+                        string subname = string.Empty;
+                        if (name.Contains("."))
+                        {
+                            var parts = name.Split('.');
+                            name = parts[0];
+                            subname = parts[1];
+                        }
+
                         FrameworkElement element = source.GetElement(name);
+
+                        string render = string.Empty;
 
                         switch (element)
                         {
                             case SliderWithValueText slider:
-                                var slid = argument.Replace(match.Value, slider.Value.ToString(CultureInfo.InvariantCulture));
-                                results.Add(slid);
+                                render = PresetBuilder.RenderSlider(argument, match.Value, slider);
                                 break;
                             case VideoScaleInput videoScale:
-                                var scale = argument.Replace(match.Value, string.Format("{0}:{1}", videoScale.VideoWidth, videoScale.VideoHeight));
-                                results.Add(scale);
+                                render = PresetBuilder.RenderVideoScale(argument, match.Value, videoScale);
+                                break;
+                            case TimeSpanInput videoTime:
+                                render = PresetBuilder.RenderVideoTime(argument, match.Value, subname, videoTime);
                                 break;
                         }
 
+                        results.Add(render);
                     }
                 }
                 else
@@ -97,7 +109,21 @@ namespace FFmpeg.Gui.Services
                 }
             }
 
-            return string.Join(' ', args);
+            return JoinArgumentsToString(args);
+        }
+
+        private string JoinArgumentsToString(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var arg in args)
+            {
+                if (!string.IsNullOrEmpty(arg))
+                {
+                    sb.Append(arg);
+                    sb.Append(' ');
+                }
+            }
+            return sb.ToString().Trim();
         }
 
         public string GetShellScriptHeader(JobOutputFormat outputFormat)

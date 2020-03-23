@@ -61,6 +61,24 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preset: Invalid time range. Start time is bigger then End time.
+        /// </summary>
+        internal static string Error_CutPreset_InvalidRange {
+            get {
+                return ResourceManager.GetString("Error_CutPreset_InvalidRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preset: Start time can&apos;t be negative.
+        /// </summary>
+        internal static string Error_CutPreset_NegativeStart {
+            get {
+                return ResourceManager.GetString("Error_CutPreset_NegativeStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to execute job..
         /// </summary>
         internal static string Error_Execute {

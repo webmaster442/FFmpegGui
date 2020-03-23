@@ -1,4 +1,5 @@
 ﻿using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.ServiceCode;
 using System;
 using System.Collections.Generic;
 
@@ -16,12 +17,10 @@ namespace FFmpeg.Gui.Presets
                     Description = "Cut a portion of video without reencoding. Output Container is MKV",
                     ArgumentCollection = new List<string>
                     {
-                        "-ss",
-                        "{StartTime}",
+                        "-ss {VideoTime.StartTime}",
                         "-i",
                         "%source%",
-                        "-t",
-                        "{EndTime}",
+                        "-t {VideoTime.EndTime}",
                         "-c:a copy",
                         "-c:v copy",
                         "%target%"
@@ -32,10 +31,11 @@ namespace FFmpeg.Gui.Presets
                         new VideoTimeControl
                         {
                             Name = "VideoTime",
+                            Label = "If End time is negative, then the end is the video length",
                             StartTime = TimeSpan.FromSeconds(0),
                             EndTime = TimeSpan.FromSeconds(-1),
                         }
-                    }
+                    },
                 };
             }
         }
