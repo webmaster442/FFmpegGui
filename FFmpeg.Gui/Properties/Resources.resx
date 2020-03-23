@@ -138,4 +138,7 @@
   <data name="Error_Save" xml:space="preserve">
     <value>Failed to save Job script.</value>
   </data>
+  <data name="Error_Timespan_IncorrectFormat" xml:space="preserve">
+    <value>Can't parse input text as a valid Time</value>
+  </data>
 </root>

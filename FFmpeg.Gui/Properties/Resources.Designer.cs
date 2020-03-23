@@ -122,5 +122,14 @@ namespace FFmpeg.Gui.Properties {
                 return ResourceManager.GetString("Error_Save", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t parse input text as a valid Time.
+        /// </summary>
+        internal static string Error_Timespan_IncorrectFormat {
+            get {
+                return ResourceManager.GetString("Error_Timespan_IncorrectFormat", resourceCulture);
+            }
+        }
     }
 }
