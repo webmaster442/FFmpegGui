@@ -18,10 +18,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TabControl
+            Grid.RowSpan="2"
             x:Name="MainTabs"
             SelectionChanged="MainTabs_SelectionChanged"
             SelectedIndex="{Binding TabIndex}"
-            TabStripPlacement="Top">
+            TabStripPlacement="Bottom"
+            Margin="0,0,0,12">
             <TabItem Header="Source Files">
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
