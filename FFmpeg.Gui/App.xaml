@@ -7,15 +7,48 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <!--  MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive!  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <!--  Accent and AppTheme setting  -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Orange.xaml" />
                 <ResourceDictionary Source="Controls/ControlTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+            <Style
+                x:Key="CompactTabItem"
+                BasedOn="{StaticResource {x:Type TabItem}}"
+                TargetType="TabItem">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock
+                                        FontSize="16"
+                                        FontWeight="Bold"
+                                        Text="{Binding}"
+                                        TextDecorations="Underline" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="FlowDirection" Value="LeftToRight" />
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="{Binding}"
+                                TextDecorations="{x:Null}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <Style
                 x:Key="HeaderText"
@@ -34,9 +67,10 @@
 
             <Style
                 x:Key="BottomButton"
-                TargetType="Button">
+                TargetType="Button"
+                BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Margin" Value="2,0,2,5" />
-                <Setter Property="Width" Value="75" />
+                <Setter Property="MinWidth" Value="75" />
                 <Setter Property="Height" Value="25" />
             </Style>
         </ResourceDictionary>

@@ -10,6 +10,8 @@
     Width="800"
     Height="450"
     DataContextChanged="MvxWindow_DataContextChanged"
+    
+    GlowBrush="{DynamicResource AccentColorBrush}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
@@ -20,19 +22,25 @@
         <TabControl
             x:Name="MainTabs"
             Grid.RowSpan="2"
-            Margin="0,0,0,12"
+            Margin="0,0,0,0"
             SelectedIndex="{Binding TabIndex}"
             SelectionChanged="MainTabs_SelectionChanged"
             TabStripPlacement="Bottom">
-            <TabItem Header="Source Files">
+            <TabItem
+                Header="Source Files"
+                Style="{StaticResource CompactTabItem}">
                 <views:FileSelectorView DataContext="{Binding FileSelectorVM}" />
             </TabItem>
-            <TabItem Header="Preset">
+            <TabItem
+                Header="Preset"
+                Style="{StaticResource CompactTabItem}">
                 <views:PresetSelectorView
                     x:Name="PresetSelector"
                     DataContext="{Binding PresetSelectorVM}" />
             </TabItem>
-            <TabItem Header="Output">
+            <TabItem
+                Header="Output"
+                Style="{StaticResource CompactTabItem}">
                 <views:JobView DataContext="{Binding JobVM}" />
             </TabItem>
         </TabControl>
