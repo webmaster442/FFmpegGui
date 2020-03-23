@@ -21,7 +21,8 @@ namespace FFmpeg.Gui.Presets
                         "-c:a alac",
                         "%target%"
                     },
-                    TargetExtension = "m4a"
+                    TargetExtension = "m4a",
+                    Controllers = new List<PresetControl>()
                 };
             }
         }

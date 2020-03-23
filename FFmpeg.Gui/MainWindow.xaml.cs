@@ -1,6 +1,10 @@
 ﻿using FFmpeg.Gui.ViewModels;
+using MahApps.Metro.Controls;
 using MvvmCross;
+using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Wpf.Views;
+using MvvmCross.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,13 +13,100 @@ namespace FFmpeg.Gui
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MvxWindow
+    public partial class MainWindow : MetroWindow, IMvxWindow, IMvxWpfView, IDisposable
     {
+        private IMvxViewModel _viewModel;
+        private IMvxBindingContext _bindingContext;
+        private bool _unloaded = false;
+
         public MainWindow()
         {
+            Closed += MvxWindow_Closed;
+            Unloaded += MvxWindow_Unloaded;
+            Loaded += MvxWindow_Loaded;
+            Initialized += MvxWindow_Initialized;
             InitializeComponent();
             DataContext = Mvx.IoCProvider.Resolve<MainViewModel>();
             SwitchTabIndex(0);
+        }
+
+        private void MvxWindow_Initialized(object sender, EventArgs e)
+        {
+            if (this == Application.Current.MainWindow)
+            {
+                (Application.Current as MvvmCross.Platforms.Wpf.Views.MvxApplication).ApplicationInitialized();
+            }
+        }
+
+        public IMvxViewModel ViewModel
+        {
+            get => _viewModel;
+            set
+            {
+                _viewModel = value;
+                DataContext = value;
+                BindingContext.DataContext = value;
+            }
+        }
+
+        public string Identifier { get; set; }
+
+        public IMvxBindingContext BindingContext
+        {
+            get
+            {
+                if (_bindingContext != null)
+                    return _bindingContext;
+
+                if (Mvx.IoCProvider != null)
+                    this.CreateBindingContext();
+
+                return _bindingContext;
+            }
+            set => _bindingContext = value;
+        }
+
+        private void MvxWindow_Closed(object sender, EventArgs e) => Unload();
+
+        private void MvxWindow_Unloaded(object sender, RoutedEventArgs e) => Unload();
+
+        private void MvxWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel?.ViewAppearing();
+            ViewModel?.ViewAppeared();
+        }
+
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~MainWindow()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Unloaded -= MvxWindow_Unloaded;
+                Loaded -= MvxWindow_Loaded;
+                Closed -= MvxWindow_Closed;
+            }
+        }
+
+        private void Unload()
+        {
+            if (!_unloaded)
+            {
+                ViewModel?.ViewDisappearing();
+                ViewModel?.ViewDisappeared();
+                ViewModel?.ViewDestroy();
+                _unloaded = true;
+            }
         }
 
         private void SwitchTabIndex(int increment)
