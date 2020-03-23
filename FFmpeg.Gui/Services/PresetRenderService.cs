@@ -29,10 +29,10 @@ namespace FFmpeg.Gui.Services
                 FrameworkElement rendered = null;
                 switch (controller)
                 {
-                    case BitrateSlider bitrateSlider:
+                    case BitrateSliderControl bitrateSlider:
                         rendered = RenderBitrateSlider(bitrateSlider);
                         break;
-                    case VideoScale videoScale:
+                    case VideoScaleControl videoScale:
                         rendered = RenderVideoScale(videoScale);
                         break;
                     default:
@@ -50,7 +50,7 @@ namespace FFmpeg.Gui.Services
             return result;
         }
 
-        private Control RenderVideoScale(VideoScale videoScale)
+        private Control RenderVideoScale(VideoScaleControl videoScale)
         {
             var scaler = new VideoScaleInput
             {
@@ -63,7 +63,7 @@ namespace FFmpeg.Gui.Services
         }
 
 
-        private Control RenderBitrateSlider(BitrateSlider bitrateSlider)
+        private Control RenderBitrateSlider(BitrateSliderControl bitrateSlider)
         {
             var slider = new SliderWithValueText
             {

@@ -28,7 +28,7 @@ namespace FFmpeg.Gui.Presets
                     TargetExtension = "mkv",
                     Controllers = new List<PresetControl>
                     {
-                        new VideoScale
+                        new VideoScaleControl
                         {
                             Name = "Scale",
                             Label = "Video Scale (-1, -1 : No resize)",

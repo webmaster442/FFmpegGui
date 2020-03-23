@@ -26,7 +26,7 @@ namespace FFmpeg.Gui.Presets
                     TargetExtension = "mp3",
                     Controllers = new List<PresetControl>
                     {
-                        new BitrateSlider
+                        new BitrateSliderControl
                         {
                             Label = "Audio Bitrate",
                             Maximum = 320,

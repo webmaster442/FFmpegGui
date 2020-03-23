@@ -27,7 +27,7 @@ namespace FFmpeg.Gui.Presets
                     TargetExtension = "flac",
                     Controllers = new List<PresetControl>
                     {
-                        new BitrateSlider
+                        new BitrateSliderControl
                         {
                             Label = "Compression Level",
                             Maximum = 12,
