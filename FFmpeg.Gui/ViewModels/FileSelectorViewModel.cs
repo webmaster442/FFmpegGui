@@ -7,18 +7,18 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class FileSelectorViewModel: MvxViewModel
     {
-        private string _selectedFile;
+        private FileSelectorItemViewModel _selectedFile;
         private readonly IDialogService _dialogService;
         private readonly SessionViewModel _session;
 
-        public ObservableCollectionExt<string> Files { get; set; }
+        public ObservableCollectionExt<FileSelectorItemViewModel> Files { get; set; }
 
         public MvxCommand AddFilesCommand { get; }
         public MvxCommand ClearListCommand { get; }
-        public MvxCommand<string> RemoveSelectedCommand { get; }
+        public MvxCommand<FileSelectorItemViewModel> RemoveSelectedCommand { get; }
         public MvxCommand<string[]> FilesDragedinCommand { get; }
 
-        public string SelectedFile
+        public FileSelectorItemViewModel SelectedFile
         {
             get { return _selectedFile; }
             set
@@ -31,28 +31,29 @@ namespace FFmpeg.Gui.ViewModels
         public FileSelectorViewModel(SessionViewModel session, IDialogService dialogService)
         {
             _session = session;
-            Files = new ObservableCollectionExt<string>();
-            Files.CollectionChanged += (s, e) => _session.InputFiles = Files.ToList();
+            Files = new ObservableCollectionExt<FileSelectorItemViewModel>();
+            Files.CollectionChanged += (s, e) => _session.InputFiles = Files.Select(f => f.FullPath).ToList();
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
-            RemoveSelectedCommand = new MvxCommand<string>(OnRemoveSelected, CanRemoveSelected);
+            RemoveSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnRemoveSelected, CanRemoveSelected);
             FilesDragedinCommand = new MvxCommand<string[]>(OnFilesDraggedIn);
             this._dialogService = dialogService;
         }
 
         private void OnFilesDraggedIn(string[] obj)
         {
-            Files.AddRange(obj);
+            var models = obj.Select(f => new FileSelectorItemViewModel(f));
+            Files.AddRange(models);
         }
 
-        private bool CanRemoveSelected(string arg)
+        private bool CanRemoveSelected(FileSelectorItemViewModel arg)
         {
-            return !string.IsNullOrEmpty(arg);
+            return arg != null;
         }
 
-        private void OnRemoveSelected(string obj)
+        private void OnRemoveSelected(FileSelectorItemViewModel obj)
         {
-            if (!string.IsNullOrEmpty(obj))
+            if (obj != null)
                 Files.Remove(obj);
         }
 
@@ -65,7 +66,8 @@ namespace FFmpeg.Gui.ViewModels
         {
             if (_dialogService.ShowFileSelector(true, "all files|*.*", out string[] files))
             {
-                Files.AddRange(files);
+                var models = files.Select(f => new FileSelectorItemViewModel(f));
+                Files.AddRange(models);
             }
         }
     }

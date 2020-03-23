@@ -55,13 +55,13 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
-                            Foreground="Black"
+                            Foreground="{TemplateBinding Foreground}"
                             Text="{Binding ElementName=PART_Slider, Path=Value}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="2,0"
-                            Foreground="Black"
+                            Foreground="{TemplateBinding Foreground}"
                             Text="{TemplateBinding ValueUnit}" />
                     </Grid>
                 </ControlTemplate>

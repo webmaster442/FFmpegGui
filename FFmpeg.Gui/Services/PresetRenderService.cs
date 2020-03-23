@@ -46,22 +46,25 @@ namespace FFmpeg.Gui.Services
             }
         }
 
+        private TextBlock RenderLabel(string text)
+        {
+            return new TextBlock
+            {
+                Margin = ControlMargin,
+                Text = text
+            };
+        }
+
         private Control RenderVideoTime(VideoTimeControl videoTime)
         {
             var input = new TimeSpanInput
             {
                 Name = videoTime.Name,
+                Margin = ControlMargin,
             };
             input.ViewModel.StartTime = videoTime.StartTime;
             input.ViewModel.EndTime = videoTime.EndTime;
             return input;
-        }
-
-        private TextBlock RenderLabel(string text)
-        {
-            var result = new TextBlock();
-            result.Text = text;
-            return result;
         }
 
         private Control RenderVideoScale(VideoScaleControl videoScale)
