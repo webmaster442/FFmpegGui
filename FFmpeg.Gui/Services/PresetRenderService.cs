@@ -48,12 +48,13 @@ namespace FFmpeg.Gui.Services
 
         private Control RenderVideoTime(VideoTimeControl videoTime)
         {
-            return new TimeSpanInput
+            var input = new TimeSpanInput
             {
                 Name = videoTime.Name,
-                StartTime = videoTime.StartTime,
-                EndTime = videoTime.EndTime,
             };
+            input.ViewModel.StartTime = videoTime.StartTime;
+            input.ViewModel.EndTime = videoTime.EndTime;
+            return input;
         }
 
         private TextBlock RenderLabel(string text)

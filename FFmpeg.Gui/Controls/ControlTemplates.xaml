@@ -3,6 +3,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:FFmpeg.Gui.Controls">
 
+    <Style
+        x:Key="ValidatableTextBox"
+        BasedOn="{StaticResource {x:Type TextBox}}"
+        TargetType="TextBox">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="placeholder" />
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            FontSize="11"
+                            FontStyle="Italic"
+                            Foreground="Red"
+                            Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="local:SliderWithValueText">
         <Setter Property="Template">
             <Setter.Value>
@@ -82,20 +108,40 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
                         <TextBlock
+                            Grid.Row="0"
                             Grid.Column="0"
                             Margin="5,0"
                             Text="Start time: " />
                         <TextBox
+                            Grid.Row="0"
                             Grid.Column="1"
-                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=StartTime, Converter={local:TimeSpanConverter}}" />
+                            Style="{StaticResource ValidatableTextBox}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeDisplayText, Mode=TwoWay}" />
+                        <CheckBox
+                            Content="Seconds"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeIsSeconds, Mode=TwoWay}" />
                         <TextBlock
+                            Grid.Row="0"
                             Grid.Column="2"
                             Margin="5,0"
                             Text="End time: " />
                         <TextBox
+                            Grid.Row="0"
                             Grid.Column="3"
-                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=EndTime, Converter={local:TimeSpanConverter}}" />
+                            Style="{StaticResource ValidatableTextBox}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeDisplayText, Mode=TwoWay}" />
+                        <CheckBox
+                            Content="Seconds"
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeIsSeconds, Mode=TwoWay}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

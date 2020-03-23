@@ -13,7 +13,7 @@ namespace FFmpeg.Gui.Presets
                 return new Preset
                 {
                     Name = "Video, Cut video without reencode",
-                    Description = "Cut a portion of video without reencoding",
+                    Description = "Cut a portion of video without reencoding. Output Container is MKV",
                     ArgumentCollection = new List<string>
                     {
                         "-ss",
