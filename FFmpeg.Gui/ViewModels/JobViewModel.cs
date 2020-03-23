@@ -111,13 +111,14 @@ namespace FFmpeg.Gui.ViewModels
             TriggerErrorDisplayCall();
         }
 
-        private void TriggerErrorDisplayCall()
+        public void TriggerErrorDisplayCall()
         {
             Errors.Clear();
             var result = _errorDisplayService.GetErrors(_session.InputFiles, 
                                                         _session.CurrentPreset, 
                                                         OutputPath,
-                                                        FFmpegPath);
+                                                        FFmpegPath,
+                                                        RenderTarget?.HasErrors ?? false);
             Errors.AddRange(result);
             ErrorsVisible = Errors.Count > 0;
         }

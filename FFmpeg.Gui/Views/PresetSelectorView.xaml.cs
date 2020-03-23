@@ -1,6 +1,8 @@
 ﻿using FFmpeg.Gui.Interfaces;
 using MvvmCross.Platforms.Wpf.Views;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FFmpeg.Gui.Views
 {
@@ -12,6 +14,29 @@ namespace FFmpeg.Gui.Views
         public PresetSelectorView()
         {
             InitializeComponent();
+        }
+
+        private bool IsValid(DependencyObject obj)
+        {
+            return 
+                !Validation.GetHasError(obj) 
+                && LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>().All(IsValid);
+        }
+
+        public bool HasErrors
+        {
+            get
+            {
+                foreach (var item in RenderPanel.Children)
+                {
+                    if (item is DependencyObject obj
+                        && !IsValid(obj))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         public void ClearItems()

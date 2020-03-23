@@ -124,6 +124,15 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The currently selected preset has invalid values..
+        /// </summary>
+        internal static string Error_Preset_InvalidState {
+            get {
+                return ResourceManager.GetString("Error_Preset_InvalidState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load XML presets file..
         /// </summary>
         internal static string Error_PresetXMLSerialize {

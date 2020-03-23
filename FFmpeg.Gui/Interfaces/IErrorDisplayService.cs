@@ -5,6 +5,6 @@ namespace FFmpeg.Gui.Interfaces
 {
     internal interface IErrorDisplayService
     {
-        IEnumerable<string> GetErrors(List<string> files, Preset preset, string outDirectory, string ffmpegPath);
+        IEnumerable<string> GetErrors(List<string> files, Preset preset, string outDirectory, string ffmpegPath, bool presetErrors);
     }
 }
