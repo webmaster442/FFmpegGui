@@ -11,6 +11,11 @@ namespace FFmpeg.Gui.Controls
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             if (value is string str)
             {
                 if (TimeSpan.TryParse(str, culture, out TimeSpan ts))
@@ -26,11 +31,6 @@ namespace FFmpeg.Gui.Controls
             {
                 return new ValidationResult(Resources.Error_Timespan_IncorrectFormat);
             }
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value.ToString();
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
