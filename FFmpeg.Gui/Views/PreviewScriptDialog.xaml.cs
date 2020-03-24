@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using System.Windows;
 
 namespace FFmpeg.Gui.Views
 {

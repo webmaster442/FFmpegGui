@@ -1,4 +1,9 @@
-﻿using FFmpeg.Gui.ViewModels;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using FFmpeg.Gui.ViewModels;
 using MahApps.Metro.Controls;
 using MvvmCross;
 using MvvmCross.Binding.BindingContext;

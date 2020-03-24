@@ -1,4 +1,9 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Services;
 using FFmpeg.Gui.ViewModels;
 using MvvmCross;

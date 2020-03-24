@@ -1,4 +1,9 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System.Linq;

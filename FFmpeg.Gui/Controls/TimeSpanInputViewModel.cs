@@ -1,4 +1,9 @@
-﻿using FFmpeg.Gui.Properties;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using FFmpeg.Gui.Properties;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections;
