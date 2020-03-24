@@ -173,6 +173,7 @@ namespace FFmpeg.Gui
             if (DataContext is MainViewModel mvm)
             {
                 mvm.ToolFlyoutOpen = false;
+                tool.ConstructAndAssociateViewModel();
                 ToolPopup.Content = tool;
                 ToolPopup.Title = tool.Title;
                 ToolPopup.Visibility = Visibility.Visible;

@@ -3,12 +3,11 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using MvvmCross.Platforms.Wpf.Views;
-
 namespace FFmpeg.Gui.Interfaces
 {
-    interface ITool: IMvxWpfView
+    interface ITool
     {
         string Title { get; }
+        void ConstructAndAssociateViewModel();
     }
 }

@@ -4,6 +4,8 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ViewModels;
+using MvvmCross;
 using MvvmCross.Platforms.Wpf.Views;
 
 namespace FFmpeg.Gui.Views
@@ -19,5 +21,10 @@ namespace FFmpeg.Gui.Views
         }
 
         public string Title => "Mkv Chapter Generator";
+
+        public void ConstructAndAssociateViewModel()
+        {
+            DataContext = Mvx.IoCProvider.Resolve<MkvChapterGeneratorViewModel>();
+        }
     }
 }
