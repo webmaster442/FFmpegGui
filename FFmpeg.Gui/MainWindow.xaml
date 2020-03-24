@@ -29,18 +29,32 @@
                         Text="Get a FFmpeg build" />
                 </StackPanel>
             </Button>
+            <Button
+                x:Name="BtnTools"
+                Command="{Binding OpenCloseToolFlyoutCommand}"
+                Content="Tools" />
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout
+                Width="120"
+                Header="Tools"
+                IsOpen="{Binding ToolFlyoutOpen}"
+                Position="Right" />
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <controls:ToolPopup
+            x:Name="ToolPopup"
             Grid.RowSpan="2"
             Margin="20"
             Panel.ZIndex="99"
-            x:Name="ToolPopup"
             Visibility="Collapsed" />
         <TabControl
             x:Name="MainTabs"

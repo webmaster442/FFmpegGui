@@ -22,6 +22,7 @@ namespace FFmpeg.Gui
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPresetRenderService, PresetRenderService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPresetBuilderService, PresetBuilderService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorDisplayService, ErrorDisplayService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<IToolService, ToolService>();
             Mvx.IoCProvider.RegisterType<MainViewModel>();
         }
     }

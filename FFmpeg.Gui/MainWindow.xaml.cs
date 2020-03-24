@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Infrastructure;
+using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.ViewModels;
 using MahApps.Metro.Controls;
 using MvvmCross;
@@ -165,6 +166,13 @@ namespace FFmpeg.Gui
                 mvm.PresetSelectorVM.RenderTarget = PresetSelector;
                 mvm.JobVM.RenderTarget = PresetSelector;
             }
+        }
+
+        internal void ShowToolPopup(ITool tool)
+        {
+            ToolPopup.Content = tool;
+            ToolPopup.Title = tool.Title;
+            ToolPopup.Visibility = Visibility.Visible;
         }
     }
 }

@@ -6,25 +6,47 @@
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using System;
 
 namespace FFmpeg.Gui.ViewModels
 {
     internal class MainViewModel: MvxViewModel
     {
         private int _tabIndex;
+        private bool _toolFlyoutOpen;
 
         public FileSelectorViewModel FileSelectorVM { get; }
         public PresetSelectorViewModel PresetSelectorVM { get; }
         public JobViewModel JobVM { get; }
         public SessionViewModel Session { get; }
+        public ToolsViewModel ToolsVM { get; }
 
         public MvxCommand GetFFmpegCommand { get; }
+        public MvxCommand OpenCloseToolFlyoutCommand { get; }
+
+        public int TabIndex
+        {
+            get { return _tabIndex; }
+            set
+            {
+                SetProperty(ref _tabIndex, value);
+                if (value == 2)
+                    JobVM.TriggerErrorDisplayCall();
+            }
+        }
+
+        public bool ToolFlyoutOpen
+        {
+            get { return _toolFlyoutOpen; }
+            set { SetProperty(ref _toolFlyoutOpen, value); }
+        }
 
         public MainViewModel(IDialogService dialogService,
                              IPresetReaderService presetReaderService,
                              IPresetRenderService presetRenderService,
                              IPresetBuilderService presetBuilderService,
-                             IErrorDisplayService errorDisplayService)
+                             IErrorDisplayService errorDisplayService,
+                             IToolService toolService)
         {
             Session = new SessionViewModel();
 
@@ -39,7 +61,10 @@ namespace FFmpeg.Gui.ViewModels
                                      dialogService,
                                      errorDisplayService);
 
+            ToolsVM = new ToolsViewModel(toolService);
+
             GetFFmpegCommand = new MvxCommand(OnGetFFmpeg);
+            OpenCloseToolFlyoutCommand = new MvxCommand(OnOpenCloseFlyout);
         }
 
         private void OnGetFFmpeg()
@@ -52,15 +77,9 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        public int TabIndex
+        private void OnOpenCloseFlyout()
         {
-            get { return _tabIndex; }
-            set
-            {
-                SetProperty(ref _tabIndex, value);
-                if (value == 2)
-                    JobVM.TriggerErrorDisplayCall();
-            }
+            ToolFlyoutOpen = !ToolFlyoutOpen;
         }
 
     }
