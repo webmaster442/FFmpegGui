@@ -27,20 +27,13 @@ namespace FFmpeg.Gui.Services
             foreach (var controller in preset.Controllers)
             {
                 FrameworkElement rendered = null;
-                switch (controller)
+                rendered = controller switch
                 {
-                    case BitrateSliderControl bitrateSlider:
-                        rendered = RenderBitrateSlider(bitrateSlider);
-                        break;
-                    case VideoScaleControl videoScale:
-                        rendered = RenderVideoScale(videoScale);
-                        break;
-                    case VideoTimeControl videoTime:
-                        rendered = RenderVideoTime(videoTime);
-                        break;
-                    default:
-                        throw new InvalidOperationException();
-                }
+                    BitrateSliderControl bitrateSlider => RenderBitrateSlider(bitrateSlider),
+                    VideoScaleControl videoScale => RenderVideoScale(videoScale),
+                    VideoTimeControl videoTime => RenderVideoTime(videoTime),
+                    _ => throw new InvalidOperationException(),
+                };
                 target.Render(RenderLabel(controller.Label));
                 target.Render(rendered);
             }
