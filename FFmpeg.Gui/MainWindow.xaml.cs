@@ -170,9 +170,13 @@ namespace FFmpeg.Gui
 
         internal void ShowToolPopup(ITool tool)
         {
-            ToolPopup.Content = tool;
-            ToolPopup.Title = tool.Title;
-            ToolPopup.Visibility = Visibility.Visible;
+            if (DataContext is MainViewModel mvm)
+            {
+                mvm.ToolFlyoutOpen = false;
+                ToolPopup.Content = tool;
+                ToolPopup.Title = tool.Title;
+                ToolPopup.Visibility = Visibility.Visible;
+            }
         }
     }
 }

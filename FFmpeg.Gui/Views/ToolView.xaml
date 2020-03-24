@@ -17,7 +17,9 @@
                 <DataTemplate>
                     <mah:Tile
                         Width="120"
-                        Height="120">
+                        Height="120"
+                        Command="{Binding Path=DataContext.LaunchToolCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mvvmCrossViews:MvxWpfView}}"
+                        CommandParameter="{Binding}">
                         <TextBlock
                             MaxWidth="115"
                             Text="{Binding}"

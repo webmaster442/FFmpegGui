@@ -169,6 +169,9 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock
                                         Grid.Column="0"
+                                        Margin="4,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
                                         Foreground="{TemplateBinding Foreground}"
                                         Text="{TemplateBinding Title}" />
                                     <Button

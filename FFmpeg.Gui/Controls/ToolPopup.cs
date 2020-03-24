@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -40,6 +41,11 @@ namespace FFmpeg.Gui.Controls
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
+            if (Content is IDisposable disposeable)
+            {
+                disposeable.Dispose();
+            }
+            Content = null;
         }
     }
 }
