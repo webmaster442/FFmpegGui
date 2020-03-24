@@ -10,10 +10,25 @@
     Width="800"
     Height="450"
     DataContextChanged="MvxWindow_DataContextChanged"
-    
     GlowBrush="{DynamicResource AccentColorBrush}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <ContentPresenter
+                        Width="20"
+                        Height="20"
+                        Content="{StaticResource icon-ffmpeg}" />
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Get a FFmpeg build" />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />

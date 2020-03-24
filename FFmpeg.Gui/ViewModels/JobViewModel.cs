@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Properties;
 using MvvmCross.Commands;

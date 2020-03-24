@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;

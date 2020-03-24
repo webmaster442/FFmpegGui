@@ -12,7 +12,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <!--  Accent and AppTheme setting  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Orange.xaml" />
+                
+                <!-- Fmmpeg gui -->
                 <ResourceDictionary Source="Controls/ControlTemplates.xaml" />
+                <ResourceDictionary Source="VectorIcons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />

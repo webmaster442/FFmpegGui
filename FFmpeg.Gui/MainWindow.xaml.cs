@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.ViewModels;
 using MahApps.Metro.Controls;
 using MvvmCross;
@@ -33,6 +34,13 @@ namespace FFmpeg.Gui
             InitializeComponent();
             DataContext = Mvx.IoCProvider.Resolve<MainViewModel>();
             SwitchTabIndex(0);
+
+            var icon = FindResource("icon-ffmpeg") as Viewbox;
+            icon.Width = 32;
+            icon.Height = 32;
+
+            this.Icon = icon.ToBitmapSource();
+
         }
 
         private void MvxWindow_Initialized(object sender, EventArgs e)
