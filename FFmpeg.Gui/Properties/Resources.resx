@@ -129,6 +129,12 @@
   <data name="Error_FFmpeg" xml:space="preserve">
     <value>FFMpeg Not found.</value>
   </data>
+  <data name="Error_FileLoad" xml:space="preserve">
+    <value>Failed to load the selected file</value>
+  </data>
+  <data name="Error_FileWrite" xml:space="preserve">
+    <value>Failed to write the file</value>
+  </data>
   <data name="Error_NoInputFiles" xml:space="preserve">
     <value>No input files are selected</value>
   </data>
@@ -137,9 +143,6 @@
   </data>
   <data name="Error_Preset" xml:space="preserve">
     <value>No preset is selected</value>
-  </data>
-  <data name="Error_PresetXMLSerialize" xml:space="preserve">
-    <value>Failed to load XML presets file.</value>
   </data>
   <data name="Error_Preset_InvalidState" xml:space="preserve">
     <value>The currently selected preset has invalid values.</value>

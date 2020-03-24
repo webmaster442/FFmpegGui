@@ -20,7 +20,7 @@ namespace FFmpeg.Gui.Views
             InitializeComponent();
         }
 
-        public string Title => "Mkv Chapter Generator";
+        public string Title => "MkvToolnix Chapter Generator";
 
         public void ConstructAndAssociateViewModel()
         {

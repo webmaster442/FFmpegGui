@@ -3,10 +3,15 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Domain.Mkv;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Properties;
+using MkvChapterGenerator;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using System;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -33,12 +38,44 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnSaveXml()
         {
-            throw new NotImplementedException();
+            if (_dialogService.ShowSaveFileDialog("XML files|*.xml", out string file))
+            {
+                try
+                {
+                    var lines = InputText.Split('\n').Select(l => l.Trim());
+                    Chapters xml = MkvXmlFactory.BuildChapters(lines);
+                    SerializeXML(xml, file);
+                }
+                catch (IOException)
+                {
+                    _dialogService.ShowError(Resources.Error_FileWrite);
+                }
+            }
+        }
+
+        private static void SerializeXML(Chapters xml, string target)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(Chapters));
+            var Namespaces = new XmlSerializerNamespaces();
+            //no namespaces
+            Namespaces.Add("", "");
+            using var outp = File.Create(target);
+            xs.Serialize(outp, xml, Namespaces);
         }
 
         private void OnLoadText()
         {
-            throw new NotImplementedException();
+            if (_dialogService.ShowFileSelector(false, "Text files|*.txt", out string[] files))
+            {
+                try
+                {
+                    File.ReadAllText(files[0]);
+                }
+                catch (IOException)
+                {
+                    _dialogService.ShowError(Resources.Error_FileLoad);
+                }
+            }
         }
     }
 }

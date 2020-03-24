@@ -97,6 +97,24 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load the selected file.
+        /// </summary>
+        internal static string Error_FileLoad {
+            get {
+                return ResourceManager.GetString("Error_FileLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to write the file.
+        /// </summary>
+        internal static string Error_FileWrite {
+            get {
+                return ResourceManager.GetString("Error_FileWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No input files are selected.
         /// </summary>
         internal static string Error_NoInputFiles {
@@ -129,15 +147,6 @@ namespace FFmpeg.Gui.Properties {
         internal static string Error_Preset_InvalidState {
             get {
                 return ResourceManager.GetString("Error_Preset_InvalidState", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load XML presets file..
-        /// </summary>
-        internal static string Error_PresetXMLSerialize {
-            get {
-                return ResourceManager.GetString("Error_PresetXMLSerialize", resourceCulture);
             }
         }
         
