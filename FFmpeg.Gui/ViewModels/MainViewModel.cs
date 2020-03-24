@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Interfaces;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
@@ -16,6 +17,8 @@ namespace FFmpeg.Gui.ViewModels
         public PresetSelectorViewModel PresetSelectorVM { get; }
         public JobViewModel JobVM { get; }
         public SessionViewModel Session { get; }
+
+        public MvxCommand GetFFmpegCommand { get; }
 
         public MainViewModel(IDialogService dialogService,
                              IPresetReaderService presetReaderService,
@@ -35,6 +38,18 @@ namespace FFmpeg.Gui.ViewModels
                                      presetBuilderService,
                                      dialogService,
                                      errorDisplayService);
+
+            GetFFmpegCommand = new MvxCommand(OnGetFFmpeg);
+        }
+
+        private void OnGetFFmpeg()
+        {
+            using (var process = new System.Diagnostics.Process())
+            {
+                process.StartInfo.UseShellExecute = true;
+                process.StartInfo.FileName = "https://ffmpeg.zeranoe.com/builds/";
+                process.Start();
+            }
         }
 
         public int TabIndex
