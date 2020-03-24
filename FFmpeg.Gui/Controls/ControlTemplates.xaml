@@ -123,9 +123,9 @@
                             Style="{StaticResource ValidatableTextBox}"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeDisplayText, Mode=TwoWay}" />
                         <CheckBox
-                            Content="Seconds"
                             Grid.Row="1"
                             Grid.Column="1"
+                            Content="Seconds"
                             IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeIsSeconds, Mode=TwoWay}" />
                         <TextBlock
                             Grid.Row="0"
@@ -138,9 +138,9 @@
                             Style="{StaticResource ValidatableTextBox}"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeDisplayText, Mode=TwoWay}" />
                         <CheckBox
-                            Content="Seconds"
                             Grid.Row="1"
                             Grid.Column="3"
+                            Content="Seconds"
                             IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeIsSeconds, Mode=TwoWay}" />
                     </Grid>
                 </ControlTemplate>
@@ -148,5 +148,46 @@
         </Setter>
     </Style>
 
+    <Style TargetType="local:ToolPopup">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ToolPopup">
+                    <Border
+                        Background="{StaticResource MahApps.Brushes.Button.Flat.Foreground}"
+                        BorderBrush="{StaticResource MahApps.Brushes.Button.Border}"
+                        BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Border Background="{StaticResource MahApps.Brushes.Accent}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Text="{TemplateBinding Title}" />
+                                    <Button
+                                        x:Name="PART_CLOSE"
+                                        Grid.Column="1"
+                                        Margin="2"
+                                        Content="X" />
+                                </Grid>
+                            </Border>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Content="{TemplateBinding Content}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
