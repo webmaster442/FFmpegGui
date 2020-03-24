@@ -38,10 +38,12 @@
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
             <mah:Flyout
-                Width="120"
+                Width="150"
                 Header="Tools"
                 IsOpen="{Binding ToolFlyoutOpen}"
-                Position="Right" />
+                Position="Right">
+                <views:ToolView DataContext="{Binding ToolsVM}"/>
+            </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 

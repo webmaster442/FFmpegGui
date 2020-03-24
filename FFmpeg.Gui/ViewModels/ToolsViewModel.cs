@@ -5,6 +5,7 @@
 
 using FFmpeg.Gui.Interfaces;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -15,10 +16,10 @@ namespace FFmpeg.Gui.ViewModels
         public ToolsViewModel(IToolService toolService)
         {
             _toolService = toolService;
-            Tools = new ObservableCollection<ITool>(_toolService.GetTools());
+            Tools = new ObservableCollection<string>(_toolService.GetTools().Select(t => t.Title));
         }
 
-        public ObservableCollection<ITool> Tools { get; }
+        public ObservableCollection<string> Tools { get; }
 
     }
 }
