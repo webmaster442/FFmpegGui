@@ -121,7 +121,7 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource ValidatableTextBox}"
-                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeDisplayText, Mode=TwoWay}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeDisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
                         <CheckBox
                             Grid.Row="1"
                             Grid.Column="1"
@@ -136,7 +136,7 @@
                             Grid.Row="0"
                             Grid.Column="3"
                             Style="{StaticResource ValidatableTextBox}"
-                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeDisplayText, Mode=TwoWay}" />
+                            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.EndTimeDisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
                         <CheckBox
                             Grid.Row="1"
                             Grid.Column="3"

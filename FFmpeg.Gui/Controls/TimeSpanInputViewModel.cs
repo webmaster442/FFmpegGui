@@ -149,16 +149,18 @@ namespace FFmpeg.Gui.Controls
 
         private void ValidateTimeRange()
         {
+            _errors.Clear();
             if (StartTime.TotalSeconds < 0)
             {
                 _errors.TryAdd(nameof(StartTimeDisplayText), Resources.Error_CutPreset_NegativeStart);
-                RaiseErrorsChanged(nameof(StartTimeDisplayText));
             }
             if (EndTime.TotalSeconds > 0 && StartTime > EndTime)
             {
                 _errors.TryAdd(nameof(StartTimeDisplayText), Resources.Error_CutPreset_InvalidRange);
-                RaiseErrorsChanged(nameof(StartTimeDisplayText));
+
             }
+            RaiseErrorsChanged(nameof(StartTimeDisplayText));
+            RaiseErrorsChanged(nameof(StartTimeDisplayText));
         }
 
         private void TimeSpanToString(TimeSpan value, bool isSeconds, ref string field, string PropertyChanged)
