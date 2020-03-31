@@ -25,6 +25,7 @@ namespace FFmpeg.Gui
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IToolService, ToolService>();
             Mvx.IoCProvider.RegisterType<MainViewModel>();
             Mvx.IoCProvider.RegisterType<MkvChapterGeneratorViewModel>();
+            Mvx.IoCProvider.RegisterType<FileSizeCalculatorViewModel>();
         }
     }
 }

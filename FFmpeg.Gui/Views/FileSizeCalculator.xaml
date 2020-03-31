@@ -1,0 +1,49 @@
+﻿<mvvmCrossViews:MvxWpfView
+    x:Class="FFmpeg.Gui.Views.FileSizeCalculator"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:FFmpeg.Gui.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="10,0"
+            Text="Average video bitrate:" />
+        <controls:SliderWithValueText
+            Margin="15,5"
+            IsSnapToTickEnabled="True"
+            Maximum="10000"
+            Minimum="0"
+            TickFrequency="1"
+            ValueUnit="Kbit"
+            Value="{Binding VideoBitrate, Mode=TwoWay}" />
+        <TextBlock
+            Margin="10,0"
+            Text="Average audio bitrate:" />
+        <controls:SliderWithValueText
+            Margin="15,5"
+            IsSnapToTickEnabled="True"
+            Maximum="1000"
+            Minimum="0"
+            TickFrequency="1"
+            ValueUnit="Kbit"
+            Value="{Binding AudioBitrate, Mode=TwoWay}" />
+        <TextBlock
+            Margin="10,0"
+            Text="Video length:" />
+        <TextBox
+            Margin="15,5"
+            Text="{Binding VideoLength, UpdateSourceTrigger=PropertyChanged, Delay=250,  Converter={controls:TimeSpanToTextConverter}}" />
+        <TextBlock
+            Margin="10,0"
+            Text="Result:" />
+        <TextBox
+            Margin="15,5"
+            IsReadOnly="True"
+            Text="{Binding FileSize, Mode=OneWay, Converter={controls:FileSizeToReadableTextConverter}}" />
+    </StackPanel>
+</mvvmCrossViews:MvxWpfView>

@@ -31,8 +31,18 @@
             </Button>
             <Button
                 x:Name="BtnTools"
-                Command="{Binding OpenCloseToolFlyoutCommand}"
-                Content="Tools" />
+                Command="{Binding OpenCloseToolFlyoutCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <ContentPresenter
+                        Width="20"
+                        Height="20"
+                        Content="{StaticResource icon-tools}" />
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Tools" />
+                </StackPanel>
+            </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <mah:MetroWindow.Flyouts>
@@ -42,7 +52,7 @@
                 Header="Tools"
                 IsOpen="{Binding ToolFlyoutOpen}"
                 Position="Right">
-                <views:ToolView DataContext="{Binding ToolsVM}"/>
+                <views:ToolView DataContext="{Binding ToolsVM}" />
             </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>

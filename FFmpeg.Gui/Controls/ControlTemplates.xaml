@@ -51,7 +51,7 @@
                             Maximum="{TemplateBinding Maximum}"
                             Minimum="{TemplateBinding Minimum}"
                             Ticks="{TemplateBinding Ticks}"
-                            Value="{TemplateBinding Value}" />
+                            Value="{Binding Value, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:SliderWithValueText}}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
