@@ -43,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\Mkv\" />
-    <Folder Include="Domain\Cd\" />
   </ItemGroup>
 
 </Project>
