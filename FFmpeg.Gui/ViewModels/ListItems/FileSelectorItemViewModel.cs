@@ -3,7 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-namespace FFmpeg.Gui.ViewModels
+namespace FFmpeg.Gui.ViewModels.ListItems
 {
     internal class FileSelectorItemViewModel
     {

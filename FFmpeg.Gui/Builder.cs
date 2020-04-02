@@ -23,9 +23,11 @@ namespace FFmpeg.Gui
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IPresetBuilderService, PresetBuilderService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IErrorDisplayService, ErrorDisplayService>();
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IToolService, ToolService>();
+            Mvx.IoCProvider.ConstructAndRegisterSingleton<ICdReaderService, CdReaderService>();
             Mvx.IoCProvider.RegisterType<MainViewModel>();
             Mvx.IoCProvider.RegisterType<MkvChapterGeneratorViewModel>();
             Mvx.IoCProvider.RegisterType<FileSizeCalculatorViewModel>();
+            Mvx.IoCProvider.RegisterType<CdReaderViewModel>();
         }
     }
 }

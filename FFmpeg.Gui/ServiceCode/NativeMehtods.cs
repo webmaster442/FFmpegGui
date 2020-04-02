@@ -24,11 +24,9 @@ namespace FFmpeg.Gui.ServiceCode
         [DllImport("Kernel32.dll", SetLastError = false, CharSet = CharSet.Auto)]
         public static extern bool DeviceIoControl(SafeFileHandle hDevice,
                                                   EIOControlCode IoControlCode,
-                                                  [MarshalAs(UnmanagedType.AsAny)]
-                                                  [In] object InBuffer,
+                                                  IntPtr InBuffer,
                                                   uint nInBufferSize,
-                                                  [MarshalAs(UnmanagedType.AsAny)]
-                                                  [Out] object OutBuffer,
+                                                  IntPtr OutBuffer,
                                                   uint nOutBufferSize,
                                                   ref uint pBytesReturned,
                                                   [In] ref System.Threading.NativeOverlapped Overlapped);

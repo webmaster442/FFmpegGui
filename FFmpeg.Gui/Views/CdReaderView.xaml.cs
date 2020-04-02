@@ -3,18 +3,28 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ViewModels;
+using MvvmCross;
 using MvvmCross.Platforms.Wpf.Views;
 
 namespace FFmpeg.Gui.Views
 {
     /// <summary>
-    /// Interaction logic for FileSelectorView.xaml
+    /// Interaction logic for CdReaderView.xaml
     /// </summary>
-    public partial class FileSelectorView : MvxWpfView
+    public partial class CdReaderView : MvxWpfView, ITool
     {
-        public FileSelectorView()
+        public CdReaderView()
         {
             InitializeComponent();
+        }
+
+        public string Title => "Audio Cd Reader";
+
+        public void ConstructAndAssociateViewModel()
+        {
+            DataContext = Mvx.IoCProvider.Resolve<CdReaderViewModel>();
         }
     }
 }

@@ -5,6 +5,7 @@
 
 using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ViewModels.ListItems;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System.Linq;

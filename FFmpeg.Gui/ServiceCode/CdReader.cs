@@ -79,9 +79,9 @@ namespace FFmpeg.Gui.ServiceCode
                 NativeOverlapped overlap = default;
                 return NativeMethods.DeviceIoControl(_driveHandle,
                                                      EIOControlCode.StorageLoadMedia,
-                                                     null,
+                                                     IntPtr.Zero,
                                                      0,
-                                                     null,
+                                                     IntPtr.Zero,
                                                      0,
                                                      ref Dummy,
                                                      ref overlap);
@@ -99,9 +99,9 @@ namespace FFmpeg.Gui.ServiceCode
                 NativeOverlapped overlap = default;
                 return NativeMethods.DeviceIoControl(_driveHandle,
                                                      EIOControlCode.StorageEjectMedia,
-                                                     null,
+                                                     IntPtr.Zero,
                                                      0,
-                                                     null,
+                                                     IntPtr.Zero,
                                                      0,
                                                      ref Dummy,
                                                      ref overlap);
@@ -120,9 +120,9 @@ namespace FFmpeg.Gui.ServiceCode
                     NativeOverlapped overlap = default;
                     bool result = NativeMethods.DeviceIoControl(_driveHandle,
                                                                 EIOControlCode.StorageCheckVerify,
-                                                                null,
+                                                                IntPtr.Zero,
                                                                 0,
-                                                                null,
+                                                                IntPtr.Zero,
                                                                 0,
                                                                 ref Dummy,
                                                                 ref overlap);
@@ -251,14 +251,20 @@ namespace FFmpeg.Gui.ServiceCode
                     preventRemoval.PreventMediaRemoval = 1;
                 else
                     preventRemoval.PreventMediaRemoval = 0;
-                return NativeMethods.DeviceIoControl(_driveHandle,
-                                                     EIOControlCode.StorageMediaRemoval,
-                                                     preventRemoval,
-                                                     (uint)Marshal.SizeOf(preventRemoval),
-                                                     null,
-                                                     0,
-                                                     ref Dummy,
-                                                     ref nativeOverlapped);
+
+                var handle = GCHandle.Alloc(preventRemoval);
+
+                bool result = NativeMethods.DeviceIoControl(_driveHandle,
+                                                            EIOControlCode.StorageMediaRemoval,
+                                                            (IntPtr)handle,
+                                                            (uint)Marshal.SizeOf(preventRemoval),
+                                                            IntPtr.Zero,
+                                                            0,
+                                                            ref Dummy,
+                                                            ref nativeOverlapped);
+
+                handle.Free();
+                return result;
             }
 
             return false;
@@ -270,14 +276,23 @@ namespace FFmpeg.Gui.ServiceCode
             {
                 uint BytesRead = 0;
                 NativeOverlapped overlaped = default;
+
+                byte[] buffer = new byte[Marshal.SizeOf(_Toc)];
+                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+
                 _tocIsValid = NativeMethods.DeviceIoControl(_driveHandle,
                                                             EIOControlCode.CDromReadTOC,
-                                                            null,
+                                                            IntPtr.Zero,
                                                             0,
-                                                            _Toc,
+                                                            handle.AddrOfPinnedObject(),
                                                             (uint)Marshal.SizeOf(_Toc),
                                                             ref BytesRead,
                                                             ref overlaped);
+
+                _Toc = (CdromTOC)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(CdromTOC));
+
+                handle.Free();
+
             }
             else
                 _tocIsValid = false;
@@ -328,15 +343,26 @@ namespace FFmpeg.Gui.ServiceCode
 
                 uint BytesRead = 0;
 
+                var input = GCHandle.Alloc(rri);
+
+                var output = GCHandle.Alloc(Buffer);
+
+
                 NativeOverlapped overlaped = default;
-                return NativeMethods.DeviceIoControl(_driveHandle,
+                bool result = NativeMethods.DeviceIoControl(_driveHandle,
                                                      EIOControlCode.CDromRawRead,
-                                                     rri,
+                                                     (IntPtr)input,
                                                      (uint)Marshal.SizeOf(rri),
-                                                     Buffer,
+                                                     (IntPtr)output, //TEST
                                                      (uint)NumSectors * CdConstants.CB_AUDIO,
                                                      ref BytesRead,
                                                      ref overlaped);
+
+                input.Free();
+                output.Free();
+
+                return result;
+
             }
             else
             {
