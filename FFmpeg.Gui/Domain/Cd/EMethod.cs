@@ -3,11 +3,16 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-namespace FFmpeg.Gui.Domain
+using System;
+
+namespace FFmpeg.Gui.Domain.Cd
 {
-    internal class VideoScaleControl : PresetControl
+    [Flags]
+    internal enum EMethod : uint
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        Buffered = 0,
+        InDirect = 1,
+        OutDirect = 2,
+        Neither = 3
     }
 }

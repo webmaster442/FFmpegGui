@@ -3,11 +3,15 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-namespace FFmpeg.Gui.Domain
+using System.Runtime.InteropServices;
+
+namespace FFmpeg.Gui.Domain.Cd
 {
-    internal class VideoScaleControl : PresetControl
+    [StructLayout(LayoutKind.Sequential)]
+    internal class RawReadInfo
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public long DiskOffset = 0;
+        public uint SectorCount = 0;
+        public TrackModeType TrackMode = TrackModeType.CDDA;
     }
 }

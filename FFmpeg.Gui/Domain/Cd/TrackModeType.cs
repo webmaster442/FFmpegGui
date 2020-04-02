@@ -3,11 +3,10 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-namespace FFmpeg.Gui.Domain
+namespace FFmpeg.Gui.Domain.Cd
 {
-    internal class VideoScaleControl : PresetControl
+    internal enum TrackModeType
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        YellowMode2, XAForm2, CDDA
     }
 }

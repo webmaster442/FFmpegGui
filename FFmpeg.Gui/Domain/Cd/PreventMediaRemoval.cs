@@ -3,11 +3,13 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-namespace FFmpeg.Gui.Domain
+using System.Runtime.InteropServices;
+
+namespace FFmpeg.Gui.Domain.Cd
 {
-    internal class VideoScaleControl : PresetControl
+    [StructLayout(LayoutKind.Sequential)]
+    internal class PreventMediaRemovalT
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public byte PreventMediaRemoval = 0;
     }
 }
