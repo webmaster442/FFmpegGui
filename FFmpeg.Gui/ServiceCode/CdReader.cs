@@ -193,7 +193,7 @@ namespace FFmpeg.Gui.ServiceCode
                 return false;
         }
 
-        public bool ReadTrack(int track, Stream target, IProgress<uint> BytesReadReport)
+        public bool ReadTrack(int track, Stream target, IProgress<long> BytesReadReport, CancellationToken token)
         {
             if (_tocIsValid &&
                 (track >= _Toc.FirstTrack) &&
@@ -204,25 +204,32 @@ namespace FFmpeg.Gui.ServiceCode
                 int EndSect = GetEndSector(track);
 
                 uint Bytes2Read = (uint)(EndSect - StartSect) * CdConstants.CB_AUDIO;
-                uint BytesRead = 0;
                 byte[] Data = new byte[CdConstants.CB_AUDIO * CdConstants.NSECTORS];
-                bool Cont = true;
                 bool ReadOk = true;
 
                 BytesReadReport?.Report(0);
 
                 WavePacker.WriteHeader(target, new WaveFormat(44100, 16, 2), Bytes2Read);
 
-                for (int sector = StartSect; (sector < EndSect) && (Cont) && (ReadOk); sector += CdConstants.NSECTORS)
+                for (int sector = StartSect; (sector < EndSect && ReadOk); sector += CdConstants.NSECTORS)
                 {
+                    if (token.IsCancellationRequested)
+                        return false;
+
                     int Sectors2Read = ((sector + CdConstants.NSECTORS) < EndSect) ? CdConstants.NSECTORS : (EndSect - sector);
                     ReadOk = ReadSector(sector, Data, Sectors2Read);
+
+                    if (token.IsCancellationRequested)
+                        return false;
+
                     if (ReadOk)
                     {
+                        if (token.IsCancellationRequested)
+                            return false;
+
                         int read = (CdConstants.CB_AUDIO * Sectors2Read);
                         target.Write(Data, 0, read);
-                        BytesRead += (uint)read;
-                        BytesReadReport?.Report(BytesRead);
+                        BytesReadReport?.Report(read);
                     }
                 }
 
@@ -270,36 +277,6 @@ namespace FFmpeg.Gui.ServiceCode
             return false;
         }
 
-        private bool ReadTOC()
-        {
-            if (_driveHandle?.IsInvalid == false)
-            {
-                uint BytesRead = 0;
-                NativeOverlapped overlaped = default;
-
-                byte[] buffer = new byte[Marshal.SizeOf(_Toc)];
-                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
-
-                _tocIsValid = NativeMethods.DeviceIoControl(_driveHandle,
-                                                            EIOControlCode.CDromReadTOC,
-                                                            IntPtr.Zero,
-                                                            0,
-                                                            handle.AddrOfPinnedObject(),
-                                                            (uint)Marshal.SizeOf(_Toc),
-                                                            ref BytesRead,
-                                                            ref overlaped);
-
-                _Toc = (CdromTOC)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(CdromTOC));
-
-                handle.Free();
-
-            }
-            else
-                _tocIsValid = false;
-
-            return _tocIsValid;
-        }
-
         private int GetStartSector(int track)
         {
             if (_tocIsValid
@@ -330,6 +307,36 @@ namespace FFmpeg.Gui.ServiceCode
             }
         }
 
+                private bool ReadTOC()
+        {
+            if (_driveHandle?.IsInvalid == false)
+            {
+                uint BytesRead = 0;
+                NativeOverlapped overlaped = default;
+
+                byte[] buffer = new byte[Marshal.SizeOf(_Toc)];
+                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+
+                _tocIsValid = NativeMethods.DeviceIoControl(_driveHandle,
+                                                            EIOControlCode.CDromReadTOC,
+                                                            IntPtr.Zero,
+                                                            0,
+                                                            handle.AddrOfPinnedObject(),
+                                                            (uint)Marshal.SizeOf(_Toc),
+                                                            ref BytesRead,
+                                                            ref overlaped);
+
+                _Toc = (CdromTOC)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(CdromTOC));
+
+                handle.Free();
+
+            }
+            else
+                _tocIsValid = false;
+
+            return _tocIsValid;
+        }
+
         private bool ReadSector(int sector, byte[] Buffer, int NumSectors)
         {
             if (_tocIsValid &&
@@ -343,17 +350,17 @@ namespace FFmpeg.Gui.ServiceCode
 
                 uint BytesRead = 0;
 
-                var input = GCHandle.Alloc(rri);
+                var input = GCHandle.Alloc(rri, GCHandleType.Pinned);
 
-                var output = GCHandle.Alloc(Buffer);
+                var output = GCHandle.Alloc(Buffer, GCHandleType.Pinned);
 
 
                 NativeOverlapped overlaped = default;
                 bool result = NativeMethods.DeviceIoControl(_driveHandle,
                                                      EIOControlCode.CDromRawRead,
-                                                     (IntPtr)input,
+                                                     input.AddrOfPinnedObject(),
                                                      (uint)Marshal.SizeOf(rri),
-                                                     (IntPtr)output, //TEST
+                                                     output.AddrOfPinnedObject(), //TEST
                                                      (uint)NumSectors * CdConstants.CB_AUDIO,
                                                      ref BytesRead,
                                                      ref overlaped);

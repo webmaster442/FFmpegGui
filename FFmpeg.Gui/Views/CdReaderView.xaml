@@ -14,24 +14,44 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ToolBar Grid.Row="0">
-            <TextBlock Text="Drive:" />
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Text="Drive:" />
             <ComboBox
+                Margin="10,0"
                 ItemsSource="{Binding CdRomDrives}"
                 SelectedItem="{Binding DriveLetter}" />
+            <Separator />
             <Button
                 Command="{Binding OpenDriveCommand}"
                 Content="Open" />
+            <Separator />
+            <Button
+                Command="{Binding SelectAllCommand}"
+                Content="Select all" />
+            <Separator />
+            <Button
+                Command="{Binding DeSelectAllCommand}"
+                Content="Deselect all" />
+            <Separator />
+            <Button
+                Command="{Binding SelectOutDirCommand}"
+                Content="Set ouptut directory..." />
+            <Separator />
             <Button
                 Command="{Binding ReadCommand}"
-                Content="Read" />
-            <Separator />
+                Content="Read selected" />
         </ToolBar>
         <StackPanel
             Grid.Row="1"
             Orientation="Horizontal">
-            <TextBlock Text="Output dir:" />
+            <TextBlock
+                Margin="5,3"
+                Text="Output dir:" />
             <TextBlock Text="{Binding TargetDirectory}" />
         </StackPanel>
         <ListBox
@@ -42,22 +62,45 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition  />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="120" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock
+                        <CheckBox
                             Grid.Column="0"
-                            Text="{Binding Name}" />
+                            IsChecked="{Binding IsSelected}" />
                         <TextBlock
                             Grid.Column="1"
-                            Text="{Binding Length}" />
+                            Text="{Binding Name}" />
                         <TextBlock
                             Grid.Column="2"
+                            Text="{Binding Length, StringFormat={}{0:mm\\:ss}}" />
+                        <TextBlock
+                            Grid.Column="3"
+                            Margin="0,0,20,0"
                             Text="{Binding Size, Converter={controls:FileSizeToReadableTextConverter}}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Grid
+            Grid.Row="3"
+            Visibility="{Binding Reading, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar
+                Grid.Column="0"
+                Maximum="{Binding Total}"
+                Minimum="0"
+                Value="{Binding Done}" />
+            <Button
+                Grid.Column="1"
+                Margin="5,0"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
+        </Grid>
     </Grid>
 </mvvmCrossViews:MvxWpfView>

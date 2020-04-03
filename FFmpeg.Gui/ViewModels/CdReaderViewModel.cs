@@ -5,12 +5,15 @@
 
 using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Properties;
 using FFmpeg.Gui.ViewModels.ListItems;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -20,9 +23,14 @@ namespace FFmpeg.Gui.ViewModels
         private readonly IDialogService _dialogService;
         private string _targetDirectory;
 
-        private bool driveOpen = false;
         private bool _reading;
         private string _driveLetter;
+
+        private readonly CancellationTokenSource _cts;
+
+        private readonly Progress<long> _progressReporter;
+        private long _done;
+        private long _total;
 
         public bool Reading
         {
@@ -48,9 +56,21 @@ namespace FFmpeg.Gui.ViewModels
             set { SetProperty(ref _targetDirectory, value); }
         }
 
+        public long Total
+        {
+            get { return _total; }
+            set { SetProperty(ref _total, value); }
+        }
+
+        public long Done
+        {
+            get { return _done; }
+            set { SetProperty(ref _done, value); }
+        }
+
         public ObservableCollectionExt<string> CdRomDrives { get; }
 
-        public ObservableCollectionExt<CdItemViewModel> CdItems { get; }
+        public BindingList<CdItemViewModel> CdItems { get; }
 
         public MvxCommand SelectOutDirCommand { get; }
 
@@ -59,6 +79,10 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand ReadCommand { get; }
 
         public MvxCommand CancelCommand { get; }
+
+        public MvxCommand SelectAllCommand { get; }
+
+        public MvxCommand DeSelectAllCommand { get; }
 
 
         public CdReaderViewModel(ICdReaderService cdReaderService,
@@ -72,12 +96,35 @@ namespace FFmpeg.Gui.ViewModels
                 .Select(drive => drive.Name);
 
             CdRomDrives = new ObservableCollectionExt<string>(drives);
-            CdItems = new ObservableCollectionExt<CdItemViewModel>();
+
+            if (CdRomDrives.Count > 0)
+                DriveLetter = CdRomDrives[0];
+
+            CdItems = new BindingList<CdItemViewModel>();
+            CdItems.ListChanged += OnCdItemsChanged;
 
             OpenDriveCommand = new MvxCommand(OnOpenDrive, CanDoAction);
             SelectOutDirCommand = new MvxCommand(OnSelectOutDir, CanDoAction);
-            ReadCommand = new MvxCommand(OnRead, CanDoAction);
+            ReadCommand = new MvxCommand(OnRead, CanRead);
             CancelCommand = new MvxCommand(OnCancel);
+            SelectAllCommand = new MvxCommand(() => SetSelectionState(true), CanSelect);
+            DeSelectAllCommand = new MvxCommand(() => SetSelectionState(false), CanSelect);
+
+            _cts = new CancellationTokenSource();
+            _progressReporter = new Progress<long>();
+            _progressReporter.ProgressChanged += OnReportProgress;
+        }
+
+        private void OnReportProgress(object sender, long e)
+        {
+            Done += e;
+        }
+
+        private void OnCdItemsChanged(object sender, ListChangedEventArgs e)
+        {
+            SelectAllCommand.RaiseCanExecuteChanged();
+            DeSelectAllCommand.RaiseCanExecuteChanged();
+            ReadCommand.RaiseCanExecuteChanged();
         }
 
         private void OnSelectOutDir()
@@ -86,36 +133,84 @@ namespace FFmpeg.Gui.ViewModels
             {
                 TargetDirectory = path;
             }
+            ReadCommand.RaiseCanExecuteChanged();
         }
 
         private bool CanDoAction()
         {
-            return !Reading;
+            return 
+                !Reading 
+                && !string.IsNullOrEmpty(DriveLetter)
+                && CdRomDrives.Count > 0;
         }
 
 
         private async void OnOpenDrive()
         {
-            Reading = true;
-            CdItems.Clear();
-            CdItemViewModel[] cdTracks = await _cdReaderService.GetTracks(DriveLetter);
-            CdItems.AddRange(cdTracks);
-            Reading = false;
+            try
+            {
+                Reading = true;
+                CdItems.Clear();
+                CdItemViewModel[] cdTracks = await _cdReaderService.GetTracks(DriveLetter);
+                CdItems.AddRange(cdTracks);
+                await RaisePropertyChanged(nameof(CdItems));
+                Reading = false;
+            }
+            catch (Exception)
+            {
+                _dialogService.ShowError(Resources.Error_CdRead);
+                Reading = false;
+                CdItems.Clear();
+            }
+            finally
+            {
+                SelectAllCommand.RaiseCanExecuteChanged();
+                DeSelectAllCommand.RaiseCanExecuteChanged();
+                ReadCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private void SetSelectionState(bool state)
+        {
+            foreach (var item in CdItems)
+                item.IsSelected = state;
+        }
+
+        private bool CanSelect()
+        {
+            return CdItems.Count > 0;
         }
 
         private void OnCancel()
         {
-            throw new NotImplementedException();
+            _cts.Cancel();
         }
 
         private bool CanRead()
         {
-            throw new NotImplementedException();
+            return
+                CanDoAction()
+                && Directory.Exists(TargetDirectory)
+                && CdItems.Any(item => item.IsSelected == true);
         }
 
-        private void OnRead()
+        private async void OnRead()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Done = 0;
+                Reading = true;
+                var selectedTracks = CdItems.Where(i => i.IsSelected);
+                Total = selectedTracks.Sum(i => i.Size);
+                var reuslt = await _cdReaderService.ReadTracks(DriveLetter, selectedTracks, TargetDirectory, _progressReporter, _cts.Token);
+                Reading = false;
+            }
+            catch (Exception)
+            {
+                _dialogService.ShowError(Resources.Error_CdRead);
+                Reading = false;
+                Done = 0;
+            }
         }
 
     }

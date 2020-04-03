@@ -61,6 +61,15 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t read the inserted disc.
+        /// </summary>
+        internal static string Error_CdRead {
+            get {
+                return ResourceManager.GetString("Error_CdRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preset: Invalid time range. Start time is bigger then End time.
         /// </summary>
         internal static string Error_CutPreset_InvalidRange {

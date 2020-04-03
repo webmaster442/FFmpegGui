@@ -3,6 +3,8 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -36,5 +38,16 @@ namespace FFmpeg.Gui.Infrastructure
 
             return rtb;
         }
+
+        public static void AddRange<T>(this BindingList<T> list, IEnumerable<T> items)
+        {
+            list.RaiseListChangedEvents = false;
+            foreach (var item in items)
+            {
+                list.Add(item);
+            }
+            list.RaiseListChangedEvents = true;
+        }
+
     }
 }

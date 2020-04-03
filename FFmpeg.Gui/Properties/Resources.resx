@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Error_CdRead" xml:space="preserve">
+    <value>Can't read the inserted disc</value>
+  </data>
   <data name="Error_CutPreset_InvalidRange" xml:space="preserve">
     <value>Preset: Invalid time range. Start time is bigger then End time</value>
   </data>
