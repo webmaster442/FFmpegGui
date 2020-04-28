@@ -16,6 +16,12 @@ namespace FFmpeg.Gui.Services
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        public void ShowInfo(string infoMessage)
+        {
+            MessageBox.Show(infoMessage, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
         public bool ShowFileSelector(bool multiSelect, string filter, out string[] files)
         {
             var openFile = new Microsoft.Win32.OpenFileDialog();

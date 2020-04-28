@@ -156,4 +156,7 @@
   <data name="Error_Timespan_IncorrectFormat" xml:space="preserve">
     <value>Can't parse input text as a valid Time</value>
   </data>
+  <data name="Info_SaveOk" xml:space="preserve">
+    <value>File saved succesfully</value>
+  </data>
 </root>

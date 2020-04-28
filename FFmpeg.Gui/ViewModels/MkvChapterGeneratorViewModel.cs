@@ -45,6 +45,7 @@ namespace FFmpeg.Gui.ViewModels
                     var lines = InputText.Split('\n').Select(l => l.Trim());
                     Chapters xml = MkvXmlFactory.BuildChapters(lines);
                     SerializeXML(xml, file);
+                    _dialogService.ShowInfo(Resources.Info_SaveOk);
                 }
                 catch (IOException)
                 {

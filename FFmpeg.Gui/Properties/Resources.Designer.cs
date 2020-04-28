@@ -176,5 +176,14 @@ namespace FFmpeg.Gui.Properties {
                 return ResourceManager.GetString("Error_Timespan_IncorrectFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File saved succesfully.
+        /// </summary>
+        internal static string Info_SaveOk {
+            get {
+                return ResourceManager.GetString("Info_SaveOk", resourceCulture);
+            }
+        }
     }
 }

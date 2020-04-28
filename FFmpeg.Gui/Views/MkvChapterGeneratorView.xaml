@@ -30,7 +30,7 @@
             AcceptsTab="True"
             FontFamily="Consolas"
             FontSize="14"
-            Text="{Binding InputText}"
+            Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
             VerticalScrollBarVisibility="Visible" />
     </Grid>
 </mvvmCrossViews:MvxWpfView>
