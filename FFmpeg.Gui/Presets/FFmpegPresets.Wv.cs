@@ -32,7 +32,7 @@ namespace FFmpeg.Gui.Presets
                     TargetExtension = "wv",
                     Controllers = new List<PresetControl>
                     {
-                        new BitrateSliderControl
+                        new SliderControl
                         {
                             Label = "Compression Level",
                             Maximum = 5,

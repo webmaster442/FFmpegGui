@@ -5,7 +5,7 @@
 
 namespace FFmpeg.Gui.Domain
 {
-    public class BitrateSliderControl : PresetControl
+    public class SliderControl : PresetControl
     {
         public int Minimum { get; set; }
         public int Maximum { get; set; }

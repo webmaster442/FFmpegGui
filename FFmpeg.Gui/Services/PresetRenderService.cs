@@ -34,7 +34,7 @@ namespace FFmpeg.Gui.Services
                 FrameworkElement rendered = null;
                 rendered = controller switch
                 {
-                    BitrateSliderControl bitrateSlider => RenderBitrateSlider(bitrateSlider),
+                    SliderControl bitrateSlider => RenderBitrateSlider(bitrateSlider),
                     VideoScaleControl videoScale => RenderVideoScale(videoScale),
                     VideoTimeControl videoTime => RenderVideoTime(videoTime),
                     _ => throw new InvalidOperationException(),
@@ -78,7 +78,7 @@ namespace FFmpeg.Gui.Services
         }
 
 
-        private Control RenderBitrateSlider(BitrateSliderControl bitrateSlider)
+        private Control RenderBitrateSlider(SliderControl bitrateSlider)
         {
             var slider = new SliderWithValueText
             {
