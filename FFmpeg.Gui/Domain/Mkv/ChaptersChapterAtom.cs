@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 
 namespace FFmpeg.Gui.Domain.Mkv
@@ -15,6 +16,12 @@ namespace FFmpeg.Gui.Domain.Mkv
         public string ChapterTimeStart { get; set; }
 
         public ChaptersChapterAtomChapterDisplay ChapterDisplay { get; set; }
+
+        public ChaptersChapterAtom()
+        {
+            ChapterTimeStart = string.Empty;
+            ChapterDisplay = new ChaptersChapterAtomChapterDisplay();
+        }
     }
 
 }

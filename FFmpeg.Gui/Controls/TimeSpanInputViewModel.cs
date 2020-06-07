@@ -28,6 +28,8 @@ namespace FFmpeg.Gui.Controls
         public TimeSpanInputViewModel()
         {
             _errors = new Dictionary<string, string>();
+            _endTimeDisplayText = string.Empty;
+            _startTimeDisplayText = string.Empty;
         }
 
         public bool StartTimeIsSeconds
@@ -105,13 +107,14 @@ namespace FFmpeg.Gui.Controls
 
         public bool HasErrors => _errors.Any(kv => !string.IsNullOrEmpty(kv.Value));
 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
         public IEnumerable GetErrors(string propertyName)
         {
-            string error = string.Empty;
-            _errors.TryGetValue(propertyName, out error);
-            yield return error;
+            if (_errors.TryGetValue(propertyName, out string? error))
+            {
+                yield return error;
+            }
         }
 
         private void StringToTimeSpan(string input, bool isSeconds, ref TimeSpan field, string PropertyChanged, string validateProperty)

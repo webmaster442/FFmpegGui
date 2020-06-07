@@ -9,5 +9,11 @@ namespace FFmpeg.Gui.Domain
     {
         public string Name { get; set; }
         public string Label { get; set; }
+
+        public PresetControl()
+        {
+            Name = string.Empty;
+            Label = string.Empty;
+        }
     }
 }

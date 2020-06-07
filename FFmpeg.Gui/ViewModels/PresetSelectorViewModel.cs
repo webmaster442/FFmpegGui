@@ -15,11 +15,11 @@ namespace FFmpeg.Gui.ViewModels
         private readonly SessionViewModel _session;
         private readonly IPresetRenderService _presetRenderService;
         private Preset _selected;
-        private IRenderPanel _renderTarget;
+        private IRenderPanel? _renderTarget;
 
         public ObservableCollectionExt<Preset> Presets { get; }
 
-        public IRenderPanel RenderTarget
+        public IRenderPanel? RenderTarget
         {
             get { return _renderTarget; }
             set
@@ -27,7 +27,7 @@ namespace FFmpeg.Gui.ViewModels
                 if (value != null)
                 {
                     _renderTarget = value;
-                    _presetRenderService.RenderPreset(RenderTarget, Selected);
+                    _presetRenderService.RenderPreset(_renderTarget, Selected);
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace FFmpeg.Gui.ViewModels
             _session = session;
             _presetRenderService = presetRenderService;
             Presets = new ObservableCollectionExt<Preset>(presetReaderService.GetPresets());
-            Selected = Presets[0];
+            _selected = Presets[0];
             _session.CurrentPreset = Presets[0];
         }
     }

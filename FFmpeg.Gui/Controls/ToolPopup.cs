@@ -21,7 +21,7 @@ namespace FFmpeg.Gui.Controls
             DependencyProperty.Register("Title", typeof(string), typeof(ToolPopup), new PropertyMetadata(string.Empty));
 
 
-        public object Content
+        public object? Content
         {
             get { return GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
@@ -34,8 +34,10 @@ namespace FFmpeg.Gui.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            var closeButton = GetTemplateChild("PART_CLOSE") as Button;
-            closeButton.Click += CloseButton_Click;
+            if (GetTemplateChild("PART_CLOSE") is Button closeButton)
+            {
+                closeButton.Click += CloseButton_Click;
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

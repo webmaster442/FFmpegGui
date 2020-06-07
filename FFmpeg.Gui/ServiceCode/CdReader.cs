@@ -17,7 +17,7 @@ namespace FFmpeg.Gui.ServiceCode
         private CdromTOC _Toc;
         private char _driveLetter;
         private bool _tocIsValid;
-        private SafeFileHandle _driveHandle;
+        private SafeFileHandle? _driveHandle;
 
         public CdReader()
         {
@@ -163,7 +163,7 @@ namespace FFmpeg.Gui.ServiceCode
             }
         }
 
-        public CdTrackInfo GetTrackInfo(int track)
+        public CdTrackInfo? GetTrackInfo(int track)
         {
             if (_tocIsValid &&
                 (track >= _Toc.FirstTrack) &&
@@ -281,9 +281,9 @@ namespace FFmpeg.Gui.ServiceCode
         {
             if (_tocIsValid
                 && (track >= _Toc.FirstTrack)
-                && (track <= _Toc.LastTrack))
+                && (track <= _Toc.LastTrack)
+                && _Toc.TrackData[track - 1] is TrackData td)
             {
-                TrackData td = _Toc.TrackData[track - 1];
                 return (td.Address_1 * 60 * 75 + td.Address_2 * 75 + td.Address_3) - 150;
             }
             else
@@ -294,11 +294,11 @@ namespace FFmpeg.Gui.ServiceCode
 
         private int GetEndSector(int track)
         {
-            if (_tocIsValid 
+            if (_tocIsValid
                 && (track >= _Toc.FirstTrack)
-                && (track <= _Toc.LastTrack))
+                && (track <= _Toc.LastTrack)
+                && _Toc.TrackData[track] is TrackData td)
             {
-                TrackData td = _Toc.TrackData[track];
                 return (td.Address_1 * 60 * 75 + td.Address_2 * 75 + td.Address_3) - 151;
             }
             else
@@ -307,7 +307,7 @@ namespace FFmpeg.Gui.ServiceCode
             }
         }
 
-                private bool ReadTOC()
+        private bool ReadTOC()
         {
             if (_driveHandle?.IsInvalid == false)
             {
@@ -326,7 +326,11 @@ namespace FFmpeg.Gui.ServiceCode
                                                             ref BytesRead,
                                                             ref overlaped);
 
-                _Toc = (CdromTOC)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(CdromTOC));
+                object? result = Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(CdromTOC));
+                if (result != null)
+                    _Toc = (CdromTOC)result;
+                else
+                    _tocIsValid = false;
 
                 handle.Free();
 
@@ -339,9 +343,10 @@ namespace FFmpeg.Gui.ServiceCode
 
         private bool ReadSector(int sector, byte[] Buffer, int NumSectors)
         {
-            if (_tocIsValid &&
-                ((sector + NumSectors) <= GetEndSector(_Toc.LastTrack)) &&
-                (Buffer.Length >= CdConstants.CB_AUDIO * NumSectors))
+            if (_tocIsValid 
+                && ((sector + NumSectors) <= GetEndSector(_Toc.LastTrack)) 
+                && (Buffer.Length >= CdConstants.CB_AUDIO * NumSectors)
+                && _driveHandle != null)
             {
                 RawReadInfo rri = new RawReadInfo();
                 rri.TrackMode = TrackModeType.CDDA;

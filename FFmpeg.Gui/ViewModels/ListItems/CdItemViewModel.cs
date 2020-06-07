@@ -12,7 +12,7 @@ namespace FFmpeg.Gui.ViewModels.ListItems
     {
         private bool _isSelected;
 
-        public string Name { get; set; }
+        public string Name { get; }
         public TimeSpan Length { get; set; }
         public long Size { get; set; }
 
@@ -22,6 +22,11 @@ namespace FFmpeg.Gui.ViewModels.ListItems
         {
             get { return _isSelected; }
             set { SetProperty(ref _isSelected, value); }
+        }
+
+        public CdItemViewModel(string name)
+        {
+            Name = name;
         }
     }
 }

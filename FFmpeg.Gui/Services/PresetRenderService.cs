@@ -31,7 +31,7 @@ namespace FFmpeg.Gui.Services
             target.ClearItems();
             foreach (var controller in preset.Controllers)
             {
-                FrameworkElement rendered = null;
+                FrameworkElement? rendered = null;
                 rendered = controller switch
                 {
                     SliderControl bitrateSlider => RenderBitrateSlider(bitrateSlider),

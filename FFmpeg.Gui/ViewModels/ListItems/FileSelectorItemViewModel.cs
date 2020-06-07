@@ -14,7 +14,7 @@ namespace FFmpeg.Gui.ViewModels.ListItems
         public FileSelectorItemViewModel(string path)
         {
             FullPath = path;
-            Directory = System.IO.Path.GetDirectoryName(path);
+            Directory = System.IO.Path.GetDirectoryName(path) ?? string.Empty;
         }
     }
 }

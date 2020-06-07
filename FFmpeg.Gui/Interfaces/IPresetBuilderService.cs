@@ -12,7 +12,7 @@ namespace FFmpeg.Gui.Interfaces
     {
         string Build(
             IRenderPanel source,
-            Preset preset,
+            Preset? preset,
             IList<string> files,
             string OutputDirectory,
             string ffmpeg);

@@ -26,7 +26,7 @@ namespace FFmpeg.Gui.Services
         }
 
         public string Build(IRenderPanel source,
-                            Preset preset,
+                            Preset? preset,
                             IList<string> files,
                             string OutputDirectory,
                             string ffmpeg)
@@ -37,15 +37,18 @@ namespace FFmpeg.Gui.Services
 
             foreach (var file in files)
             {
-                var line = RenderSingleFile(presetArgValues.ToArray(), file, preset.TargetExtension, OutputDirectory);
+                var line = RenderSingleFile(presetArgValues.ToArray(), file, preset?.TargetExtension ?? string.Empty, OutputDirectory);
                 results.AppendLine(line);
             }
 
             return results.ToString();
         }
 
-        private List<string> ProcessPreset(string ffmpeg, IRenderPanel source, Preset preset)
+        private List<string> ProcessPreset(string ffmpeg, IRenderPanel source, Preset? preset)
         {
+            if (preset == null)
+                return new List<string>();
+
             List<string> results = new List<string>(preset.ArgumentCollection.Count + 1);
             results.Add($"\"{ffmpeg}\"");
             foreach (var argument in preset.ArgumentCollection)
@@ -53,7 +56,7 @@ namespace FFmpeg.Gui.Services
                 var matches = _control.Matches(argument);
                 if (matches.Count > 0)
                 {
-                    foreach (Match match in matches)
+                    foreach (Match? match in matches)
                     {
                         if (match == null) continue;
 
@@ -66,7 +69,7 @@ namespace FFmpeg.Gui.Services
                             subname = parts[1];
                         }
 
-                        FrameworkElement element = source.GetElement(name);
+                        FrameworkElement? element = source.GetElement(name);
 
                         string render = string.Empty;
 

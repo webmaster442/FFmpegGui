@@ -15,10 +15,17 @@ namespace FFmpeg.Gui.Domain
 
         public string Description { get; set; }
 
-        public string Extension { get; set; }
-
         public List<PresetControl> Controllers { get; set; }
 
         public List<string> ArgumentCollection { get; set; }
+
+        public Preset()
+        {
+            Name = string.Empty;
+            TargetExtension = string.Empty;
+            Description = string.Empty;
+            Controllers = new List<PresetControl>();
+            ArgumentCollection = new List<string>();
+        }
     }
 }

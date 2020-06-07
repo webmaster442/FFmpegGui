@@ -22,12 +22,13 @@ namespace FFmpeg.Gui
     /// </summary>
     public partial class MainWindow : MetroWindow, IMvxWindow, IMvxWpfView, IDisposable
     {
-        private IMvxViewModel _viewModel;
-        private IMvxBindingContext _bindingContext;
+        private IMvxViewModel? _viewModel;
+        private IMvxBindingContext? _bindingContext;
         private bool _unloaded = false;
 
         public MainWindow()
         {
+            Identifier = string.Empty;
             Closed += MvxWindow_Closed;
             Unloaded += MvxWindow_Unloaded;
             Loaded += MvxWindow_Loaded;
@@ -36,36 +37,36 @@ namespace FFmpeg.Gui
             DataContext = Mvx.IoCProvider.Resolve<MainViewModel>();
             SwitchTabIndex(0);
 
-            var icon = FindResource("icon-ffmpeg") as Viewbox;
-            icon.Width = 32;
-            icon.Height = 32;
-
-            this.Icon = icon.ToBitmapSource();
-
-        }
-
-        private void MvxWindow_Initialized(object sender, EventArgs e)
-        {
-            if (this == Application.Current.MainWindow)
+            if (FindResource("icon-ffmpeg") is Viewbox icon)
             {
-                (Application.Current as MvvmCross.Platforms.Wpf.Views.MvxApplication).ApplicationInitialized();
+                icon.Width = 32;
+                icon.Height = 32;
+                Icon = icon.ToBitmapSource();
             }
         }
 
-        public IMvxViewModel ViewModel
+        private void MvxWindow_Initialized(object? sender, EventArgs e)
+        {
+            if (this == Application.Current.MainWindow
+                && Application.Current is MvvmCross.Platforms.Wpf.Views.MvxApplication mvxApp)
+            {
+                mvxApp.ApplicationInitialized();
+            }
+        }
+
+        public IMvxViewModel? ViewModel
         {
             get => _viewModel;
             set
             {
                 _viewModel = value;
                 DataContext = value;
-                BindingContext.DataContext = value;
+                if (BindingContext != null)
+                    BindingContext.DataContext = value;
             }
         }
 
-        public string Identifier { get; set; }
-
-        public IMvxBindingContext BindingContext
+        public IMvxBindingContext? BindingContext
         {
             get
             {
@@ -80,7 +81,9 @@ namespace FFmpeg.Gui
             set => _bindingContext = value;
         }
 
-        private void MvxWindow_Closed(object sender, EventArgs e) => Unload();
+        public string Identifier { get; set; }
+
+        private void MvxWindow_Closed(object? sender, EventArgs e) => Unload();
 
         private void MvxWindow_Unloaded(object sender, RoutedEventArgs e) => Unload();
 

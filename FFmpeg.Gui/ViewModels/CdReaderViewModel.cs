@@ -88,6 +88,8 @@ namespace FFmpeg.Gui.ViewModels
         public CdReaderViewModel(ICdReaderService cdReaderService,
                                  IDialogService dialogService)
         {
+            _targetDirectory = string.Empty;
+            _driveLetter = string.Empty;
             _cdReaderService = cdReaderService;
             _dialogService = dialogService;
 
@@ -115,7 +117,7 @@ namespace FFmpeg.Gui.ViewModels
             _progressReporter.ProgressChanged += OnReportProgress;
         }
 
-        private void OnReportProgress(object sender, long e)
+        private void OnReportProgress(object? sender, long e)
         {
             Done += e;
         }

@@ -49,7 +49,7 @@ namespace FFmpeg.Gui.Views
             RenderPanel.Children.Clear();
         }
 
-        public FrameworkElement GetElement(string name)
+        public FrameworkElement? GetElement(string name)
         {
             foreach (var element in RenderPanel.Children)
             {

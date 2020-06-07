@@ -11,10 +11,10 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class SessionViewModel: MvxViewModel
     {
-        private Preset _currentPreset;
+        private Preset? _currentPreset;
         private List<string> _inputFiles;
 
-        public Preset CurrentPreset
+        public Preset? CurrentPreset
         {
             get { return _currentPreset; }
             set { SetProperty(ref _currentPreset, value); }
@@ -28,7 +28,7 @@ namespace FFmpeg.Gui.ViewModels
 
         public SessionViewModel()
         {
-            InputFiles = new List<string>();
+            _inputFiles = new List<string>();
         }
     }
 }

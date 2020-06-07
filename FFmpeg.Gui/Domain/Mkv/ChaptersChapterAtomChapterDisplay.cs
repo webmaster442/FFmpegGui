@@ -15,5 +15,11 @@ namespace FFmpeg.Gui.Domain.Mkv
         public string ChapterString { get; set; }
 
         public string ChapterLanguage { get; set; }
+
+        public ChaptersChapterAtomChapterDisplay()
+        {
+            ChapterString = string.Empty;
+            ChapterLanguage = string.Empty;
+        }
     }
 }

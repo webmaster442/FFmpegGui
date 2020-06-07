@@ -14,5 +14,10 @@ namespace FFmpeg.Gui.Domain.Mkv
     {
         [XmlArrayItem("ChapterAtom")]
         public ChaptersChapterAtom[] EditionEntry { get; set; }
+
+        public Chapters()
+        {
+            EditionEntry = new ChaptersChapterAtom[0];
+        }
     }
 }

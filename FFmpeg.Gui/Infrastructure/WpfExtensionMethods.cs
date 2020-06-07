@@ -13,7 +13,7 @@ namespace FFmpeg.Gui.Infrastructure
 {
     internal static class WpfExtensionMethods
     {
-        public static BitmapSource ToBitmapSource(this FrameworkElement source, double dpiX = 96, double dpiY = 96)
+        public static BitmapSource? ToBitmapSource(this FrameworkElement source, double dpiX = 96, double dpiY = 96)
         {
             if (source == null) return null;
 

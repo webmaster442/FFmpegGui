@@ -24,13 +24,18 @@ namespace FFmpeg.Gui.Domain.Cd
                 {
                     throw new IndexOutOfRangeException();
                 }
-                TrackData res;
+                TrackData res = new TrackData();
                 GCHandle handle = GCHandle.Alloc(Data, GCHandleType.Pinned);
                 try
                 {
                     IntPtr buffer = handle.AddrOfPinnedObject();
                     buffer = (IntPtr)(buffer.ToInt64() + (Index * Marshal.SizeOf(typeof(TrackData))));
-                    res = (TrackData)Marshal.PtrToStructure(buffer, typeof(TrackData));
+                    
+                    object? result = Marshal.PtrToStructure(buffer, typeof(TrackData));
+                    if (result != null)
+                    {
+                        res = (TrackData)result;
+                    }
                 }
                 finally
                 {

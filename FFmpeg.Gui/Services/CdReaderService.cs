@@ -34,12 +34,11 @@ namespace FFmpeg.Gui.Services
 
                 for (int i = 1; i <= cd.NumberOfTracks; i++)
                 {
-                    Domain.Cd.CdTrackInfo trackInfo = cd.GetTrackInfo(i);
-                    if (trackInfo.IsAudio)
+                    Domain.Cd.CdTrackInfo? trackInfo = cd.GetTrackInfo(i);
+                    if (trackInfo != null && trackInfo.IsAudio)
                     {
-                        results.Add(new CdItemViewModel
+                        results.Add(new CdItemViewModel($"Audio Track #{i}")
                         {
-                            Name = $"Audio Track #{i}",
                             Length = TimeSpan.FromSeconds(trackInfo.Length),
                             Size = trackInfo.Size,
                             IsSelected = true,

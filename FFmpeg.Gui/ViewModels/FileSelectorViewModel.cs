@@ -14,7 +14,7 @@ namespace FFmpeg.Gui.ViewModels
 {
     internal class FileSelectorViewModel: MvxViewModel
     {
-        private FileSelectorItemViewModel _selectedFile;
+        private FileSelectorItemViewModel? _selectedFile;
         private readonly IDialogService _dialogService;
         private readonly SessionViewModel _session;
 
@@ -25,7 +25,7 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand<FileSelectorItemViewModel> RemoveSelectedCommand { get; }
         public MvxCommand<string[]> FilesDragedinCommand { get; }
 
-        public FileSelectorItemViewModel SelectedFile
+        public FileSelectorItemViewModel? SelectedFile
         {
             get { return _selectedFile; }
             set

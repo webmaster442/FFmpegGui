@@ -45,11 +45,14 @@ namespace FFmpeg.Gui.Controls
 
         private static void Lbox_Drop(object sender, DragEventArgs e)
         {
-            ICommand cmd = GetFileDraggedInCommmand(sender as DependencyObject);
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (sender is DependencyObject dependencyObject)
+            {
+                ICommand cmd = GetFileDraggedInCommmand(dependencyObject);
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            if (cmd?.CanExecute(files) ?? false)
-                cmd?.Execute(files);
+                if (cmd?.CanExecute(files) ?? false)
+                    cmd?.Execute(files);
+            }
         }
     }
 }

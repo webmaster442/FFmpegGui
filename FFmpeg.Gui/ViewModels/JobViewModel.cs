@@ -28,7 +28,7 @@ namespace FFmpeg.Gui.ViewModels
         private readonly IErrorDisplayService _errorDisplayService;
         private bool _errorsVisible;
 
-        public IRenderPanel RenderTarget { get; set; }
+        public IRenderPanel? RenderTarget { get; set; }
 
         public ObservableCollectionExt<string> Errors { get; set; }
 
@@ -95,6 +95,9 @@ namespace FFmpeg.Gui.ViewModels
                             IDialogService dialogService,
                             IErrorDisplayService errorDisplayService)
         {
+            _fFmpegPath = string.Empty;
+            _outputPath = string.Empty;
+
             _presetBuilderService = presetBuilderService;
             _dialogService = dialogService;
             _errorDisplayService = errorDisplayService;

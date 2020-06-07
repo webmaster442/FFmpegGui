@@ -31,6 +31,7 @@ namespace FFmpeg.Gui.ViewModels
 
         public MkvChapterGeneratorViewModel(IDialogService dialogService)
         {
+            _inputText = string.Empty;
             _dialogService = dialogService;
             LoadTextCommand = new MvxCommand(OnLoadText);
             SaveXmlCommand = new MvxCommand(OnSaveXml);

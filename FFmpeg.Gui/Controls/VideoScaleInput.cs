@@ -36,10 +36,14 @@ namespace FFmpeg.Gui.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            var widthBox = GetTemplateChild("PART_VideoWith") as TextBox;
-            var heightBox = GetTemplateChild("PART_VideoHeight") as TextBox;
-            widthBox.PreviewTextInput += RestrictTextInput;
-            heightBox.PreviewTextInput += RestrictTextInput;
+            if (GetTemplateChild("PART_VideoWith") is TextBox widthBox)
+            {
+                widthBox.PreviewTextInput += RestrictTextInput;
+            }
+            if (GetTemplateChild("PART_VideoHeight") is TextBox heightBox)
+            {
+                heightBox.PreviewTextInput += RestrictTextInput;
+            }
         }
 
         private void RestrictTextInput(object sender, TextCompositionEventArgs e)

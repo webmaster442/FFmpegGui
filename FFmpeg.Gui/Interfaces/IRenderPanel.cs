@@ -11,7 +11,7 @@ namespace FFmpeg.Gui.Interfaces
     {
         void ClearItems();
         void Render(FrameworkElement element);
-        FrameworkElement GetElement(string name);
+        FrameworkElement? GetElement(string name);
         bool HasErrors { get; }
     }
 }

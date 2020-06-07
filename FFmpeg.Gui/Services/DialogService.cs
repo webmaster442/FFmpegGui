@@ -34,7 +34,7 @@ namespace FFmpeg.Gui.Services
             }
             else
             {
-                files = null;
+                files = new string[0];
                 return false;
             }
         }
@@ -50,7 +50,7 @@ namespace FFmpeg.Gui.Services
                 }
                 else
                 {
-                    path = null;
+                    path = string.Empty;
                     return false;
                 }
             }
@@ -67,7 +67,7 @@ namespace FFmpeg.Gui.Services
             }
             else
             {
-                path = null;
+                path = string.Empty;
                 return false;
             }
         }

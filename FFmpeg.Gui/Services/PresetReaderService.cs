@@ -21,9 +21,10 @@ namespace FFmpeg.Gui.Services
 
             foreach (var presetProperty in presetProperties)
             {
-                if (presetProperty.PropertyType == typeof(Preset))
+                if (presetProperty.PropertyType == typeof(Preset)
+                    && presetProperty.GetValue(null) is Preset temp)
                 {
-                    result.Add((Preset)presetProperty.GetValue(null));
+                    result.Add(temp);
                 }
             }
 

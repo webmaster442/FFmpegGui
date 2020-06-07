@@ -16,7 +16,10 @@ namespace FFmpeg.Gui.Services
 
             foreach (var tool in tools)
             {
-                yield return Activator.CreateInstance(tool) as ITool;
+                if (Activator.CreateInstance(tool) is ITool toolInstance)
+                {
+                    yield return toolInstance;
+                }
             }
         }
 
