@@ -3,13 +3,13 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Presets.Controls;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FFmpeg.Gui.Presets
 {
-    internal static partial class FFmpegPresets
+    public static partial class FFmpegPresets
     {
         public static Preset Wv
         {
@@ -30,9 +30,9 @@ namespace FFmpeg.Gui.Presets
                         "%target%"
                     },
                     TargetExtension = "wv",
-                    Controllers = new List<PresetControl>
+                    Controllers = new List<ControlBase>
                     {
-                        new SliderControl
+                        new Slider
                         {
                             Label = "Compression Level",
                             Maximum = 5,

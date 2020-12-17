@@ -3,12 +3,12 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Presets.Controls;
 using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Presets
 {
-    internal static partial class FFmpegPresets
+    public static partial class FFmpegPresets
     {
         public static Preset NvH264
         {
@@ -31,9 +31,9 @@ namespace FFmpeg.Gui.Presets
                         "%target%"
                     },
                     TargetExtension = "mkv",
-                    Controllers = new List<PresetControl>
+                    Controllers = new List<ControlBase>
                     {
-                        new VideoScaleControl
+                        new VideoScale
                         {
                             Name = "Scale",
                             Label = "Video Scale (-1, -1 : No resize)",

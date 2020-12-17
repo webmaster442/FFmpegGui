@@ -109,9 +109,16 @@ namespace FFmpeg.Gui.Controls
 
         public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
-        public IEnumerable GetErrors(string propertyName)
+        public IEnumerable GetErrors(string? propertyName)
         {
-            if (_errors.TryGetValue(propertyName, out string? error))
+            if (string.IsNullOrEmpty(propertyName))
+            {
+                foreach (var err in _errors.Values)
+                {
+                    yield return err;
+                }
+            }
+            if (_errors.TryGetValue(propertyName!, out string? error))
             {
                 yield return error;
             }

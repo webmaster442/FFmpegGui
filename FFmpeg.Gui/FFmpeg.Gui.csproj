@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -44,6 +44,10 @@
 
 	<ItemGroup>
 		<Folder Include="Domain\Mkv\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FFmpeg.Gui.Presets\FFmpeg.Gui.Presets.csproj" />
 	</ItemGroup>
 
 </Project>

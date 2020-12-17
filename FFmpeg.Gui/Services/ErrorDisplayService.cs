@@ -5,6 +5,7 @@
 
 using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Presets;
 using FFmpeg.Gui.Properties;
 using System.Collections.Generic;
 using System.IO;

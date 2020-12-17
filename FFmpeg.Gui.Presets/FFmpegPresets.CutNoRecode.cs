@@ -3,13 +3,13 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Presets.Controls;
 using System;
 using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Presets
 {
-    internal static partial class FFmpegPresets
+    public static partial class FFmpegPresets
     {
         public static Preset CutNoRecode
         {
@@ -30,9 +30,9 @@ namespace FFmpeg.Gui.Presets
                         "%target%"
                     },
                     TargetExtension = "mkv",
-                    Controllers = new List<PresetControl>
+                    Controllers = new List<ControlBase>
                     {
-                        new VideoTimeControl
+                        new VideoTime
                         {
                             Name = "VideoTime",
                             Label = "If End time is negative, then the end is the video length",

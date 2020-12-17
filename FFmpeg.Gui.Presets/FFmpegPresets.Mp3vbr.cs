@@ -3,44 +3,44 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Presets.Controls;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FFmpeg.Gui.Presets
 {
-    internal static partial class FFmpegPresets
+    public static partial class FFmpegPresets
     {
-        public static Preset Flac
+        public static Preset Mp3Vbr
         {
             get
             {
                 return new Preset
                 {
-                    Name = "Audio, Flac",
-                    Description = "Convert audio to Flac format",
+                    Name = "Audio, Mp3 (VBR)",
+                    Description = "Convert audio to Mp3 format with variable bitrate",
                     ArgumentCollection = new List<string>
                     {
                         "-i",
                         "%source%",
                         "-vn",
-                        "-c:a flac",
-                        "-compression_level",
-                        "{CompressionLevel}",
+                        "-c:a libmp3lame",
+                        "-q:a",
+                        "{AudioQuality}",
                         "%target%"
                     },
-                    TargetExtension = "flac",
-                    Controllers = new List<PresetControl>
+                    TargetExtension = "mp3",
+                    Controllers = new List<ControlBase>
                     {
-                        new SliderControl
+                        new Slider
                         {
-                            Label = "Compression Level",
-                            Maximum = 12,
-                            Minimum = 1,
-                            Name = "CompressionLevel",
+                            Label = "Audio Quality (lower better)",
+                            Maximum = 9,
+                            Minimum = 0,
+                            Name = "AudioQuality",
                             Unit = "",
-                            Value = 8,
-                            PresetValues = Enumerable.Range(1, 12).ToArray()
+                            Value = 2,
+                            PresetValues = Enumerable.Range(0, 9).ToArray(),
                         }
                     }
                 };

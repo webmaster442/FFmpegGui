@@ -115,7 +115,7 @@ namespace FFmpeg.Gui.ViewModels
             OutputPowershell = Settings.Default.OutputPowershell;
         }
 
-        private void _session_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void _session_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             TriggerErrorDisplayCall();
         }

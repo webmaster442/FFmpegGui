@@ -3,44 +3,44 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using FFmpeg.Gui.Domain;
+using FFmpeg.Gui.Presets.Controls;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FFmpeg.Gui.Presets
 {
-    internal static partial class FFmpegPresets
+    public static partial class FFmpegPresets
     {
-        public static Preset Mp3Vbr
+        public static Preset Flac
         {
             get
             {
                 return new Preset
                 {
-                    Name = "Audio, Mp3 (VBR)",
-                    Description = "Convert audio to Mp3 format with variable bitrate",
+                    Name = "Audio, Flac",
+                    Description = "Convert audio to Flac format",
                     ArgumentCollection = new List<string>
                     {
                         "-i",
                         "%source%",
                         "-vn",
-                        "-c:a libmp3lame",
-                        "-q:a",
-                        "{AudioQuality}",
+                        "-c:a flac",
+                        "-compression_level",
+                        "{CompressionLevel}",
                         "%target%"
                     },
-                    TargetExtension = "mp3",
-                    Controllers = new List<PresetControl>
+                    TargetExtension = "flac",
+                    Controllers = new List<ControlBase>
                     {
-                        new SliderControl
+                        new Slider
                         {
-                            Label = "Audio Quality (lower better)",
-                            Maximum = 9,
-                            Minimum = 0,
-                            Name = "AudioQuality",
+                            Label = "Compression Level",
+                            Maximum = 12,
+                            Minimum = 1,
+                            Name = "CompressionLevel",
                             Unit = "",
-                            Value = 2,
-                            PresetValues = Enumerable.Range(0, 9).ToArray(),
+                            Value = 8,
+                            PresetValues = Enumerable.Range(1, 12).ToArray()
                         }
                     }
                 };

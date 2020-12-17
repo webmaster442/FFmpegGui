@@ -1,11 +1,7 @@
-﻿//-----------------------------------------------------------------------------
-// (c) 2020 Ruzsinszki Gábor
-// This code is licensed under MIT license (see LICENSE for details)
-//-----------------------------------------------------------------------------
-
+﻿using FFmpeg.Gui.Presets.Controls;
 using System.Collections.Generic;
 
-namespace FFmpeg.Gui.Domain
+namespace FFmpeg.Gui.Presets
 {
     public class Preset
     {
@@ -15,7 +11,7 @@ namespace FFmpeg.Gui.Domain
 
         public string Description { get; set; }
 
-        public List<PresetControl> Controllers { get; set; }
+        public List<ControlBase> Controllers { get; set; }
 
         public List<string> ArgumentCollection { get; set; }
 
@@ -24,7 +20,7 @@ namespace FFmpeg.Gui.Domain
             Name = string.Empty;
             TargetExtension = string.Empty;
             Description = string.Empty;
-            Controllers = new List<PresetControl>();
+            Controllers = new List<ControlBase>();
             ArgumentCollection = new List<string>();
         }
     }

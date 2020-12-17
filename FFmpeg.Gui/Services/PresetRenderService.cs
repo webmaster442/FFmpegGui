@@ -6,6 +6,8 @@
 using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Presets;
+using FFmpeg.Gui.Presets.Controls;
 using System;
 using System.Linq;
 using System.Windows;
@@ -34,9 +36,9 @@ namespace FFmpeg.Gui.Services
                 FrameworkElement? rendered = null;
                 rendered = controller switch
                 {
-                    SliderControl bitrateSlider => RenderBitrateSlider(bitrateSlider),
-                    VideoScaleControl videoScale => RenderVideoScale(videoScale),
-                    VideoTimeControl videoTime => RenderVideoTime(videoTime),
+                    Presets.Controls.Slider bitrateSlider => RenderBitrateSlider(bitrateSlider),
+                    VideoScale videoScale => RenderVideoScale(videoScale),
+                    VideoTime videoTime => RenderVideoTime(videoTime),
                     _ => throw new InvalidOperationException(),
                 };
                 target.Render(RenderLabel(controller.Label));
@@ -53,7 +55,7 @@ namespace FFmpeg.Gui.Services
             };
         }
 
-        private Control RenderVideoTime(VideoTimeControl videoTime)
+        private Control RenderVideoTime(VideoTime videoTime)
         {
             var input = new TimeSpanInput
             {
@@ -65,7 +67,7 @@ namespace FFmpeg.Gui.Services
             return input;
         }
 
-        private Control RenderVideoScale(VideoScaleControl videoScale)
+        private Control RenderVideoScale(VideoScale videoScale)
         {
             var scaler = new VideoScaleInput
             {
@@ -78,7 +80,7 @@ namespace FFmpeg.Gui.Services
         }
 
 
-        private Control RenderBitrateSlider(SliderControl bitrateSlider)
+        private Control RenderBitrateSlider(Presets.Controls.Slider bitrateSlider)
         {
             var slider = new SliderWithValueText
             {
