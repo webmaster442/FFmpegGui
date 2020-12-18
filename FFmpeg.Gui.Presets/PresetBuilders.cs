@@ -85,5 +85,71 @@ namespace FFmpeg.Gui.Presets
                 }
             };
         }
+
+        public static Preset BuildAudio(string format, string codec, string ext, int min, int max, int value)
+        {
+            return new Preset
+            {
+                Name = $"Audio, {format}",
+                Description = $"Convert audio to {format} format with variable bitrate",
+                ArgumentCollection = new List<string>
+                {
+                    "-i",
+                    "%source%",
+                    "-vn",
+                    $"-c:a {codec}",
+                    "-q:a",
+                    "{AudioQuality}",
+                    "%target%"
+                },
+                TargetExtension = ext,
+                Controllers = new List<ControlBase>
+                {
+                    new Slider
+                    {
+                        Label = "Audio Quality (lower better)",
+                        Maximum = max,
+                        Minimum = min,
+                        Name = "AudioQuality",
+                        Unit = "",
+                        Value = value,
+                        PresetValues = Enumerable.Range(0, 9).ToArray(),
+                    }
+                }
+            };
+        }
+
+        public static Preset BuildAudio(string format, string codec, string ext, int bitrate)
+        {
+            return new Preset
+            {
+                Name = $"Audio, {format}",
+                Description = $"Convert audio to {format} format",
+                ArgumentCollection = new List<string>
+                {
+                    "-i",
+                    "%source%",
+                    "-vn",
+                    $"-c:a {codec}",
+                    "-b:a",
+                    "{AudioBitrate}k",
+                    "%target%"
+                },
+                TargetExtension = ext,
+                Controllers = new List<ControlBase>
+                {
+                    new Slider
+                    {
+                        Label = "Audio Bitrate",
+                        Maximum = 320,
+                        Minimum = 8,
+                        Name = "AudioBitrate",
+                        Unit = "kbit",
+                        Value = bitrate,
+                        PresetValues = new int[] { 8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320 }
+                    }
+                }
+            };
+        }
     }
 }
