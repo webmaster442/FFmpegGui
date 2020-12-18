@@ -21,6 +21,11 @@ namespace FFmpeg.Gui.ServiceCode
             return argument.Replace(match, string.Format("{0}:{1}", videoScale.VideoWidth, videoScale.VideoHeight));
         }
 
+        internal static string RenderOptionSelector(string argument, string match, OptionSelector optionSelector)
+        {
+            return argument.Replace(match, optionSelector.SelectedOptionValue);
+        }
+
         internal static string RenderVideoTime(string argument, string match, string subname, TimeSpanInput videoTime)
         {
             if (subname == nameof(TimeSpanInputViewModel.EndTime))

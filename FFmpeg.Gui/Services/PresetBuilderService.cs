@@ -85,6 +85,9 @@ namespace FFmpeg.Gui.Services
                             case TimeSpanInput videoTime:
                                 render = PresetBuilder.RenderVideoTime(argument, match.Value, subname, videoTime);
                                 break;
+                            case OptionSelector optionSelector:
+                                render = PresetBuilder.RenderOptionSelector(argument, match.Value, optionSelector);
+                                break;
                         }
 
                         results.Add(render);

@@ -39,6 +39,7 @@ namespace FFmpeg.Gui.Services
                     Presets.Controls.Slider bitrateSlider => RenderBitrateSlider(bitrateSlider),
                     VideoScale videoScale => RenderVideoScale(videoScale),
                     VideoTime videoTime => RenderVideoTime(videoTime),
+                    ValueSelector valueSelector => RenderValueSelector(valueSelector),
                     _ => throw new InvalidOperationException(),
                 };
                 target.Render(RenderLabel(controller.Label));
@@ -52,6 +53,15 @@ namespace FFmpeg.Gui.Services
             {
                 Margin = ControlMargin,
                 Text = text
+            };
+        }
+
+        private Control RenderValueSelector(ValueSelector valueSelector)
+        {
+            return new OptionSelector
+            {
+                Name = valueSelector.Name,
+                Margin = ControlMargin,
             };
         }
 
