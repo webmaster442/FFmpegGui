@@ -4,7 +4,6 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Controls;
-using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Presets;
 using FFmpeg.Gui.Presets.Controls;
