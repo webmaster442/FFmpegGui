@@ -26,7 +26,7 @@ namespace FFmpeg.Gui.Presets
                         "%source%",
                         "-c:v hevc_nvenc",
                         "-preset slow",
-                        "-vf scale={Scale}",
+                        "-vf scale={Scale}{FrameRate}",
                         "-c:a copy",
                         "%target%"
                     },
@@ -40,6 +40,20 @@ namespace FFmpeg.Gui.Presets
                             Width = -1,
                             Height = -1,
                         },
+                        new ValueSelector
+                        {
+                            Name = "FrameRate",
+                            Label = "Frame rate",
+                            Options = new Dictionary<string, string>
+                            {
+                                { "No change", string.Empty },
+                                { "60 fps", ", fps=fps=60" },
+                                { "50 fps", ", fps=fps=50" },
+                                { "30 fps", ", fps=fps=30" },
+                                { "25 fps", ", fps=fps=25" },
+                            },
+                            SelectedOptionKey = "No change"
+                        }
                     }
                 };
             }

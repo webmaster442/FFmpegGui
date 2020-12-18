@@ -62,6 +62,8 @@ namespace FFmpeg.Gui.Services
             {
                 Name = valueSelector.Name,
                 Margin = ControlMargin,
+                Options = valueSelector.Options,
+                SelectedItem = valueSelector.SelectedOptionKey,
             };
         }
 
