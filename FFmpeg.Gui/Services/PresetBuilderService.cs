@@ -57,6 +57,7 @@ namespace FFmpeg.Gui.Services
                 var matches = _control.Matches(argument);
                 if (matches.Count > 0)
                 {
+                    //Argument collection has a controller dependent value
                     foreach (Match? match in matches)
                     {
                         if (match == null) continue;
@@ -72,25 +73,25 @@ namespace FFmpeg.Gui.Services
 
                         FrameworkElement? element = source.GetElement(name);
 
-                        string render = string.Empty;
+                        string valueToInsert = string.Empty;
 
                         switch (element)
                         {
                             case SliderWithValueText slider:
-                                render = PresetBuilder.RenderSlider(argument, match.Value, slider);
+                                valueToInsert = PresetBuilder.ProcessSlider(argument, match.Value, slider);
                                 break;
                             case VideoScaleInput videoScale:
-                                render = PresetBuilder.RenderVideoScale(argument, match.Value, videoScale);
+                                valueToInsert = PresetBuilder.ProcessVideoScale(argument, match.Value, videoScale);
                                 break;
                             case TimeSpanInput videoTime:
-                                render = PresetBuilder.RenderVideoTime(argument, match.Value, subname, videoTime);
+                                valueToInsert = PresetBuilder.ProcessVideoTime(argument, match.Value, subname, videoTime);
                                 break;
                             case OptionSelector optionSelector:
-                                render = PresetBuilder.RenderOptionSelector(argument, match.Value, optionSelector);
+                                valueToInsert = PresetBuilder.ProcessOptionSelector(argument, match.Value, optionSelector);
                                 break;
                         }
 
-                        results.Add(render);
+                        results.Add(valueToInsert);
                     }
                 }
                 else

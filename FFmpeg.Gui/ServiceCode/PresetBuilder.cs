@@ -11,22 +11,22 @@ namespace FFmpeg.Gui.ServiceCode
 {
     internal static class PresetBuilder
     {
-        internal static string RenderSlider(string argument, string match, SliderWithValueText slider)
+        internal static string ProcessSlider(string argument, string match, SliderWithValueText slider)
         {
             return argument.Replace(match, slider.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        internal static string RenderVideoScale(string argument, string match, VideoScaleInput videoScale)
+        internal static string ProcessVideoScale(string argument, string match, VideoScaleInput videoScale)
         {
             return argument.Replace(match, string.Format("{0}:{1}", videoScale.VideoWidth, videoScale.VideoHeight));
         }
 
-        internal static string RenderOptionSelector(string argument, string match, OptionSelector optionSelector)
+        internal static string ProcessOptionSelector(string argument, string match, OptionSelector optionSelector)
         {
             return argument.Replace(match, optionSelector.SelectedOptionValue);
         }
 
-        internal static string RenderVideoTime(string argument, string match, string subname, TimeSpanInput videoTime)
+        internal static string ProcessVideoTime(string argument, string match, string subname, TimeSpanInput videoTime)
         {
             if (subname == nameof(TimeSpanInputViewModel.EndTime))
             {
