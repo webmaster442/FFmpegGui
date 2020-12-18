@@ -31,7 +31,8 @@ namespace FFmpeg.Gui.Presets
         {
             return new Preset
             {
-                Name = $"Audio, {format}",
+                Category = "Audio - Losless",
+                Name = $"{format}",
                 Description = $"Convert audio to {format} format",
                 ArgumentCollection = new List<string>
                 {
@@ -56,7 +57,8 @@ namespace FFmpeg.Gui.Presets
         {
             return new Preset
             {
-                Name = $"Audio, {format}",
+                Category = "Audio - Losless",
+                Name = $"{format}",
                 Description = $"Convert audio to {format} format",
                 ArgumentCollection = new List<string>
                 {
@@ -90,7 +92,8 @@ namespace FFmpeg.Gui.Presets
         {
             return new Preset
             {
-                Name = $"Audio, {format}",
+                Category = "Audio",
+                Name = $"{format}",
                 Description = $"Convert audio to {format} format with variable bitrate",
                 ArgumentCollection = new List<string>
                 {
@@ -123,7 +126,8 @@ namespace FFmpeg.Gui.Presets
         {
             return new Preset
             {
-                Name = $"Audio, {format}",
+                Category = "Audio",
+                Name = $"{format}",
                 Description = $"Convert audio to {format} format",
                 ArgumentCollection = new List<string>
                 {

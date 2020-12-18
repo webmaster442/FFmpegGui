@@ -4,15 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <mvvmCrossViews:MvxWpfView.Resources>
-        <CollectionViewSource Source="{Binding Presets}" x:Key="PresetsSource">
+        <CollectionViewSource
+            x:Key="PresetsSource"
+            Source="{Binding Presets}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Category" />
+            </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Name"/>
+                <scm:SortDescription PropertyName="Name" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </mvvmCrossViews:MvxWpfView.Resources>
@@ -31,6 +36,33 @@
                     <TextBlock Text="{Binding Name}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Expander
+                                            Margin="0,5,0,0"
+                                            Padding="0"
+                                            BorderThickness="0"
+                                            Header="{Binding Name}"
+                                            IsExpanded="True">
+                                            <ItemsPresenter Margin="10,5,0,0" />
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListBox.GroupStyle>
         </ListBox>
         <GridSplitter Grid.Column="1" />
         <ScrollViewer Grid.Column="2">

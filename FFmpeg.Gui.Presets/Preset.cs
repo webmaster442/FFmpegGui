@@ -15,9 +15,12 @@ namespace FFmpeg.Gui.Presets
 
         public List<string> ArgumentCollection { get; set; }
 
+        public string Category { get; set; }
+
         public Preset()
         {
             Name = string.Empty;
+            Category = "Unknown";
             TargetExtension = string.Empty;
             Description = string.Empty;
             Controllers = new List<ControlBase>();
