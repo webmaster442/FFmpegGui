@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -47,6 +48,17 @@ namespace FFmpeg.Gui.Infrastructure
                 list.Add(item);
             }
             list.RaiseListChangedEvents = true;
+        }
+
+        public static IEnumerable<T> GetChildren<T>(this Panel panel)
+        {
+            foreach (var child in panel.Children)
+            {
+                if (child is T type)
+                {
+                    yield return type;
+                }
+            }
         }
 
     }

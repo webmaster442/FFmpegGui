@@ -12,10 +12,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <!--  Accent and AppTheme setting  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Orange.xaml" />
-                
-                <!-- Fmmpeg gui -->
+
+                <!--  Fmmpeg gui  -->
                 <ResourceDictionary Source="Controls/ControlTemplates.xaml" />
-                <ResourceDictionary Source="VectorIcons.xaml"/>
+                <ResourceDictionary Source="VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -70,8 +70,8 @@
 
             <Style
                 x:Key="BottomButton"
-                TargetType="Button"
-                BasedOn="{StaticResource {x:Type Button}}">
+                BasedOn="{StaticResource {x:Type Button}}"
+                TargetType="Button">
                 <Setter Property="Margin" Value="2,0,2,5" />
                 <Setter Property="MinWidth" Value="75" />
                 <Setter Property="Height" Value="25" />

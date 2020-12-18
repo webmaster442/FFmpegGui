@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Infrastructure;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,6 +44,26 @@ namespace FFmpeg.Gui.Controls
             if (GetTemplateChild("PART_VideoHeight") is TextBox heightBox)
             {
                 heightBox.PreviewTextInput += RestrictTextInput;
+            }
+            if (GetTemplateChild("PART_ResolutionTemplates") is WrapPanel wrapPanel)
+            {
+                foreach (var button in wrapPanel.GetChildren<Button>())
+                {
+                    button.Click += SizeTemplateButtonClick;
+                }
+            }
+        }
+
+        private void SizeTemplateButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var size = (string)button.Tag;
+                var sizes = size.Split("×");
+                if (GetTemplateChild("PART_VideoWith") is TextBox widthBox)
+                    widthBox.Text = sizes[0].Trim();
+                if (GetTemplateChild("PART_VideoHeight") is TextBox heightBox)
+                    heightBox.Text = sizes[1].Trim();
             }
         }
 

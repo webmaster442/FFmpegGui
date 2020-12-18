@@ -79,6 +79,10 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
                         <TextBox
                             x:Name="PART_VideoWith"
                             Grid.Column="0"
@@ -91,6 +95,65 @@
                             x:Name="PART_VideoHeight"
                             Grid.Column="2"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=VideoHeight}" />
+                        <WrapPanel
+                            x:Name="PART_ResolutionTemplates"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="3"
+                            Margin="0,5"
+                            Orientation="Horizontal">
+                            <WrapPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="4,0" />
+                                </Style>
+                                <Style
+                                    BasedOn="{StaticResource {x:Type Button}}"
+                                    TargetType="Button">
+                                    <Setter Property="Margin" Value="3,2" />
+                                </Style>
+                            </WrapPanel.Resources>
+                            <TextBlock Text="Default:" />
+                            <Button
+                                Content="No resize"
+                                Tag="-1 × -1" />
+                            <TextBlock Text="UHDTV: " />
+                            <Button
+                                Content="7680 × 4320"
+                                Tag="7680 × 4320" />
+                            <Button
+                                Content="3840 × 2160"
+                                Tag="3840 × 2160" />
+                            <Button
+                                Content="2880 × 2160"
+                                Tag="2880 × 2160" />
+                            <TextBlock Text="HDTV+: " />
+                            <Button
+                                Content="3200 × 1800"
+                                Tag="3200 × 1800" />
+                            <Button
+                                Content="2560 × 1440"
+                                Tag="2560 × 1440" />
+                            <Button
+                                Content="1600 × 900"
+                                Tag="1600 x 900" />
+                            <Button
+                                Content="960 × 540"
+                                Tag="960 × 540" />
+                            <TextBlock Text="HDTV: " />
+                            <Button
+                                Content="1920 × 1080"
+                                Tag="1920 × 1080" />
+                            <Button
+                                Content="1280 × 720"
+                                Tag="1280 × 720" />
+                            <TextBlock Text="SD: " />
+                            <Button
+                                Content="720 × 576"
+                                Tag="720 × 576" />
+                            <Button
+                                Content="704 × 480"
+                                Tag="704 × 480" />
+                        </WrapPanel>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
