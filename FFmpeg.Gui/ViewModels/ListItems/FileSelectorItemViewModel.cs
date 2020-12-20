@@ -3,6 +3,8 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using System.IO;
+
 namespace FFmpeg.Gui.ViewModels.ListItems
 {
     internal class FileSelectorItemViewModel
@@ -11,10 +13,14 @@ namespace FFmpeg.Gui.ViewModels.ListItems
 
         public string Directory { get; }
 
+        public long Size { get; }
+
         public FileSelectorItemViewModel(string path)
         {
+            var f = new FileInfo(path);
             FullPath = path;
-            Directory = System.IO.Path.GetDirectoryName(path) ?? string.Empty;
+            Directory = f.DirectoryName ?? string.Empty;
+            Size = f.Length;
         }
     }
 }

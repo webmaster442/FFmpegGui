@@ -102,7 +102,7 @@ namespace FFmpeg.Gui.Services
             return results;
         }
 
-        private string RenderSingleFile(string[] args, string file, string targetExtension, string outputDirectory)
+        private static string RenderSingleFile(string[] args, string file, string targetExtension, string outputDirectory)
         {
             const string sourcefile = "%source%";
             const string targetfile = "%target%";
@@ -125,7 +125,7 @@ namespace FFmpeg.Gui.Services
             return JoinArgumentsToString(args);
         }
 
-        private string JoinArgumentsToString(string[] args)
+        private static string JoinArgumentsToString(string[] args)
         {
             StringBuilder sb = new StringBuilder();
             foreach (var arg in args)
@@ -141,15 +141,12 @@ namespace FFmpeg.Gui.Services
 
         public string GetShellScriptHeader(JobOutputFormat outputFormat)
         {
-            switch (outputFormat)
+            return outputFormat switch
             {
-                case JobOutputFormat.Bach:
-                    return "@echo off\r\nTITLE FFMpeg job\r\n";
-                case JobOutputFormat.Powershell:
-                    return "";
-                default:
-                    throw new ArgumentException(nameof(outputFormat));
-            }
+                JobOutputFormat.Bach => "@echo off\r\nTITLE FFMpeg job\r\n",
+                JobOutputFormat.Powershell => "",
+                _ => throw new ArgumentException(nameof(outputFormat)),
+            };
         }
     }
 }

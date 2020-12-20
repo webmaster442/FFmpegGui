@@ -8,6 +8,8 @@ using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.ViewModels.ListItems;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
@@ -21,9 +23,12 @@ namespace FFmpeg.Gui.ViewModels
         public ObservableCollectionExt<FileSelectorItemViewModel> Files { get; set; }
 
         public MvxCommand AddFilesCommand { get; }
+        public MvxCommand AddFolderCommand { get; }
         public MvxCommand ClearListCommand { get; }
         public MvxCommand<FileSelectorItemViewModel> RemoveSelectedCommand { get; }
         public MvxCommand<string[]> FilesDragedinCommand { get; }
+
+        public MvxCommand<int> SortCommand { get; }
 
         public FileSelectorItemViewModel? SelectedFile
         {
@@ -38,13 +43,15 @@ namespace FFmpeg.Gui.ViewModels
         public FileSelectorViewModel(SessionViewModel session, IDialogService dialogService)
         {
             _session = session;
+            _dialogService = dialogService;
+
             Files = new ObservableCollectionExt<FileSelectorItemViewModel>();
-            Files.CollectionChanged += (s, e) => _session.InputFiles = Files.Select(f => f.FullPath).ToList();
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
             RemoveSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnRemoveSelected, CanRemoveSelected);
             FilesDragedinCommand = new MvxCommand<string[]>(OnFilesDraggedIn);
-            this._dialogService = dialogService;
+            AddFolderCommand = new MvxCommand(OnAddFolder);
+            SortCommand = new MvxCommand<int>(OnSort);
         }
 
         private void OnFilesDraggedIn(string[] obj)
@@ -76,6 +83,44 @@ namespace FFmpeg.Gui.ViewModels
                 var models = files.Select(f => new FileSelectorItemViewModel(f));
                 Files.AddRange(models);
             }
+        }
+
+        private void OnAddFolder()
+        {
+            if (_dialogService.ShowFolderSelect(out string selectedFolder))
+            {
+                string[] files = System.IO.Directory.GetFiles(selectedFolder);
+                var models = files.Select(f => new FileSelectorItemViewModel(f));
+                Files.AddRange(models);
+            }
+        }
+
+        private enum OrderMode
+        {
+            FileName = 0,
+            Path = 1,
+            Size = 2,
+            Reverse = 3
+        }
+
+        private List<FileSelectorItemViewModel> Sort(OrderMode orderMode)
+        {
+            return orderMode switch
+            {
+                OrderMode.FileName => Files.OrderBy(m => System.IO.Path.GetFileName(m.FullPath)).ToList(),
+                OrderMode.Path => Files.OrderBy(m => m.FullPath).ToList(),
+                OrderMode.Size => Files.OrderBy(m => m.Size).ToList(),
+                OrderMode.Reverse => Files.Reverse().ToList(),
+                _ => throw new InvalidOperationException($"Unknown {nameof(OrderMode)}"),
+            };
+        }
+
+        private void OnSort(int obj)
+        {
+            var mode = (OrderMode)obj;
+            List<FileSelectorItemViewModel>? result = Sort(mode);
+            Files.Clear();
+            Files.AddRange(result);
         }
     }
 }

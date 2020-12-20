@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:FFmpeg.Gui.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:infrastructure="clr-namespace:FFmpeg.Gui.Infrastructure"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DesignHeight="450"
@@ -23,20 +24,44 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0">
-            <Button
-                Command="{Binding AddFilesCommand}"
-                Content="Add Files..." />
-            <Separator />
-            <Button
-                Command="{Binding RemoveSelectedCommand}"
-                CommandParameter="{Binding SelectedFile}"
-                Content="Remove selected..." />
-            <Separator />
-            <Button
-                Command="{Binding ClearListCommand}"
-                Content="Clear list" />
-        </ToolBar>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Add...">
+                <MenuItem
+                    Command="{Binding AddFilesCommand}"
+                    Header="Add Files..." />
+                <MenuItem
+                    Command="{Binding AddFolderCommand}"
+                    Header="Add Folder..." />
+            </MenuItem>
+            <MenuItem Header="Clear / Remove...">
+                <MenuItem
+                    Command="{Binding RemoveSelectedCommand}"
+                    CommandParameter="{Binding SelectedFile}"
+                    Header="Remove selected..." />
+                <MenuItem
+                    Command="{Binding ClearListCommand}"
+                    Header="Clear list" />
+            </MenuItem>
+            <MenuItem Header="Sort...">
+                <MenuItem
+                    Command="{Binding SortCommand}"
+                    CommandParameter="0"
+                    Header="By file name..." />
+                <MenuItem
+                    Command="{Binding SortCommand}"
+                    CommandParameter="1"
+                    Header="By path..." />
+                <MenuItem
+                    Command="{Binding SortCommand}"
+                    CommandParameter="2"
+                    Header="By size..." />
+                <Separator />
+                <MenuItem
+                    Command="{Binding SortCommand}"
+                    CommandParameter="3"
+                    Header="Reverse" />
+            </MenuItem>
+        </Menu>
         <ListBox
             x:Name="Items"
             Grid.Row="1"
@@ -58,9 +83,28 @@
             </ListBox.GroupStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding FullPath}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="{Binding FullPath, Converter={infrastructure:FileNameConverter}}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="{Binding Size, Converter={infrastructure:FileSizeConverter}}" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Command="{Binding RemoveSelectedCommand}"
+                        CommandParameter="{Binding SelectedFile}"
+                        Header="Remove selected" />
+                </ContextMenu>
+            </ListBox.ContextMenu>
         </ListBox>
     </Grid>
 </mvvmCrossViews:MvxWpfView>
