@@ -50,7 +50,7 @@ namespace FFmpeg.Gui.Services
             if (preset == null)
                 return new List<string>();
 
-            List<string> results = new List<string>(preset.ArgumentCollection.Count + 1);
+            List<string> results = new List<string>(preset.ArgumentCollection.Length + 1);
             results.Add($"\"{ffmpeg}\"");
             foreach (var argument in preset.ArgumentCollection)
             {

@@ -5,7 +5,6 @@
 
 using FFmpeg.Gui.Presets.Controls;
 using System;
-using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Presets
 {
@@ -19,7 +18,7 @@ namespace FFmpeg.Gui.Presets
                 {
                     Name = "Video, Cut video without reencode",
                     Description = "Cut a portion of video without reencoding. Output Container is MKV",
-                    ArgumentCollection = new List<string>
+                    ArgumentCollection = new string[]
                     {
                         "-ss {VideoTime.StartTime}",
                         "-i",
@@ -30,7 +29,7 @@ namespace FFmpeg.Gui.Presets
                         "%target%"
                     },
                     TargetExtension = "mkv",
-                    Controllers = new List<ControlBase>
+                    Controllers = new ControlBase[]
                     {
                         new VideoTime
                         {

@@ -1,9 +1,9 @@
 ﻿using FFmpeg.Gui.Presets.Controls;
-using System.Collections.Generic;
+using System;
 
 namespace FFmpeg.Gui.Presets
 {
-    public class Preset
+    public record Preset
     {
         public string Name { get; set; }
 
@@ -11,9 +11,9 @@ namespace FFmpeg.Gui.Presets
 
         public string Description { get; set; }
 
-        public List<ControlBase> Controllers { get; set; }
+        public ControlBase[] Controllers { get; set; }
 
-        public List<string> ArgumentCollection { get; set; }
+        public string[] ArgumentCollection { get; set; }
 
         public string Category { get; set; }
 
@@ -23,8 +23,8 @@ namespace FFmpeg.Gui.Presets
             Category = "Unknown";
             TargetExtension = string.Empty;
             Description = string.Empty;
-            Controllers = new List<ControlBase>();
-            ArgumentCollection = new List<string>();
+            Controllers = Array.Empty<ControlBase>();
+            ArgumentCollection = Array.Empty<string>();
         }
     }
 }

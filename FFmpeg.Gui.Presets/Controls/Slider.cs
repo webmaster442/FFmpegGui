@@ -1,16 +1,21 @@
-﻿namespace FFmpeg.Gui.Presets.Controls
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+namespace FFmpeg.Gui.Presets.Controls
 {
-    public class Slider: ControlBase
+    public record Slider: ControlBase
     {
-        public int Minimum { get; set; }
-        public int Maximum { get; set; }
-        public int Value { get; set; }
-        public int[] PresetValues { get; set; }
-        public string Unit { get; set; }
+        public int Minimum { get; init; }
+        public int Maximum { get; init; }
+        public int Value { get; init; }
+        public int[] PresetValues { get; init; }
+        public string Unit { get; init; }
 
         public Slider()
         {
-            PresetValues = new int[0];
+            PresetValues = System.Array.Empty<int>();
             Unit = string.Empty;
         }
     }

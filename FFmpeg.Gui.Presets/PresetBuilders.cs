@@ -34,7 +34,7 @@ namespace FFmpeg.Gui.Presets
                 Category = "Audio - Losless",
                 Name = $"{format}",
                 Description = $"Convert audio to {format} format",
-                ArgumentCollection = new List<string>
+                ArgumentCollection = new string[]
                 {
                     "-i",
                     "%source%",
@@ -46,7 +46,7 @@ namespace FFmpeg.Gui.Presets
                     "%target%"
                 },
                 TargetExtension = ext,
-                Controllers = new List<ControlBase>
+                Controllers = new ControlBase[]
                 {
                     SampleRateSelector,
                 }
@@ -60,7 +60,7 @@ namespace FFmpeg.Gui.Presets
                 Category = "Audio - Losless",
                 Name = $"{format}",
                 Description = $"Convert audio to {format} format",
-                ArgumentCollection = new List<string>
+                ArgumentCollection = new string[]
                 {
                     "-i",
                     "%source%",
@@ -71,7 +71,7 @@ namespace FFmpeg.Gui.Presets
                     "%target%"
                 },
                 TargetExtension = ext,
-                Controllers = new List<ControlBase>
+                Controllers = new ControlBase[]
                 {
                     new Slider
                     {
@@ -95,7 +95,7 @@ namespace FFmpeg.Gui.Presets
                 Category = "Audio",
                 Name = $"{format}",
                 Description = $"Convert audio to {format} format with variable bitrate",
-                ArgumentCollection = new List<string>
+                ArgumentCollection = new string[]
                 {
                     "-i",
                     "%source%",
@@ -106,7 +106,7 @@ namespace FFmpeg.Gui.Presets
                     "%target%"
                 },
                 TargetExtension = ext,
-                Controllers = new List<ControlBase>
+                Controllers = new ControlBase[]
                 {
                     new Slider
                     {
@@ -129,7 +129,7 @@ namespace FFmpeg.Gui.Presets
                 Category = "Audio",
                 Name = $"{format}",
                 Description = $"Convert audio to {format} format",
-                ArgumentCollection = new List<string>
+                ArgumentCollection = new string[]
                 {
                     "-i",
                     "%source%",
@@ -140,7 +140,7 @@ namespace FFmpeg.Gui.Presets
                     "%target%"
                 },
                 TargetExtension = ext,
-                Controllers = new List<ControlBase>
+                Controllers = new ControlBase[]
                 {
                     new Slider
                     {

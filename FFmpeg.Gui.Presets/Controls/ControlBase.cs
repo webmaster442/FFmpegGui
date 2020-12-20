@@ -5,7 +5,7 @@
 
 namespace FFmpeg.Gui.Presets.Controls
 {
-    public abstract class ControlBase
+    public abstract record ControlBase
     {
         public string Name { get; set; }
         public string Label { get; set; }

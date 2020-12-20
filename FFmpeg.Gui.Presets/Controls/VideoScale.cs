@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
 
 namespace FFmpeg.Gui.Presets.Controls
 {
-    public class VideoScale: ControlBase
+    public record VideoScale : ControlBase
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public int Width { get; init; }
+        public int Height { get; init; }
     }
 }

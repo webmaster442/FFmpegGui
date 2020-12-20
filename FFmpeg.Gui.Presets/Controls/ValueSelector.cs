@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace FFmpeg.Gui.Presets.Controls
 {
-    public class ValueSelector : ControlBase
+    public record ValueSelector : ControlBase
     {
-        public Dictionary<string, string> Options { get; set; }
-        public string SelectedOptionKey { get; set; }
+        public Dictionary<string, string> Options { get; init; }
+        public string SelectedOptionKey { get; init; }
 
         public ValueSelector()
         {

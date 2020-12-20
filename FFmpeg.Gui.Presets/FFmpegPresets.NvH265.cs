@@ -18,7 +18,7 @@ namespace FFmpeg.Gui.Presets
                 {
                     Name = "Video, Nvidia H.265",
                     Description = "Convert video to Nvidia h.265 encoded, Aduio copied, container: mkv",
-                    ArgumentCollection = new List<string>
+                    ArgumentCollection = new string[]
                     {
                         "-vsync 0",
                         "-hwaccel nvdec",
@@ -31,7 +31,7 @@ namespace FFmpeg.Gui.Presets
                         "%target%"
                     },
                     TargetExtension = "mkv",
-                    Controllers = new List<ControlBase>
+                    Controllers = new ControlBase[]
                     {
                         new VideoScale
                         {

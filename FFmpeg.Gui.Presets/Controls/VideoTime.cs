@@ -1,10 +1,15 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using System;
 
 namespace FFmpeg.Gui.Presets.Controls
 {
-    public class VideoTime: ControlBase
+    public record VideoTime : ControlBase
     {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public TimeSpan StartTime { get; init; }
+        public TimeSpan EndTime { get; init; }
     }
 }
