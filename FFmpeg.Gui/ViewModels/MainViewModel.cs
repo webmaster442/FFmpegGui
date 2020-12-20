@@ -6,7 +6,6 @@
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
-using System;
 
 namespace FFmpeg.Gui.ViewModels
 {
@@ -46,12 +45,14 @@ namespace FFmpeg.Gui.ViewModels
                              IPresetRenderService presetRenderService,
                              IPresetBuilderService presetBuilderService,
                              IErrorDisplayService errorDisplayService,
-                             IToolService toolService)
+                             IToolService toolService,
+                             IFileInfoService fileInfoService)
         {
             Session = new SessionViewModel();
 
             FileSelectorVM = new FileSelectorViewModel(Session,
-                                                       dialogService);
+                                                       dialogService,
+                                                       fileInfoService);
 
             PresetSelectorVM = new PresetSelectorViewModel(Session,
                                                            presetReaderService,

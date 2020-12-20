@@ -10,17 +10,18 @@ namespace FFmpeg.Gui.Views
     /// <summary>
     /// Interaction logic for PreviewScriptDialog.xaml
     /// </summary>
-    public partial class PreviewScriptDialog : Window
+    public partial class TextViewDialog : Window
     {
-        public PreviewScriptDialog(string content)
+        public TextViewDialog(string content, string title)
         {
             InitializeComponent();
             ScriptText.Text = content;
+            Title = title;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

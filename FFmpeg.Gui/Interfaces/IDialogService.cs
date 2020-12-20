@@ -11,7 +11,7 @@ namespace FFmpeg.Gui.Interfaces
         bool ShowFileSelector(bool multiSelect, string filter, out string[] files);
         bool ShowSaveFileDialog(string filter, out string path);
         bool ShowFolderSelect(out string path);
-        void ShowScriptPreview(string script);
+        void ShowTextPreview(string script, string title);
         void ShowInfo(string infoMessage);
     }
 }

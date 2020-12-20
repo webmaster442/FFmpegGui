@@ -72,9 +72,9 @@ namespace FFmpeg.Gui.Services
             }
         }
 
-        public void ShowScriptPreview(string script)
+        public void ShowTextPreview(string script, string title)
         {
-            var dialog = new PreviewScriptDialog(script);
+            var dialog = new TextViewDialog(script, title);
             dialog.ShowDialog();
         }
     }

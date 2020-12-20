@@ -5,6 +5,7 @@
 
 using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.Properties;
 using FFmpeg.Gui.ViewModels.ListItems;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -18,6 +19,7 @@ namespace FFmpeg.Gui.ViewModels
     {
         private FileSelectorItemViewModel? _selectedFile;
         private readonly IDialogService _dialogService;
+        private readonly IFileInfoService _infoService;
         private readonly SessionViewModel _session;
 
         public ObservableCollectionExt<FileSelectorItemViewModel> Files { get; set; }
@@ -26,6 +28,8 @@ namespace FFmpeg.Gui.ViewModels
         public MvxCommand AddFolderCommand { get; }
         public MvxCommand ClearListCommand { get; }
         public MvxCommand<FileSelectorItemViewModel> RemoveSelectedCommand { get; }
+        public MvxCommand<FileSelectorItemViewModel> InfoSelectedCommand { get; }
+
         public MvxCommand<string[]> FilesDragedinCommand { get; }
 
         public MvxCommand<int> SortCommand { get; }
@@ -37,14 +41,15 @@ namespace FFmpeg.Gui.ViewModels
             {
                 SetProperty(ref _selectedFile, value);
                 RemoveSelectedCommand.RaiseCanExecuteChanged();
+                InfoSelectedCommand.RaiseCanExecuteChanged();
             }
         }
 
-        public FileSelectorViewModel(SessionViewModel session, IDialogService dialogService)
+        public FileSelectorViewModel(SessionViewModel session, IDialogService dialogService, IFileInfoService infoService)
         {
             _session = session;
             _dialogService = dialogService;
-
+            _infoService = infoService;
             Files = new ObservableCollectionExt<FileSelectorItemViewModel>();
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
@@ -52,12 +57,20 @@ namespace FFmpeg.Gui.ViewModels
             FilesDragedinCommand = new MvxCommand<string[]>(OnFilesDraggedIn);
             AddFolderCommand = new MvxCommand(OnAddFolder);
             SortCommand = new MvxCommand<int>(OnSort);
+            InfoSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnInfo, CanGetInfo);
         }
 
         private void OnFilesDraggedIn(string[] obj)
         {
             var models = obj.Select(f => new FileSelectorItemViewModel(f));
             Files.AddRange(models);
+        }
+
+        private bool CanGetInfo(FileSelectorItemViewModel arg)
+        {
+            return arg != null
+                   && !string.IsNullOrEmpty(Settings.Default.FFmpegPath)
+                   && System.IO.File.Exists(Settings.Default.FFmpegPath);
         }
 
         private bool CanRemoveSelected(FileSelectorItemViewModel arg)
@@ -121,6 +134,12 @@ namespace FFmpeg.Gui.ViewModels
             List<FileSelectorItemViewModel>? result = Sort(mode);
             Files.Clear();
             Files.AddRange(result);
+        }
+
+        private void OnInfo(FileSelectorItemViewModel obj)
+        {
+            string output = _infoService.RunFFmpeg(Settings.Default.FFmpegPath, obj.FullPath);
+            _dialogService.ShowTextPreview(output, "File info");
         }
     }
 }

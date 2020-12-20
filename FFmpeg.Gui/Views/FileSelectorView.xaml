@@ -61,6 +61,10 @@
                     CommandParameter="3"
                     Header="Reverse" />
             </MenuItem>
+            <MenuItem
+                Command="{Binding InfoSelectedCommand}"
+                CommandParameter="{Binding SelectedFile}"
+                Header="Get info..." />
         </Menu>
         <ListBox
             x:Name="Items"
@@ -103,6 +107,11 @@
                         Command="{Binding RemoveSelectedCommand}"
                         CommandParameter="{Binding SelectedFile}"
                         Header="Remove selected" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding InfoSelectedCommand}"
+                        CommandParameter="{Binding SelectedFile}"
+                        Header="Get info..." />
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

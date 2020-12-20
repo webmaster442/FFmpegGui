@@ -19,11 +19,11 @@ namespace FFmpeg.Gui.Services
 {
     internal class PresetBuilderService : IPresetBuilderService
     {
-        private readonly Regex _control;
+        private readonly Regex _controlName;
 
         public PresetBuilderService()
         {
-            _control = new Regex("\\{[a-zA-Z0-9.]+\\}", RegexOptions.Compiled);
+            _controlName = new Regex("\\{[a-zA-Z0-9.]+\\}", RegexOptions.Compiled);
         }
 
         public string Build(IRenderPanel source,
@@ -54,7 +54,7 @@ namespace FFmpeg.Gui.Services
             results.Add($"\"{ffmpeg}\"");
             foreach (var argument in preset.ArgumentCollection)
             {
-                var matches = _control.Matches(argument);
+                var matches = _controlName.Matches(argument);
                 if (matches.Count > 0)
                 {
                     //Argument collection has a controller dependent value

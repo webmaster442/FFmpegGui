@@ -183,7 +183,7 @@ namespace FFmpeg.Gui.ViewModels
         private void OnPreview()
         {
             var script = PrepareScript();
-            _dialogService.ShowScriptPreview(script);
+            _dialogService.ShowTextPreview(script, "Script Preview");
         }
 
         private void OnExecute()
