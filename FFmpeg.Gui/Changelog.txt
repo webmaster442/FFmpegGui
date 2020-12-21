@@ -1,1 +1,11 @@
-﻿
+﻿Current version:
+
+* Changed Download location of ffmpeg
+* Changelog now integrated into app
+* DVD Target presets
+* File info with FFMPEG
+* File manager improvements
+* Video presets updated
+* Presets are now categorized
+* Video scaling includes common resuolutions as templates
+* Ported to .NET 5

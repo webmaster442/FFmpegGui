@@ -8,7 +8,10 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <TextBlock
+    <TextBox
+        IsReadOnly="True"
+        ScrollViewer.VerticalScrollBarVisibility="Visible"
+        BorderThickness="0"
         FontFamily="Consolas"
         FontSize="14"
         x:Name="TextDisplay" />
