@@ -73,7 +73,7 @@ namespace FFmpeg.Gui.ViewModels
             using (var process = new System.Diagnostics.Process())
             {
                 process.StartInfo.UseShellExecute = true;
-                process.StartInfo.FileName = "https://ffmpeg.zeranoe.com/builds/";
+                process.StartInfo.FileName = "https://www.gyan.dev/ffmpeg/builds/";
                 process.Start();
             }
         }

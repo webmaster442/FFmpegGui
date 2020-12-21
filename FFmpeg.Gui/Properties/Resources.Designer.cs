@@ -61,6 +61,15 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Changelog {
+            get {
+                return ResourceManager.GetString("Changelog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t read the inserted disc.
         /// </summary>
         internal static string Error_CdRead {

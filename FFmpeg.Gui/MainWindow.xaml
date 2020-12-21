@@ -92,6 +92,9 @@
                 Style="{StaticResource CompactTabItem}">
                 <views:JobView DataContext="{Binding JobVM}" />
             </TabItem>
+            <TabItem Header="Changelog" Style="{StaticResource CompactTabItem}">
+                <views:ChangeLogView/>
+            </TabItem>
         </TabControl>
         <StackPanel
             Grid.Row="1"
