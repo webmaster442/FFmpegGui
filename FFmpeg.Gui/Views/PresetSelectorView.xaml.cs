@@ -3,6 +3,7 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
+using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Platforms.Wpf.Views;
 using System.Linq;
@@ -21,21 +22,14 @@ namespace FFmpeg.Gui.Views
             InitializeComponent();
         }
 
-        private bool IsValid(DependencyObject obj)
-        {
-            return 
-                !Validation.GetHasError(obj) 
-                && LogicalTreeHelper.GetChildren(obj).OfType<DependencyObject>().All(IsValid);
-        }
-
-        public bool HasErrors
+        public bool IsValid
         {
             get
             {
                 foreach (var item in RenderPanel.Children)
                 {
-                    if (item is DependencyObject obj
-                        && !IsValid(obj))
+                    if (item is IValidatableControl validatable
+                        && !validatable.IsValid)
                     {
                         return false;
                     }

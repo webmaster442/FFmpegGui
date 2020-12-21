@@ -11,6 +11,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
@@ -51,6 +52,7 @@ namespace FFmpeg.Gui.ViewModels
             _dialogService = dialogService;
             _infoService = infoService;
             Files = new ObservableCollectionExt<FileSelectorItemViewModel>();
+            Files.CollectionChanged += UpdateSession;
             AddFilesCommand = new MvxCommand(OnAddFiles);
             ClearListCommand = new MvxCommand(OnClearList);
             RemoveSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnRemoveSelected, CanRemoveSelected);
@@ -58,6 +60,11 @@ namespace FFmpeg.Gui.ViewModels
             AddFolderCommand = new MvxCommand(OnAddFolder);
             SortCommand = new MvxCommand<int>(OnSort);
             InfoSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnInfo, CanGetInfo);
+        }
+
+        private void UpdateSession(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            _session.InputFiles = Files.Select(x => x.FullPath).ToList();
         }
 
         private void OnFilesDraggedIn(string[] obj)

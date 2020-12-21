@@ -13,7 +13,7 @@ namespace FFmpeg.Gui.Services
 {
     internal class ErrorDisplayService: IErrorDisplayService
     {
-        public IEnumerable<string> GetErrors(List<string>? files, Preset? preset, string outDirectory, string ffmpegPath, bool presetErrors)
+        public IEnumerable<string> GetErrors(List<string>? files, Preset? preset, string outDirectory, string ffmpegPath, bool presetIsValid)
         {
             if (files == null || files.Count < 1)
                 yield return Resources.Error_NoInputFiles;
@@ -21,7 +21,7 @@ namespace FFmpeg.Gui.Services
             if (preset == null)
                 yield return Resources.Error_Preset;
 
-            if (presetErrors)
+            if (!presetIsValid)
                 yield return Resources.Error_Preset_InvalidState;
 
             if (!File.Exists(ffmpegPath))

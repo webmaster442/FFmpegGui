@@ -127,7 +127,7 @@ namespace FFmpeg.Gui.ViewModels
                                                         _session.CurrentPreset, 
                                                         OutputPath,
                                                         FFmpegPath,
-                                                        RenderTarget?.HasErrors ?? false);
+                                                        RenderTarget?.IsValid ?? true);
             Errors.AddRange(result);
             ErrorsVisible = Errors.Count > 0;
         }

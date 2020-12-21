@@ -3,15 +3,15 @@
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
-using System;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace FFmpeg.Gui.Controls
 {
-    internal class TimeSpanInput : Control
+    internal class TimeSpanInput : Control, IValidatableControl
     {
         public TimeSpanInputViewModel ViewModel { get; }
+
+        public bool IsValid => !ViewModel.HasErrors;
 
         public TimeSpanInput()
         {

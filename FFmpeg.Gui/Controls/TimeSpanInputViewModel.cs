@@ -164,7 +164,8 @@ namespace FFmpeg.Gui.Controls
             {
                 _errors.TryAdd(nameof(StartTimeDisplayText), Resources.Error_CutPreset_NegativeStart);
             }
-            if (EndTime.TotalSeconds > 0 && StartTime > EndTime)
+            if (EndTime.TotalSeconds > 0 
+                && StartTime > EndTime)
             {
                 _errors.TryAdd(nameof(StartTimeDisplayText), Resources.Error_CutPreset_InvalidRange);
 
