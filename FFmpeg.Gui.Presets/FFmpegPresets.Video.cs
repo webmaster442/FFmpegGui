@@ -154,5 +154,49 @@ namespace FFmpeg.Gui.Presets
                 };
             }
         }
+
+        public static Preset DVDPal
+        {
+            get
+            {
+                return new Preset
+                {
+                    Category = "Video",
+                    Name = "DVD Video (Pal)",
+                    Description = "Convert video to PAL DVD compatible video",
+                    ArgumentCollection = new string[]
+                    {
+                        "-i",
+                        "%source%",
+                        "-target pal-dvd",
+                        "%target%"
+                    },
+                    TargetExtension = "mpg",
+                    Controllers = Array.Empty<ControlBase>()
+                };
+            }
+        }
+
+        public static Preset DVDNtsc
+        {
+            get
+            {
+                return new Preset
+                {
+                    Category = "Video",
+                    Name = "DVD Video (NTSC)",
+                    Description = "Convert video to NTSC DVD compatible video",
+                    ArgumentCollection = new string[]
+                    {
+                        "-i",
+                        "%source%",
+                        "-target ntsc-dvd",
+                        "%target%"
+                    },
+                    TargetExtension = "mpg",
+                    Controllers = Array.Empty<ControlBase>()
+                };
+            }
+        }
     }
 }
