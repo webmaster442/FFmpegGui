@@ -159,9 +159,8 @@ namespace FFmpeg.Gui.ViewModels
         {
             var p = new System.Diagnostics.Process();
             p.StartInfo.FileName = OutputCmd ? "cmd.exe" : "powershell.exe";
-            p.StartInfo.Arguments = OutputCmd ? $"/c {fn}" : fn;
+            p.StartInfo.Arguments = OutputCmd ? $"/c {fn}" : $"-ExecutionPolicy Bypass -File {fn}";
             p.Start();
-
         }
 
         private void OnBrowseOutput()
