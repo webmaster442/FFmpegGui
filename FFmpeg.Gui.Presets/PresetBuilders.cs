@@ -27,6 +27,36 @@ namespace FFmpeg.Gui.Presets
             SelectedOptionKey = "No change",
         };
 
+        public static ValueSelector ChannelSelectorMulti = new ValueSelector
+        {
+            Label = "Audio channels",
+            Name = "ChannelSelectorMulti",
+            Options = new Dictionary<string, string>
+            {
+                { "No change", string.Empty },
+                { "1", "-ac 1" },
+                { "2", "-ac 2" },
+                { "6 (5.1)", "-ac 6" },
+                { "8 (7.1)", "-ac 8" },
+            },
+            SelectedOptionKey = "No change",
+        };
+
+        public static ValueSelector ChannelSelectorSimple = new ValueSelector
+        {
+            Label = "Audio channels",
+            Name = "ChannelSelectorSimple",
+            Options = new Dictionary<string, string>
+            {
+                { "No change", string.Empty },
+                { "1", "-ac 1" },
+                { "2", "-ac 2" },
+                { "6 (5.1)", "-ac 6" },
+                { "8 (7.1)", "-ac 8" },
+            },
+            SelectedOptionKey = "No change",
+        };
+
         public static Preset BuildAudioLosless(string format, string ext)
         {
             return new Preset
@@ -43,12 +73,14 @@ namespace FFmpeg.Gui.Presets
                     "-compression_level",
                     "{CompressionLevel}",
                     "{SampleRate}",
+                    "{ChannelSelectorMulti}",
                     "%target%"
                 },
                 TargetExtension = ext,
                 Controllers = new ControlBase[]
                 {
                     SampleRateSelector,
+                    ChannelSelectorMulti,
                 }
             };
         }
@@ -68,6 +100,8 @@ namespace FFmpeg.Gui.Presets
                     $"-c:a {format.ToLower()}",
                     "-compression_level",
                     "{CompressionLevel}",
+                    "{SampleRate}",
+                    "{ChannelSelectorMulti}",
                     "%target%"
                 },
                 TargetExtension = ext,
@@ -84,6 +118,7 @@ namespace FFmpeg.Gui.Presets
                         PresetValues = Enumerable.Range(min, max).ToArray()
                     },
                     SampleRateSelector,
+                    ChannelSelectorMulti,
                 }
             };
         }
