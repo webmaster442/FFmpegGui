@@ -22,15 +22,25 @@ namespace FFmpeg.Gui.ViewModels
         private readonly IPresetBuilderService _presetBuilderService;
         private readonly IDialogService _dialogService;
         private string _fFmpegPath;
-        private bool _outputCmd;
-        private bool _outputPowershell;
         private string _outputPath;
         private readonly IErrorDisplayService _errorDisplayService;
         private bool _errorsVisible;
+        private FileHandlingMode _fileHandlingMode;
 
         public IRenderPanel? RenderTarget { get; set; }
 
         public ObservableCollectionExt<string> Errors { get; set; }
+
+        public FileHandlingMode FileHandlingMode
+        {
+            get { return _fileHandlingMode; }
+            set 
+            { 
+                SetProperty(ref _fileHandlingMode, value);
+                Settings.Default.FileHandlingMode = (int)value;
+                Settings.Default.Save();
+            }
+        }
 
         public bool ErrorsVisible
         {
@@ -62,28 +72,6 @@ namespace FFmpeg.Gui.ViewModels
             }
         }
 
-        public bool OutputCmd
-        {
-            get { return _outputCmd; }
-            set
-            {
-                SetProperty(ref _outputCmd, value);
-                Settings.Default.OutputCmd = value;
-                Settings.Default.Save();
-            }
-        }
-
-        public bool OutputPowershell
-        {
-            get { return _outputPowershell; }
-            set
-            {
-                SetProperty(ref _outputPowershell, value);
-                Settings.Default.OutputPowershell = value;
-                Settings.Default.Save();
-            }
-        }
-
         public MvxCommand PreviewCommand { get; }
         public MvxCommand SaveCommand { get; }
         public MvxCommand ExecuteCommand { get; }
@@ -106,13 +94,12 @@ namespace FFmpeg.Gui.ViewModels
             _session.PropertyChanged += _session_PropertyChanged;
             FFmpegPath = Settings.Default.FFmpegPath;
             OutputPath = Settings.Default.OutputPath;
+            FileHandlingMode = (FileHandlingMode)Settings.Default.FileHandlingMode;
             PreviewCommand = new MvxCommand(OnPreview);
             SaveCommand = new MvxCommand(OnSave);
             ExecuteCommand = new MvxCommand(OnExecute);
             BrowseFFmpegCommand = new MvxCommand(OnBrowseFFmpeg);
             BrowseOutputFolderCommand = new MvxCommand(OnBrowseOutput);
-            OutputCmd = Settings.Default.OutputCmd;
-            OutputPowershell = Settings.Default.OutputPowershell;
         }
 
         private void _session_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -137,29 +124,20 @@ namespace FFmpeg.Gui.ViewModels
             if (RenderTarget == null)
                 throw new InvalidOperationException(nameof(RenderTarget));
 
-            JobOutputFormat outputFormat = JobOutputFormat.Bach;
-
-            if (OutputPowershell)
-                outputFormat = JobOutputFormat.Powershell;
-
-            string header = _presetBuilderService.GetShellScriptHeader(outputFormat);
-
             string content = _presetBuilderService.Build(RenderTarget,
                                                          _session.CurrentPreset,
                                                          _session.InputFiles,
                                                          OutputPath,
-                                                         FFmpegPath);
-            if (OutputCmd)
-                return header + content;
-            else
-                return content;
+                                                         FFmpegPath,
+                                                         FileHandlingMode);
+            return content;
         }
 
-        private void RunScript(string fn)
+        private static void RunScript(string fn)
         {
             var p = new System.Diagnostics.Process();
-            p.StartInfo.FileName = OutputCmd ? "cmd.exe" : "powershell.exe";
-            p.StartInfo.Arguments = OutputCmd ? $"/c {fn}" : $"-ExecutionPolicy Bypass -File {fn}";
+            p.StartInfo.FileName = "powershell.exe";
+            p.StartInfo.Arguments = $"-ExecutionPolicy Bypass -File {fn}";
             p.Start();
         }
 
@@ -189,10 +167,7 @@ namespace FFmpeg.Gui.ViewModels
         {
             try
             {
-                string fn = Path.ChangeExtension(Path.GetTempFileName(), ".cmd");
-
-                if (OutputPowershell)
-                    fn = Path.ChangeExtension(fn, ".ps1");
+                string fn = Path.ChangeExtension(Path.GetTempFileName(), ".ps1");
 
                 File.WriteAllText(fn, PrepareScript(), Encoding.Default);
                 RunScript(fn);
@@ -205,9 +180,7 @@ namespace FFmpeg.Gui.ViewModels
 
         private void OnSave()
         {
-            string filter = "cmd file|*.cmd";
-            if (OutputPowershell)
-                filter = "poweshell script|*.ps1";
+            string filter = "poweshell script|*.ps1";
 
             if (_dialogService.ShowSaveFileDialog(filter, out string file))
             {

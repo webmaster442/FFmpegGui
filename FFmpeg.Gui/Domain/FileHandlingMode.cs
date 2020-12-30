@@ -5,9 +5,10 @@
 
 namespace FFmpeg.Gui.Domain
 {
-    internal enum JobOutputFormat
+    public enum FileHandlingMode
     {
-        Bach,
-        Powershell
+        DeleteIfExists = 2,
+        RenameIfExists = 1,
+        OwerwriteNotify = 0,
     }
 }

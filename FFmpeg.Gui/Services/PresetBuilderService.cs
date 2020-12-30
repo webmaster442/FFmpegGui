@@ -8,7 +8,6 @@ using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Presets;
 using FFmpeg.Gui.ServiceCode;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -30,7 +29,8 @@ namespace FFmpeg.Gui.Services
                             Preset? preset,
                             IList<string> files,
                             string OutputDirectory,
-                            string ffmpeg)
+                            string ffmpeg,
+                            FileHandlingMode fileHandlingMode)
         {
             StringBuilder results = new StringBuilder();
             List<string> presetArgValues = ProcessPreset(ffmpeg, source, preset);
@@ -38,11 +38,43 @@ namespace FFmpeg.Gui.Services
 
             foreach (var file in files)
             {
-                var line = RenderSingleFile(presetArgValues.ToArray(), file, preset?.TargetExtension ?? string.Empty, OutputDirectory);
-                results.AppendLine(line);
+
+                var outname = Path.Combine(OutputDirectory, Path.GetFileName(file));
+                outname = Path.ChangeExtension(outname, preset?.TargetExtension ?? string.Empty);
+
+                var line = RenderSingleFile(presetArgValues.ToArray(), file, outname);
+                WrapInAction(results, line, outname, fileHandlingMode);
             }
 
             return results.ToString();
+        }
+
+        private void WrapInAction(StringBuilder results, string command, string file,FileHandlingMode fileHandlingMode)
+        {
+            results.Append($"if (Test-Path \"{file}\" -PathType Leaf)");
+            results.Append(" {\r\n");
+            switch (fileHandlingMode)
+            {
+                case FileHandlingMode.DeleteIfExists:
+                    results.AppendFormat("\tRemove-Item \"{0}\"", file);
+                    break;
+                case FileHandlingMode.RenameIfExists:
+                    RenameIfExists(results, file);
+                    break;
+                case FileHandlingMode.OwerwriteNotify:
+                    results.AppendFormat("\techo \"File {0} exists and will be owerwitten.\"\r\n", file);
+                    results.AppendLine("\tRead-Host -Prompt \"Press any key to continue\"");
+                    results.AppendFormat("\tRemove-Item \"{0}\"", file);
+                    break;
+            }
+            results.Append("}\r\n");
+            results.AppendLine(command);
+        }
+
+        private static void RenameIfExists(StringBuilder results, string file)
+        {
+            var newName = $"{Path.GetFileNameWithoutExtension(file)}_backup{Path.GetExtension(file)}";
+            results.AppendFormat("\tRename-Item -Path \"{0}\" -NewName \"{1}\"\r\n", file, newName);
         }
 
         private List<string> ProcessPreset(string ffmpeg, IRenderPanel source, Preset? preset)
@@ -102,12 +134,10 @@ namespace FFmpeg.Gui.Services
             return results;
         }
 
-        private static string RenderSingleFile(string[] args, string file, string targetExtension, string outputDirectory)
+        private static string RenderSingleFile(string[] args, string file, string outputFile)
         {
             const string sourcefile = "%source%";
             const string targetfile = "%target%";
-
-            var outname = Path.Combine(outputDirectory, Path.GetFileName(file));
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -115,10 +145,9 @@ namespace FFmpeg.Gui.Services
                 {
                     args[i] = $"\"{file}\"";
                 }
-                else if (args[i] == targetfile
-                    && !string.IsNullOrEmpty(targetExtension))
+                else if (args[i] == targetfile)
                 {
-                    args[i] = $"\"{Path.ChangeExtension(outname, targetExtension)}\"";
+                    args[i] = $"\"{outputFile}\"";
                 }
             }
 
@@ -137,16 +166,6 @@ namespace FFmpeg.Gui.Services
                 }
             }
             return sb.ToString().Trim();
-        }
-
-        public string GetShellScriptHeader(JobOutputFormat outputFormat)
-        {
-            return outputFormat switch
-            {
-                JobOutputFormat.Bach => "@echo off\r\nTITLE FFMpeg job\r\n",
-                JobOutputFormat.Powershell => "",
-                _ => throw new ArgumentException(nameof(outputFormat)),
-            };
         }
     }
 }

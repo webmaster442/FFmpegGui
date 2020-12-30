@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:domain="clr-namespace:FFmpeg.Gui.Domain"
+    xmlns:infrastructure="clr-namespace:FFmpeg.Gui.Infrastructure"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvmCrossViews="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DesignHeight="450"
@@ -21,12 +23,14 @@
                 Background="#FFEDC8"
                 Orientation="Horizontal"
                 Visibility="{Binding ErrorsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ContentPresenter Margin="5,0" Content="{StaticResource icon-warning}" />
+                <ContentPresenter
+                    Margin="5,0"
+                    Content="{StaticResource icon-warning}" />
                 <TextBlock
+                    VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="Bold"
                     Foreground="Red"
-                    VerticalAlignment="Center"
                     Text="Warning! Not fixing the following problems will result in unusable scripts: " />
             </StackPanel>
             <ItemsControl
@@ -104,19 +108,23 @@
             </Grid>
             <TextBlock
                 Margin="10,2,10,2"
-                Text="Output Job Format:" />
+                Text="File handling:" />
             <Rectangle
                 Height="2"
                 Margin="5,0,5,10"
                 Fill="LightBlue" />
             <RadioButton
-                Margin="5,0"
-                Content="Windows CMD"
-                IsChecked="{Binding OutputCmd}" />
+                Margin="2"
+                Content="Delete and notify, If Exists"
+                IsChecked="{Binding FileHandlingMode, Converter={infrastructure:CompareConverter}, ConverterParameter={x:Static domain:FileHandlingMode.OwerwriteNotify}}" />
             <RadioButton
-                Margin="5,0"
-                Content="Powershell script"
-                IsChecked="{Binding OutputPowershell}" />
+                Margin="2"
+                Content="Delete, If Exists"
+                IsChecked="{Binding FileHandlingMode, Converter={infrastructure:CompareConverter}, ConverterParameter={x:Static domain:FileHandlingMode.DeleteIfExists}}" />
+            <RadioButton
+                Margin="2"
+                Content="Rename, If Exists"
+                IsChecked="{Binding FileHandlingMode, Converter={infrastructure:CompareConverter}, ConverterParameter={x:Static domain:FileHandlingMode.RenameIfExists}}" />
         </StackPanel>
         <StackPanel
             Grid.Row="3"

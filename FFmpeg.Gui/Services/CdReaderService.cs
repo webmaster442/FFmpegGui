@@ -1,4 +1,9 @@
-﻿using FFmpeg.Gui.Interfaces;
+﻿//-----------------------------------------------------------------------------
+// (c) 2020 Ruzsinszki Gábor
+// This code is licensed under MIT license (see LICENSE for details)
+//-----------------------------------------------------------------------------
+
+using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.ServiceCode;
 using FFmpeg.Gui.ViewModels.ListItems;
 using System;

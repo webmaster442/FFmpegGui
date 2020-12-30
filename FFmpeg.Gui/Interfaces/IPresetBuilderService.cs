@@ -16,8 +16,7 @@ namespace FFmpeg.Gui.Interfaces
             Preset? preset,
             IList<string> files,
             string OutputDirectory,
-            string ffmpeg);
-
-        string GetShellScriptHeader(JobOutputFormat outputFormat);
+            string ffmpeg,
+            FileHandlingMode fileHandlingMode);
     }
 }
