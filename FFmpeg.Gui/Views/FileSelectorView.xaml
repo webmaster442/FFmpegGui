@@ -37,10 +37,12 @@
                 <MenuItem
                     Command="{Binding RemoveSelectedCommand}"
                     CommandParameter="{Binding SelectedFile}"
-                    Header="Remove selected..." />
+                    Header="Remove selected..."
+                    InputGestureText="Delete" />
                 <MenuItem
                     Command="{Binding ClearListCommand}"
-                    Header="Clear list" />
+                    Header="Clear list"
+                    InputGestureText="CTRL+Delete" />
             </MenuItem>
             <MenuItem Header="Sort...">
                 <MenuItem
@@ -55,10 +57,14 @@
                     Command="{Binding SortCommand}"
                     CommandParameter="2"
                     Header="By size..." />
-                <Separator />
                 <MenuItem
                     Command="{Binding SortCommand}"
                     CommandParameter="3"
+                    Header="By extension..." />
+                <Separator />
+                <MenuItem
+                    Command="{Binding SortCommand}"
+                    CommandParameter="4"
                     Header="Reverse" />
             </MenuItem>
             <MenuItem
@@ -71,7 +77,18 @@
             Grid.Row="1"
             controls:DragDropBehaviour.FileDraggedInCommmand="{Binding FilesDragedinCommand}"
             ItemsSource="{Binding Source={StaticResource FileCollection}}"
-            SelectedItem="{Binding SelectedFile}">
+            SelectedItem="{Binding SelectedFile}"
+            SelectionMode="Extended">
+            <ListBox.InputBindings>
+                <KeyBinding
+                    Key="Delete"
+                    Command="{Binding RemoveSelectedCommand}"
+                    CommandParameter="{Binding SelectedFile}" />
+                <KeyBinding
+                    Key="Delete"
+                    Command="{Binding ClearListCommand}"
+                    Modifiers="Ctrl" />
+            </ListBox.InputBindings>
             <ListBox.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
@@ -106,7 +123,8 @@
                     <MenuItem
                         Command="{Binding RemoveSelectedCommand}"
                         CommandParameter="{Binding SelectedFile}"
-                        Header="Remove selected" />
+                        Header="Remove selected"
+                        InputGestureText="Delete" />
                     <Separator />
                     <MenuItem
                         Command="{Binding InfoSelectedCommand}"

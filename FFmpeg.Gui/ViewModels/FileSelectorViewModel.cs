@@ -60,6 +60,26 @@ namespace FFmpeg.Gui.ViewModels
             AddFolderCommand = new MvxCommand(OnAddFolder);
             SortCommand = new MvxCommand<int>(OnSort);
             InfoSelectedCommand = new MvxCommand<FileSelectorItemViewModel>(OnInfo, CanGetInfo);
+            AddArguments(Environment.GetCommandLineArgs());
+
+        }
+
+        private void AddArguments(string[] args)
+        {
+            foreach (var arg in args.Skip(1))
+            {
+                if (System.IO.File.Exists(arg))
+                {
+                    Files.Add(new FileSelectorItemViewModel(arg));
+                }
+                else if (System.IO.Directory.Exists(arg))
+                {
+                    string[] files = System.IO.Directory.GetFiles(arg);
+                    var models = files.Select(f => new FileSelectorItemViewModel(f));
+                    Files.AddRange(models);
+                }
+
+            }
         }
 
         private void UpdateSession(object? sender, NotifyCollectionChangedEventArgs e)
@@ -120,7 +140,8 @@ namespace FFmpeg.Gui.ViewModels
             FileName = 0,
             Path = 1,
             Size = 2,
-            Reverse = 3
+            Extension = 3,
+            Reverse = 4
         }
 
         private List<FileSelectorItemViewModel> Sort(OrderMode orderMode)
@@ -131,6 +152,7 @@ namespace FFmpeg.Gui.ViewModels
                 OrderMode.Path => Files.OrderBy(m => m.FullPath).ToList(),
                 OrderMode.Size => Files.OrderBy(m => m.Size).ToList(),
                 OrderMode.Reverse => Files.Reverse().ToList(),
+                OrderMode.Extension => Files.OrderBy(m => m.Extension).ToList(),
                 _ => throw new InvalidOperationException($"Unknown {nameof(OrderMode)}"),
             };
         }

@@ -13,11 +13,14 @@ namespace FFmpeg.Gui.ViewModels.ListItems
 
         public string Directory { get; }
 
+        public string Extension { get; }
+
         public long Size { get; }
 
         public FileSelectorItemViewModel(string path)
         {
             var f = new FileInfo(path);
+            Extension = f.Extension;
             FullPath = path;
             Directory = f.DirectoryName ?? string.Empty;
             Size = f.Length;

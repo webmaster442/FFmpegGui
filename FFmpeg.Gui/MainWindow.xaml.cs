@@ -123,6 +123,7 @@ namespace FFmpeg.Gui
                 ViewModel?.ViewDisappeared();
                 ViewModel?.ViewDestroy();
                 _unloaded = true;
+                Dispose();
             }
         }
 
