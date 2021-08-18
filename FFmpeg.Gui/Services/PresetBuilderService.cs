@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// (c) 2020 Ruzsinszki Gábor
+// (c) 2020-2021 Ruzsinszki Gábor
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ namespace FFmpeg.Gui.Services
                 return new List<string>();
 
             List<string> results = new List<string>(preset.ArgumentCollection.Length + 1);
-            results.Add($"\"{ffmpeg}\"");
+            results.Add($"& \"{ffmpeg}\"");
             foreach (var argument in preset.ArgumentCollection)
             {
                 var matches = _controlName.Matches(argument);
