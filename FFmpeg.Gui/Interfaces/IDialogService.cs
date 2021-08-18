@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// (c) 2020 Ruzsinszki Gábor
+// (c) 2020-2021 Ruzsinszki Gábor
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
@@ -13,5 +13,6 @@ namespace FFmpeg.Gui.Interfaces
         bool ShowFolderSelect(out string path);
         void ShowTextPreview(string script, string title);
         void ShowInfo(string infoMessage);
+        void ShowChangeLog();
     }
 }

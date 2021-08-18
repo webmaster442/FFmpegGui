@@ -6,6 +6,7 @@
 using FFmpeg.Gui.Infrastructure;
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.ViewModels;
+using FFmpeg.Gui.Views;
 using MahApps.Metro.Controls;
 using MvvmCross;
 using MvvmCross.Binding.BindingContext;
@@ -169,6 +170,17 @@ namespace FFmpeg.Gui
             {
                 mvm.PresetSelectorVM.RenderTarget = PresetSelector;
                 mvm.JobVM.RenderTarget = PresetSelector;
+            }
+        }
+
+        internal void ShowChangeLog()
+        {
+            if (DataContext is MainViewModel mvm)
+            {
+                mvm.ToolFlyoutOpen = false;
+                ToolPopup.Content = new ChangeLogView();
+                ToolPopup.Title = "Changelog";
+                ToolPopup.Visibility = Visibility.Visible;
             }
         }
 

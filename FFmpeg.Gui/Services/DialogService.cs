@@ -1,24 +1,34 @@
 ﻿//-----------------------------------------------------------------------------
-// (c) 2020 Ruzsinszki Gábor
+// (c) 2020-2021 Ruzsinszki Gábor
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Views;
 using System.Windows;
+using MahApps.Metro;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace FFmpeg.Gui.Services
 {
     public class DialogService : IDialogService
     {
-        public void ShowError(string errorMessage)
+        public async void ShowError(string errorMessage)
         {
-            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                await mainWindow.ShowMessageAsync("Error", errorMessage, MessageDialogStyle.Affirmative);
+            }
+            else MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        public void ShowInfo(string infoMessage)
+        public async void ShowInfo(string infoMessage)
         {
-            MessageBox.Show(infoMessage, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                await mainWindow.ShowMessageAsync("Information", infoMessage, MessageDialogStyle.Affirmative);
+            }
+            else MessageBox.Show(infoMessage, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
@@ -32,11 +42,8 @@ namespace FFmpeg.Gui.Services
                 files = openFile.FileNames;
                 return true;
             }
-            else
-            {
-                files = new string[0];
-                return false;
-            }
+            files = new string[0];
+            return false;
         }
 
         public bool ShowFolderSelect(out string path)
@@ -48,11 +55,8 @@ namespace FFmpeg.Gui.Services
                     path = dialog.SelectedPath;
                     return true;
                 }
-                else
-                {
-                    path = string.Empty;
-                    return false;
-                }
+                path = string.Empty;
+                return false;
             }
         }
 
@@ -65,17 +69,22 @@ namespace FFmpeg.Gui.Services
                 path = saveFile.FileName;
                 return true;
             }
-            else
-            {
-                path = string.Empty;
-                return false;
-            }
+            path = string.Empty;
+            return false;
         }
 
         public void ShowTextPreview(string script, string title)
         {
             var dialog = new TextViewDialog(script, title);
             dialog.ShowDialog();
+        }
+
+        public void ShowChangeLog()
+        {
+            if (Application.Current.MainWindow is MainWindow window)
+            {
+                window.ShowChangeLog();
+            }
         }
     }
 }

@@ -17,6 +17,18 @@
     mc:Ignorable="d">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
+            <Button Command="{Binding ShowChangelogCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <ContentPresenter
+                        Width="20"
+                        Height="20"
+                        Content="{StaticResource icon-changelog}" />
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="View Changelog" />
+                </StackPanel>
+            </Button>
             <Button Command="{Binding GetFFmpegCommand}">
                 <StackPanel Orientation="Horizontal">
                     <ContentPresenter
@@ -91,9 +103,6 @@
                 Header="Output"
                 Style="{StaticResource CompactTabItem}">
                 <views:JobView DataContext="{Binding JobVM}" />
-            </TabItem>
-            <TabItem Header="Changelog" Style="{StaticResource CompactTabItem}">
-                <views:ChangeLogView/>
             </TabItem>
         </TabControl>
         <StackPanel

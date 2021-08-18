@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------------
-// (c) 2020 Ruzsinszki Gábor
+// (c) 2020-2021 Ruzsinszki Gábor
 // This code is licensed under MIT license (see LICENSE for details)
 //-----------------------------------------------------------------------------
 
@@ -13,6 +13,7 @@ namespace FFmpeg.Gui.ViewModels
     {
         private int _tabIndex;
         private bool _toolFlyoutOpen;
+        private readonly IDialogService _dialogService;
 
         public FileSelectorViewModel FileSelectorVM { get; }
         public PresetSelectorViewModel PresetSelectorVM { get; }
@@ -22,6 +23,7 @@ namespace FFmpeg.Gui.ViewModels
 
         public MvxCommand GetFFmpegCommand { get; }
         public MvxCommand OpenCloseToolFlyoutCommand { get; }
+        public MvxCommand ShowChangelogCommand { get; }
 
         public int TabIndex
         {
@@ -48,6 +50,7 @@ namespace FFmpeg.Gui.ViewModels
                              IToolService toolService,
                              IFileInfoService fileInfoService)
         {
+            _dialogService = dialogService;
             Session = new SessionViewModel();
 
             FileSelectorVM = new FileSelectorViewModel(Session,
@@ -66,6 +69,13 @@ namespace FFmpeg.Gui.ViewModels
 
             GetFFmpegCommand = new MvxCommand(OnGetFFmpeg);
             OpenCloseToolFlyoutCommand = new MvxCommand(OnOpenCloseFlyout);
+            ShowChangelogCommand = new MvxCommand(OnShowChangeLog);
+            
+        }
+
+        private void OnShowChangeLog()
+        {
+            _dialogService.ShowChangeLog();
         }
 
         private void OnGetFFmpeg()
