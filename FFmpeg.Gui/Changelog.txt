@@ -1,4 +1,9 @@
-﻿Current version:
+﻿2021.08.18
+
+ * Fixed an issue in job generation
+ * Updated dependencies
+
+2020.12.21
 
 * Changed Download location of ffmpeg
 * Changelog now integrated into app
