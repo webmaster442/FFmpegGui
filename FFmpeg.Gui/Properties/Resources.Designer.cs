@@ -61,7 +61,23 @@ namespace FFmpeg.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 2021.08.18
+        ///
+        /// * Fixed an issue in job generation
+        /// * Updated dependencies
+        /// * Changelog removed from tab. It can be accessed from titlebar
+        ///
+        ///2020.12.21
+        ///
+        ///* Changed Download location of ffmpeg
+        ///* Changelog now integrated into app
+        ///* DVD Target presets
+        ///* File info with FFMPEG
+        ///* File manager improvements
+        ///* Video presets updated
+        ///* Presets are now categorized
+        ///* Video scaling includes common resuolutions as templates
+        ///* Ported to .NET 5.
         /// </summary>
         internal static string Changelog {
             get {
@@ -192,6 +208,19 @@ namespace FFmpeg.Gui.Properties {
         internal static string Info_SaveOk {
             get {
                 return ResourceManager.GetString("Info_SaveOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # FFMPEG Job generated with FFmpeg.Gui
+        ///# https://github.com/webmaster442/FFmpegGui
+        ///
+        ///$ffmpeg = &quot;&lt;ffmpegLocation&gt;&quot;
+        ///.
+        /// </summary>
+        internal static string ScriptHeader {
+            get {
+                return ResourceManager.GetString("ScriptHeader", resourceCulture);
             }
         }
     }

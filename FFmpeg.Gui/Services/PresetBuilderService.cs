@@ -7,6 +7,7 @@ using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Domain;
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Presets;
+using FFmpeg.Gui.Properties;
 using FFmpeg.Gui.ServiceCode;
 using System.Collections.Generic;
 using System.IO;
@@ -32,8 +33,11 @@ namespace FFmpeg.Gui.Services
                             string ffmpeg,
                             FileHandlingMode fileHandlingMode)
         {
-            StringBuilder results = new StringBuilder();
-            List<string> presetArgValues = ProcessPreset(ffmpeg, source, preset);
+            StringBuilder result = new StringBuilder();
+            result.Append(Resources.ScriptHeader.Replace("<ffmpegLocation>", ffmpeg));
+
+
+            List<string> presetArgValues = ProcessPreset(source, preset);
 
 
             foreach (var file in files)
@@ -43,10 +47,10 @@ namespace FFmpeg.Gui.Services
                 outname = Path.ChangeExtension(outname, preset?.TargetExtension ?? string.Empty);
 
                 var line = RenderSingleFile(presetArgValues.ToArray(), file, outname);
-                WrapInAction(results, line, outname, fileHandlingMode);
+                WrapInAction(result, line, outname, fileHandlingMode);
             }
 
-            return results.ToString();
+            return result.ToString();
         }
 
         private void WrapInAction(StringBuilder results, string command, string file,FileHandlingMode fileHandlingMode)
@@ -77,13 +81,13 @@ namespace FFmpeg.Gui.Services
             results.AppendFormat("\tRename-Item -Path \"{0}\" -NewName \"{1}\"\r\n", file, newName);
         }
 
-        private List<string> ProcessPreset(string ffmpeg, IRenderPanel source, Preset? preset)
+        private List<string> ProcessPreset(IRenderPanel source, Preset? preset)
         {
             if (preset == null)
                 return new List<string>();
 
             List<string> results = new List<string>(preset.ArgumentCollection.Length + 1);
-            results.Add($"& \"{ffmpeg}\"");
+            results.Add($"& $ffmpeg");
             foreach (var argument in preset.ArgumentCollection)
             {
                 var matches = _controlName.Matches(argument);
@@ -156,7 +160,7 @@ namespace FFmpeg.Gui.Services
 
         private static string JoinArgumentsToString(string[] args)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var arg in args)
             {
                 if (!string.IsNullOrEmpty(arg))

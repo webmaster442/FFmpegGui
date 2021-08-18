@@ -1,0 +1,4 @@
+﻿# FFMPEG Job generated with FFmpeg.Gui
+# https://github.com/webmaster442/FFmpegGui
+
+$ffmpeg = "<ffmpegLocation>"

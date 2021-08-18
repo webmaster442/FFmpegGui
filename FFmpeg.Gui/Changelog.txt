@@ -3,6 +3,9 @@
  * Fixed an issue in job generation
  * Updated dependencies
  * Changelog removed from tab. It can be accessed from titlebar
+ * Slightly modified powershell code generation
+ * Fixed WAV and ALAC conversion
+ * Added more Wav output types
 
 2020.12.21
 

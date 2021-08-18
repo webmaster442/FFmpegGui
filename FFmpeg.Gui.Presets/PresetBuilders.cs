@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Presets.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace FFmpeg.Gui.Presets
 {
     internal static class PresetBuilders
     {
-        public static ValueSelector SampleRateSelector = new ValueSelector
+        public static readonly ValueSelector SampleRateSelector = new ValueSelector
         {
             Label = "Sample rate",
             Name = "SampleRate",
@@ -27,7 +28,7 @@ namespace FFmpeg.Gui.Presets
             SelectedOptionKey = "No change",
         };
 
-        public static ValueSelector ChannelSelectorMulti = new ValueSelector
+        public static readonly ValueSelector ChannelSelectorMulti = new ValueSelector
         {
             Label = "Audio channels",
             Name = "ChannelSelectorMulti",
@@ -42,7 +43,7 @@ namespace FFmpeg.Gui.Presets
             SelectedOptionKey = "No change",
         };
 
-        public static ValueSelector ChannelSelectorSimple = new ValueSelector
+        public static readonly ValueSelector ChannelSelectorSimple = new ValueSelector
         {
             Label = "Audio channels",
             Name = "ChannelSelectorSimple",
@@ -57,21 +58,36 @@ namespace FFmpeg.Gui.Presets
             SelectedOptionKey = "No change",
         };
 
-        public static Preset BuildAudioLosless(string format, string ext)
+        private static string GetName(LoslessFormat format)
+        {
+            switch (format)
+            {
+                case LoslessFormat.alac:
+                    return "Apple Alac";
+                case LoslessFormat.pcm_f32le:
+                    return "Wav, 32 bit float";
+                case LoslessFormat.pcm_s16le:
+                    return "Wav, 16 bit (cd compatible)";
+                case LoslessFormat.pcm_s24le:
+                    return "Wav, 24 bit";
+                default:
+                    throw new ArgumentException(nameof(format));
+            }
+        }
+
+        public static Preset BuildAudioLosless(LoslessFormat format, string ext)
         {
             return new Preset
             {
                 Category = "Audio - Losless",
-                Name = $"{format}",
-                Description = $"Convert audio to {format} format",
+                Name = GetName(format),
+                Description = $"Convert audio to {GetName(format)} format",
                 ArgumentCollection = new string[]
                 {
                     "-i",
                     "%source%",
                     "-vn",
-                    $"-c:a {format.ToLower()}",
-                    "-compression_level",
-                    "{CompressionLevel}",
+                    $"-c:a {format.ToString().ToLower()}",
                     "{SampleRate}",
                     "{ChannelSelectorMulti}",
                     "%target%"
