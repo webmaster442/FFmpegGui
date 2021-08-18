@@ -21,10 +21,12 @@ namespace FFmpeg.Gui.Services
     internal class PresetRenderService: IPresetRenderService
     {
         private Thickness ControlMargin { get; }
+        private Thickness ControlMarginInner { get; }
 
         public PresetRenderService()
         {
-            ControlMargin = new Thickness(10, 2, 10, 2); 
+            ControlMargin = new Thickness(10, 5, 10, 5);
+            ControlMarginInner = new Thickness(18, 5, 10, 5);
         }
 
         public void RenderPreset(IRenderPanel target, Preset preset)
@@ -51,7 +53,8 @@ namespace FFmpeg.Gui.Services
             return new TextBlock
             {
                 Margin = ControlMargin,
-                Text = text
+                Text = text+":",
+                FontWeight = FontWeights.Bold,
             };
         }
 
@@ -60,7 +63,7 @@ namespace FFmpeg.Gui.Services
             return new OptionSelector
             {
                 Name = valueSelector.Name,
-                Margin = ControlMargin,
+                Margin = ControlMarginInner,
                 Options = valueSelector.Options,
                 SelectedItem = valueSelector.SelectedOptionKey,
             };
@@ -71,7 +74,7 @@ namespace FFmpeg.Gui.Services
             var input = new TimeSpanInput
             {
                 Name = videoTime.Name,
-                Margin = ControlMargin,
+                Margin = ControlMarginInner,
             };
             input.ViewModel.StartTime = videoTime.StartTime;
             input.ViewModel.EndTime = videoTime.EndTime;
@@ -84,7 +87,7 @@ namespace FFmpeg.Gui.Services
             {
                 VideoWidth = videoScale.Width,
                 VideoHeight = videoScale.Height,
-                Margin = ControlMargin,
+                Margin = ControlMarginInner,
                 Name = videoScale.Name,
             };
             return scaler;
@@ -99,7 +102,7 @@ namespace FFmpeg.Gui.Services
                 Maximum = bitrateSlider.Maximum,
                 Value = bitrateSlider.Value,
                 Name = bitrateSlider.Name,
-                Margin = ControlMargin,
+                Margin = ControlMarginInner,
                 ValueUnit = bitrateSlider.Unit,
             };
             if (bitrateSlider.PresetValues?.Length > 0)

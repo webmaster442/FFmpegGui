@@ -108,7 +108,7 @@ namespace FFmpeg.Gui.Presets
                         "%source%",
                         "-c:v h264_nvenc",
                         "{NVPresets}",
-                        "-vf scale={Scale}",
+                        "-vf scale={Scale}{FrameRate}",
                         "-c:a copy",
                         "%target%"
                     },

@@ -18,6 +18,10 @@ namespace FFmpeg.Gui.ServiceCode
 
         internal static string ProcessVideoScale(string argument, string match, VideoScaleInput videoScale)
         {
+            if (videoScale.IsMaxSize)
+            {
+                return argument.Replace(match, string.Format("min({0},iw):min({1},ih)", videoScale.VideoWidth, videoScale.VideoHeight));
+            }
             return argument.Replace(match, string.Format("{0}:{1}", videoScale.VideoWidth, videoScale.VideoHeight));
         }
 

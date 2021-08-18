@@ -82,24 +82,33 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <TextBox
                             x:Name="PART_VideoWith"
                             Grid.Column="0"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=VideoWidth}" />
                         <TextBlock
+                            Grid.Row="0"
                             Grid.Column="1"
                             Margin="5,0"
-                            Text=":" />
+                            Text=":"
+                            VerticalAlignment="Center"/>
                         <TextBox
+                            Grid.Row="0"
                             x:Name="PART_VideoHeight"
                             Grid.Column="2"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=VideoHeight}" />
+                        <CheckBox
+                            Grid.Row="1"
+                            Margin="0,10"
+                            Content="Resize only, if video is bigger than the specified size"
+                            IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:VideoScaleInput}, Path=IsMaxSize}" />
                         <WrapPanel
                             x:Name="PART_ResolutionTemplates"
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Grid.ColumnSpan="3"
-                            Margin="0,5"
+                            Margin="0,10"
                             Orientation="Horizontal">
                             <WrapPanel.Resources>
                                 <Style TargetType="TextBlock">
@@ -185,7 +194,7 @@
                             Grid.Column="1"
                             Style="{StaticResource ValidatableTextBox}"
                             Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:TimeSpanInput}, Path=DataContext.StartTimeDisplayText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
-                        <CheckBox
+                        <CheckBox              
                             Grid.Row="1"
                             Grid.Column="1"
                             Content="Seconds"

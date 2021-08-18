@@ -33,6 +33,14 @@ namespace FFmpeg.Gui.Controls
         public static readonly DependencyProperty VideoHeightProperty =
             DependencyProperty.Register("VideoHeight", typeof(int), typeof(VideoScaleInput), new PropertyMetadata(-1));
 
+        public bool IsMaxSize
+        {
+            get { return (bool)GetValue(IsMaxSizeProperty); }
+            set { SetValue(IsMaxSizeProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsMaxSizeProperty =
+            DependencyProperty.Register("IsMaxSize", typeof(bool), typeof(VideoScaleInput), new PropertyMetadata(false));
 
         public override void OnApplyTemplate()
         {

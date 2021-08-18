@@ -1,11 +1,12 @@
 ﻿2021.08.18
 
  * Fixed an issue in job generation
+ * Fixed WAV and ALAC conversion
  * Updated dependencies
  * Changelog removed from tab. It can be accessed from titlebar
  * Slightly modified powershell code generation
- * Fixed WAV and ALAC conversion
  * Added more Wav output types
+ * Added ability to only resize video, if the input size is bigger
 
 2020.12.21
 
