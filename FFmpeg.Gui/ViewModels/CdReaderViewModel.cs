@@ -122,7 +122,7 @@ namespace FFmpeg.Gui.ViewModels
             Done += e;
         }
 
-        private void OnCdItemsChanged(object sender, ListChangedEventArgs e)
+        private void OnCdItemsChanged(object? sender, ListChangedEventArgs e)
         {
             SelectAllCommand.RaiseCanExecuteChanged();
             DeSelectAllCommand.RaiseCanExecuteChanged();
