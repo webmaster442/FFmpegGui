@@ -30,7 +30,7 @@ namespace FFmpeg.Gui.Domain.Cd
                 {
                     IntPtr buffer = handle.AddrOfPinnedObject();
                     buffer = (IntPtr)(buffer.ToInt64() + (Index * Marshal.SizeOf(typeof(TrackData))));
-                    
+
                     object? result = Marshal.PtrToStructure(buffer, typeof(TrackData));
                     if (result != null)
                     {

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace FFmpeg.Gui.Controls
 {
-    internal class SliderWithValueText: Slider
+    internal class SliderWithValueText : Slider
     {
         public string ValueUnit
         {

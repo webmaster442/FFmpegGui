@@ -4,7 +4,7 @@ using System;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class FileSizeCalculatorViewModel: MvxViewModel
+    internal class FileSizeCalculatorViewModel : MvxViewModel
     {
         public FileSizeCalculatorViewModel()
         {
@@ -40,7 +40,7 @@ namespace FFmpeg.Gui.ViewModels
         public TimeSpan VideoLength
         {
             get { return _videoLength; }
-            set 
+            set
             {
                 if (SetProperty(ref _videoLength, value))
                     DoCalculaton();

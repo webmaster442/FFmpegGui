@@ -17,7 +17,7 @@ using System.Threading;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class CdReaderViewModel: MvxViewModel
+    internal class CdReaderViewModel : MvxViewModel
     {
         private readonly ICdReaderService _cdReaderService;
         private readonly IDialogService _dialogService;
@@ -35,8 +35,8 @@ namespace FFmpeg.Gui.ViewModels
         public bool Reading
         {
             get { return _reading; }
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _reading, value);
                 OpenDriveCommand.RaiseCanExecuteChanged();
                 SelectOutDirCommand.RaiseCanExecuteChanged();
@@ -140,8 +140,8 @@ namespace FFmpeg.Gui.ViewModels
 
         private bool CanDoAction()
         {
-            return 
-                !Reading 
+            return
+                !Reading
                 && !string.IsNullOrEmpty(DriveLetter)
                 && CdRomDrives.Count > 0;
         }
@@ -193,7 +193,7 @@ namespace FFmpeg.Gui.ViewModels
             return
                 CanDoAction()
                 && Directory.Exists(TargetDirectory)
-                && CdItems.Any(item => item.IsSelected == true);
+                && CdItems.Any(item => item.IsSelected);
         }
 
         private async void OnRead()

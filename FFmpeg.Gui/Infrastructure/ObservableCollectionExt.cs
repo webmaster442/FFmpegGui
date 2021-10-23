@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace FFmpeg.Gui.Infrastructure
 {
-    internal class ObservableCollectionExt<T>: ObservableCollection<T>
+    internal class ObservableCollectionExt<T> : ObservableCollection<T>
     {
         public ObservableCollectionExt() : base()
         {

@@ -66,9 +66,9 @@ namespace FFmpeg.Gui.Services
             });
         }
 
-        private static bool ReadTracksJob(string driveLetter, 
-                                          IEnumerable<CdItemViewModel> tracks, 
-                                          string outDir, 
+        private static bool ReadTracksJob(string driveLetter,
+                                          IEnumerable<CdItemViewModel> tracks,
+                                          string outDir,
                                           IProgress<long> progress,
                                           CancellationToken token)
         {

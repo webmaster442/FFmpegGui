@@ -9,7 +9,7 @@ using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class MainViewModel: MvxViewModel
+    internal class MainViewModel : MvxViewModel
     {
         private int _tabIndex;
         private bool _toolFlyoutOpen;
@@ -70,7 +70,7 @@ namespace FFmpeg.Gui.ViewModels
             GetFFmpegCommand = new MvxCommand(OnGetFFmpeg);
             OpenCloseToolFlyoutCommand = new MvxCommand(OnOpenCloseFlyout);
             ShowChangelogCommand = new MvxCommand(OnShowChangeLog);
-            
+
         }
 
         private void OnShowChangeLog()

@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace FFmpeg.Gui.Controls
 {
-    public class VideoScaleInput: Control
+    public class VideoScaleInput : Control
     {
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
 

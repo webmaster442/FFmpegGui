@@ -12,7 +12,7 @@ using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui
 {
-    internal sealed class Builder: MvxApplication
+    internal sealed class Builder : MvxApplication
     {
         public override void Initialize()
         {

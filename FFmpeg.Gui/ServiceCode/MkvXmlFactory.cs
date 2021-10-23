@@ -22,7 +22,7 @@ namespace MkvChapterGenerator
         private static ChaptersChapterAtom[] CreateChapters(IEnumerable<string> lines)
         {
             var results = new List<ChaptersChapterAtom>();
-            foreach(var line in lines)
+            foreach (var line in lines)
             {
                 string[] parts = line.Split(' ');
                 string timestr = parts[0];

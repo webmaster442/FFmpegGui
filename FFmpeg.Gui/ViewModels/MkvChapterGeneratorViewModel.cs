@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class MkvChapterGeneratorViewModel: MvxViewModel
+    internal class MkvChapterGeneratorViewModel : MvxViewModel
     {
         private readonly IDialogService _dialogService;
         private string _inputText;

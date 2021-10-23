@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class FileSelectorViewModel: MvxViewModel
+    internal class FileSelectorViewModel : MvxViewModel
     {
         private FileSelectorItemViewModel? _selectedFile;
         private readonly IDialogService _dialogService;

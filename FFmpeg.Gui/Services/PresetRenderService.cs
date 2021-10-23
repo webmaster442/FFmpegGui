@@ -18,7 +18,7 @@ namespace FFmpeg.Gui.Services
     /// <summary>
     /// Renders a preset to UI Controls
     /// </summary>
-    internal class PresetRenderService: IPresetRenderService
+    internal class PresetRenderService : IPresetRenderService
     {
         private Thickness ControlMargin { get; }
         private Thickness ControlMarginInner { get; }
@@ -53,7 +53,7 @@ namespace FFmpeg.Gui.Services
             return new TextBlock
             {
                 Margin = ControlMargin,
-                Text = text+":",
+                Text = text + ":",
                 FontWeight = FontWeights.Bold,
             };
         }

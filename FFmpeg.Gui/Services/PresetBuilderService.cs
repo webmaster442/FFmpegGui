@@ -53,7 +53,7 @@ namespace FFmpeg.Gui.Services
             return result.ToString();
         }
 
-        private void WrapInAction(StringBuilder results, string command, string file,FileHandlingMode fileHandlingMode)
+        private void WrapInAction(StringBuilder results, string command, string file, FileHandlingMode fileHandlingMode)
         {
             results.Append($"if (Test-Path \"{file}\" -PathType Leaf)");
             results.Append(" {\r\n");

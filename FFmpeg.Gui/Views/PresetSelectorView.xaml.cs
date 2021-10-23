@@ -6,9 +6,7 @@
 using FFmpeg.Gui.Controls;
 using FFmpeg.Gui.Interfaces;
 using MvvmCross.Platforms.Wpf.Views;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace FFmpeg.Gui.Views
 {

@@ -5,7 +5,7 @@
 
 namespace FFmpeg.Gui.Presets.Controls
 {
-    public record Slider: ControlBase
+    public record Slider : ControlBase
     {
         public int Minimum { get; init; }
         public int Maximum { get; init; }

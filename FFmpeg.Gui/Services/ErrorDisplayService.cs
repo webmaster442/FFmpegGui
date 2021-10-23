@@ -11,7 +11,7 @@ using System.IO;
 
 namespace FFmpeg.Gui.Services
 {
-    internal class ErrorDisplayService: IErrorDisplayService
+    internal class ErrorDisplayService : IErrorDisplayService
     {
         public IEnumerable<string> GetErrors(List<string>? files, Preset? preset, string outDirectory, string ffmpegPath, bool presetIsValid)
         {

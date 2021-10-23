@@ -343,8 +343,8 @@ namespace FFmpeg.Gui.ServiceCode
 
         private bool ReadSector(int sector, byte[] Buffer, int NumSectors)
         {
-            if (_tocIsValid 
-                && ((sector + NumSectors) <= GetEndSector(_Toc.LastTrack)) 
+            if (_tocIsValid
+                && ((sector + NumSectors) <= GetEndSector(_Toc.LastTrack))
                 && (Buffer.Length >= CdConstants.CB_AUDIO * NumSectors)
                 && _driveHandle != null)
             {

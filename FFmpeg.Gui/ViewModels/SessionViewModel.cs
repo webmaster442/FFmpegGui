@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class SessionViewModel: MvxViewModel
+    internal class SessionViewModel : MvxViewModel
     {
         private Preset? _currentPreset;
         private List<string> _inputFiles;

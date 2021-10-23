@@ -34,8 +34,8 @@ namespace FFmpeg.Gui.ViewModels
         public FileHandlingMode FileHandlingMode
         {
             get { return _fileHandlingMode; }
-            set 
-            { 
+            set
+            {
                 SetProperty(ref _fileHandlingMode, value);
                 Settings.Default.FileHandlingMode = (int)value;
                 Settings.Default.Save();
@@ -110,8 +110,8 @@ namespace FFmpeg.Gui.ViewModels
         public void TriggerErrorDisplayCall()
         {
             Errors.Clear();
-            var result = _errorDisplayService.GetErrors(_session.InputFiles, 
-                                                        _session.CurrentPreset, 
+            var result = _errorDisplayService.GetErrors(_session.InputFiles,
+                                                        _session.CurrentPreset,
                                                         OutputPath,
                                                         FFmpegPath,
                                                         RenderTarget?.IsValid ?? true);

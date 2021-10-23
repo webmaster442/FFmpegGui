@@ -5,9 +5,8 @@
 
 using FFmpeg.Gui.Interfaces;
 using FFmpeg.Gui.Views;
-using System.Windows;
-using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows;
 
 namespace FFmpeg.Gui.Services
 {

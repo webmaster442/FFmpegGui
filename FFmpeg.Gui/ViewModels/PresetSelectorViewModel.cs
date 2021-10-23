@@ -10,7 +10,7 @@ using MvvmCross.ViewModels;
 
 namespace FFmpeg.Gui.ViewModels
 {
-    internal class PresetSelectorViewModel: MvxViewModel
+    internal class PresetSelectorViewModel : MvxViewModel
     {
         private readonly SessionViewModel _session;
         private readonly IPresetRenderService _presetRenderService;
