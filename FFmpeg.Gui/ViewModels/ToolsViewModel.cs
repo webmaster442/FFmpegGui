@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 using FFmpeg.Gui.Interfaces;
+using FFmpeg.Gui.ViewModels.ListItems;
 using MvvmCross.Commands;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,11 +25,15 @@ namespace FFmpeg.Gui.ViewModels
 
             _tools = _toolService.GetTools().ToList();
 
-            Tools = new ObservableCollection<string>(_tools.Select(t => t.Title));
+            Tools = new ObservableCollection<ToolItemModel>(_tools.Select(t => new ToolItemModel
+            {
+                Name = t.Title,
+                Icon = string.IsNullOrEmpty(t.Icon) ? null : App.Current.FindResource(t.Icon),
+            }));
             LaunchToolCommand = new MvxCommand<string>(OnLaunchTool);
         }
 
-        public ObservableCollection<string> Tools { get; }
+        public ObservableCollection<ToolItemModel> Tools { get; }
 
         private void OnLaunchTool(string obj)
         {

@@ -9,5 +9,6 @@ namespace FFmpeg.Gui.Interfaces
     {
         string Title { get; }
         void ConstructAndAssociateViewModel();
+        string Icon { get; }
     }
 }

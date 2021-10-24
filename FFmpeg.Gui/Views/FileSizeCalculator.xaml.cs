@@ -22,6 +22,8 @@ namespace FFmpeg.Gui.Views
 
         public string Title => "File size calculator";
 
+        public string Icon => "icon-calculator";
+
         public void ConstructAndAssociateViewModel()
         {
             DataContext = Mvx.IoCProvider.Resolve<FileSizeCalculatorViewModel>();

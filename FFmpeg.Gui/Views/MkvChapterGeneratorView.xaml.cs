@@ -22,6 +22,8 @@ namespace FFmpeg.Gui.Views
 
         public string Title => "MkvToolnix Chapter Generator";
 
+        public string Icon => "icon-mkv";
+
         public void ConstructAndAssociateViewModel()
         {
             DataContext = Mvx.IoCProvider.Resolve<MkvChapterGeneratorViewModel>();

@@ -18,12 +18,23 @@
                     <mah:Tile
                         Width="120"
                         Height="120"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
                         Command="{Binding Path=DataContext.LaunchToolCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mvvmCrossViews:MvxWpfView}}"
                         CommandParameter="{Binding}">
-                        <TextBlock
-                            MaxWidth="115"
-                            Text="{Binding}"
-                            TextWrapping="Wrap" />
+                        <Grid>
+                            <ContentPresenter
+                                Width="95"
+                                Height="95"
+                                Content="{Binding Icon}"/>
+                            <TextBlock
+                                MaxWidth="115"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="5"
+                                Text="{Binding Name}"
+                                TextWrapping="Wrap" />
+                        </Grid>
                     </mah:Tile>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

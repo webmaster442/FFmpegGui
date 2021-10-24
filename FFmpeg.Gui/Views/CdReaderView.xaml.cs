@@ -22,6 +22,8 @@ namespace FFmpeg.Gui.Views
 
         public string Title => "Audio Cd Reader";
 
+        public string Icon => "icon-cd";
+
         public void ConstructAndAssociateViewModel()
         {
             DataContext = Mvx.IoCProvider.Resolve<CdReaderViewModel>();
