@@ -74,7 +74,7 @@ namespace FFmpeg.Gui.ViewModels
 
         public MvxCommand PreviewCommand { get; }
         public MvxCommand SaveCommand { get; }
-        public MvxCommand ExecuteCommand { get; }
+        public MvxCommand<int> ExecuteCommand { get; }
         public MvxCommand BrowseFFmpegCommand { get; }
         public MvxCommand BrowseOutputFolderCommand { get; }
 
@@ -97,7 +97,7 @@ namespace FFmpeg.Gui.ViewModels
             FileHandlingMode = (FileHandlingMode)Settings.Default.FileHandlingMode;
             PreviewCommand = new MvxCommand(OnPreview);
             SaveCommand = new MvxCommand(OnSave);
-            ExecuteCommand = new MvxCommand(OnExecute);
+            ExecuteCommand = new MvxCommand<int>(OnExecuteScript, OnCanExecuteScript);
             BrowseFFmpegCommand = new MvxCommand(OnBrowseFFmpeg);
             BrowseOutputFolderCommand = new MvxCommand(OnBrowseOutput);
         }
@@ -163,7 +163,12 @@ namespace FFmpeg.Gui.ViewModels
             _dialogService.ShowTextPreview(script, "Script Preview");
         }
 
-        private void OnExecute()
+        private bool OnCanExecuteScript(int arg)
+        {
+            return arg == 2;
+        }
+
+        private void OnExecuteScript(int obj)
         {
             try
             {

@@ -33,6 +33,7 @@ namespace FFmpeg.Gui.ViewModels
                 SetProperty(ref _tabIndex, value);
                 if (value == 2)
                     JobVM.TriggerErrorDisplayCall();
+                JobVM.ExecuteCommand.RaiseCanExecuteChanged();
             }
         }
 

@@ -139,10 +139,6 @@
                 Command="{Binding SaveCommand}"
                 Content="Save job..."
                 Style="{StaticResource BottomButton}" />
-            <Button
-                Command="{Binding ExecuteCommand}"
-                Content="Execute now"
-                Style="{StaticResource BottomButton}" />
         </StackPanel>
     </Grid>
 </mvvmCrossViews:MvxWpfView>
